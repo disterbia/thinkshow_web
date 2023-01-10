@@ -257,7 +257,7 @@ class ProductDetailView extends GetView {
                     text: MyVars.isUserProject() ? '구매하기' : '수정하기',
                     onPressed: () {
                       MyVars.isUserProject()
-                          ? SelectOptionBottomSheet()
+                          ? SelectOptionBottomSheet(context)
                           : ctr.editProductBtnPressed();
                     },
                   ),

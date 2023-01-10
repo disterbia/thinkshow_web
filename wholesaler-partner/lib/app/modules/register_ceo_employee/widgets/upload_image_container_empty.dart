@@ -1,7 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/business_registration_submit/views/business_registration_submit_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 
 import '../../business_registration_submit/controllers/business_registration_submit_controller.dart';
 
@@ -19,7 +21,7 @@ class UploadImageContainer_empty extends StatelessWidget {
         onTap: () {
           print(' tapped on business regi');
           // Get.delete<BusinessRegistrationSubmitController>();
-          Get.to(() => BusinessRegistrationSubmitView(isNewSubmit: true));
+          context.go(PartnerRoutes.BusinessRegistrationSubmitView,extra: true);
         },
         child: Container(
           height: 120,

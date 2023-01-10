@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/modules/ad/controllers/ad_controller.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab2_ad_application/view/tab2_ad_application_view.dart';
@@ -17,6 +18,8 @@ import 'package:wholesaler_user/app/widgets/web_view_widget.dart';
 
 class AdOrderView extends GetView {
   AdOrderController ctr = Get.put(AdOrderController());
+  int? id;
+  AdOrderView({this.id});
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -59,7 +62,7 @@ class AdOrderView extends GetView {
                         Expanded(
                           child: OutlinedButton(
                             onPressed: () {
-                              Get.to(() => AdView(), arguments: AdTabs.Tab3AdApplicationHistory.index);
+                              context.go("/ad/${AdTabs.Tab3AdApplicationHistory.index}");
                             },
                             child: Text('Application_history'.tr),
                           ),
@@ -68,7 +71,7 @@ class AdOrderView extends GetView {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              Get.to(() => Tab2AdApplicationView(), arguments: ctr.adOrderModel.value.id);
+                              context.go("/tab2adapp/${ctr.adOrderModel.value.id}");
                             },
                             child: Text('ad_apply'.tr),
                           ),

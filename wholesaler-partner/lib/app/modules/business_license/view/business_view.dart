@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/business_license/controller/business_license_controller.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
@@ -17,11 +19,11 @@ class BusinessView extends GetView {
     Get.lazyPut(() => BusinessLicenseController());
     return Scaffold(
       appBar: CustomAppbar(isBackEnable: true, title: '사업자등록증 확인'),
-      body: _body(),
+      body: _body(context),
     );
   }
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return Obx(
       () => ctr.isLoading.value
           ? LoadingWidget()
@@ -38,7 +40,8 @@ class BusinessView extends GetView {
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
                       width: Get.width,
-                      onPressed: ()=>Get.to(()=>BusinessEditView()),
+
+                      onPressed: ()=> context.go(PartnerRoutes.BusinessEditView),
                       text: 'edit'.tr,
                     ),
                   ),

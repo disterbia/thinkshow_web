@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wholesaler_partner/app/modules/change_number/view/change_number_view.dart';
 import 'package:wholesaler_partner/app/modules/page3_my_info_mgmt/views/my_page_down.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/enum.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
@@ -35,7 +36,7 @@ class MyInfoMgmtView extends GetView<MyInfoMgmtController> {
               children: [
                 SizedBox(height: 60),
                 // TOP Image and store
-                ctr.isLoading.value ? LoadingWidget() : _topStore(ctr),
+                ctr.isLoading.value ? LoadingWidget() : _topStore(ctr,context),
                 SizedBox(height: 30),
                 // Divider
                 SizedBox(
@@ -68,7 +69,7 @@ class MyInfoMgmtView extends GetView<MyInfoMgmtController> {
     });
   }
 
-  Widget _topStore(MyInfoMgmtController ctr) {
+  Widget _topStore(MyInfoMgmtController ctr,BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -106,7 +107,7 @@ class MyInfoMgmtView extends GetView<MyInfoMgmtController> {
                 GestureDetector(onDoubleTap:() {
                   myTest++;
                   if(myTest==20){
-                    Get.to(()=>MyPageDownP());
+                    context.go(PartnerRoutes.MyPageDownP);
                   }
                 },
                   child: Text(

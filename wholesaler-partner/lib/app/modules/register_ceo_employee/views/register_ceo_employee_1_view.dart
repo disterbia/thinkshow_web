@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
@@ -34,7 +36,7 @@ class RegisterCeoEmployeePage1View extends GetView<RegisterCeoEmployee1Controlle
             CustomButton(
               onPressed: () {
                 registerCeoEmployeeCtr.isEmployee.value = false;
-                Get.to(() => RegisterCeoEmployeePage2View());
+                context.go(PartnerRoutes.RegisterCeoEmployeePage2View);
               },
               text: 'CEO'.tr,
             ),
@@ -49,7 +51,7 @@ class RegisterCeoEmployeePage1View extends GetView<RegisterCeoEmployee1Controlle
               textColor: MyColors.black,
               onPressed: () {
                 registerCeoEmployeeCtr.isEmployee.value = true;
-                Get.to(() => RegisterCeoEmployeePage2View());
+                context.go(PartnerRoutes.RegisterCeoEmployeePage2View);
               },
             )
           ],

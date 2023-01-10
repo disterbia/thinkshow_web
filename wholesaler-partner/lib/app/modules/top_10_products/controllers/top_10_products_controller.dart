@@ -1,9 +1,12 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/models/best_products_model.dart';
 import 'package:wholesaler_partner/app/modules/page1_home/controller/partner_home_controller.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/models/product_model.dart';
 import 'package:wholesaler_user/app/models/store_model.dart';
 import 'package:wholesaler_user/app/modules/page1_home/controllers/page1_home_controller.dart';
@@ -38,11 +41,9 @@ class Top10ProductsController extends GetxController {
     final items = products.removeAt(index);
   }
 
-  void productManual() {
-    Get.to(() => ProductMgmtView(
-              isTop10Page: true,
-            ))!
-        .then((value) => getBestProducts());
+  void productManual(BuildContext context) {
+    context.go(PartnerRoutes.ProductMgmtView,extra:{"isTop10Page":true});
+    getBestProducts();
   }
 
   Future<void> addProductManual() async {

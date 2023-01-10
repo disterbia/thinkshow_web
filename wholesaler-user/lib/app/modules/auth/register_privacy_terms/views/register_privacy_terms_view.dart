@@ -16,14 +16,12 @@ class User_RegisterPrivacyTermsView extends GetView {
   User_RegisterPrivacyTermsView({this.argument});
   @override
   Widget build(BuildContext context) {
-    print('Get.arguments ${Get.arguments}');
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppbar(isBackEnable: true, title: '이용약관 & 개인정보', hasHomeButton: false),
       body: DefaultTabController(
         length: 2, // length of tabs
-        initialIndex: Get.arguments == PrivacyOrTerms.privacy ? 1 : 0, // initial index of tabs
+        initialIndex: argument == PrivacyOrTerms.privacy ? 1 : 0, // initial index of tabs
         // initialIndex: Get.arguments == PrivacyOrTerms.privacy.index ? 1 : 0, // initial index of tabs
         child: Column(
           children: [

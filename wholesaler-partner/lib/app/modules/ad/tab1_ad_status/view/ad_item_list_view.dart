@@ -31,7 +31,7 @@ class AdItemList extends StatelessWidget {
                 backgroundColor: MyColors.grey1,
                 borderColor: MyColors.grey1,
                 textColor: MyColors.black,
-                onPressed: () => ctr.addOrEditAdProductsBtnPressed(adIndex),
+                onPressed: () => ctr.addOrEditAdProductsBtnPressed(adIndex,context),
                 text: '상품변경',
               )
             ],

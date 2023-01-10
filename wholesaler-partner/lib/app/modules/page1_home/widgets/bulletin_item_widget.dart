@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/models/bulletin_model.dart';
 import 'package:wholesaler_partner/app/modules/ad_order/views/ad_order_view.dart';
@@ -16,8 +17,9 @@ class AdvertisementItemVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
-      onTap: (() => advertisement.type == BulletinType.bulletin ? Get.to(() => null) : Get.to(() => AdOrderView(), arguments: advertisement.id)),
+      onTap: (() => advertisement.type == BulletinType.bulletin ? null: context.go("/adorder/${advertisement.id}")),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

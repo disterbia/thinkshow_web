@@ -12,7 +12,8 @@ import 'package:wholesaler_user/app/widgets/web_view_widget.dart';
 
 class Tab2AdApplicationView extends GetView {
   Tab2AdApplicationController ctr = Get.put(Tab2AdApplicationController());
-  Tab2AdApplicationView();
+  int? argument;
+  Tab2AdApplicationView({this.argument});
 
   onInit() async {
     await ctr.init();
@@ -125,7 +126,7 @@ class Tab2AdApplicationView extends GetView {
                           ),
                           SizedBox(height: 50),
                           CustomButton(
-                            onPressed: () => ctr.applyBtnPressed(),
+                            onPressed: () => ctr.applyBtnPressed(context),
                             text: '신청하기',
                           ),
                         ],

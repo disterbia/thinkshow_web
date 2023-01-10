@@ -1,11 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/models/ad_product_model.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab1_ad_status/models/ad_effectiveness_report_model.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/controller/product_mgmt_controller.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/range_date_picker/range_date_picker_controller.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
@@ -79,10 +81,10 @@ class Tab1AdStatusController extends GetxController {
   }
 
   // 상품을 등록해주세요 button pressed
-  addOrEditAdProductsBtnPressed(int exposureAdIndex) {
+  addOrEditAdProductsBtnPressed(int exposureAdIndex,BuildContext context) {
     Get.put(ProductMgmtController()).isBottomNavbar.value = true;
     Get.put(ProductMgmtController()).applicationId = exposureAds[exposureAdIndex].ads_application_id;
-    Get.to(() => ProductMgmtView(isRegisterAdProductPage: true), arguments: exposureAds[exposureAdIndex].ads_application_id);
+    context.go(PartnerRoutes.ProductMgmtView,extra: {"isRegisterAdProductPage":true,"argument":exposureAds[exposureAdIndex].ads_application_id});
   }
 
   // After the user selects products from Products Mgmt page

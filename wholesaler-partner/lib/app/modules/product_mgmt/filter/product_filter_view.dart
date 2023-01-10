@@ -22,7 +22,7 @@ class ProductMgmtFilterView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      bottomNavigationBar: BottomNavBarBuilder(),
+      bottomNavigationBar: BottomNavBarBuilder(context),
       appBar: CustomAppbar(isBackEnable: true, title: '상품관리'),
       body: SingleChildScrollView(
         child: Padding(
@@ -86,13 +86,13 @@ class ProductMgmtFilterView extends GetView {
     );
   }
 
-  BottomNavBarBuilder() {
+  BottomNavBarBuilder(BuildContext context) {
     return SafeArea(
       child: Container(
           height: 60,
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: CustomButton(
-            onPressed: () => ctr.applyFilterPressed(),
+            onPressed: () => ctr.applyFilterPressed(context),
             text: '필터 적용',
           )),
     );

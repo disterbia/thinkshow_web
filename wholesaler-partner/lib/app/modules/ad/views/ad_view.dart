@@ -9,14 +9,14 @@ import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 
 class AdView extends StatelessWidget {
   AdController ctr = Get.put(AdController());
+  int? argument;
+  AdView({this.argument});
 
-  init() {
-    ctr.currentTab.value = Get.arguments;
-  }
 
   @override
   Widget build(BuildContext context) {
-    print('AdView build Get.arguments ${Get.arguments}');
+    ctr.currentTab.value = argument!;
+    ctr.tabController.index = argument!;
     return Scaffold(resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(isBackEnable: true, title: 'ad_apply'.tr),

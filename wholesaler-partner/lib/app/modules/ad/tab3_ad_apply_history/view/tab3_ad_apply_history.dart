@@ -164,7 +164,7 @@ class Tab3AdApplicationHistoryView extends GetView {
                       elevation: 0,
                     ),
                     onPressed: () =>
-                        tempApplicationDetail.isComplete! ? ctr.addAdProductsBtnPressed(tempApplicationDetail) : Tab3AdApplyHistoryPaymentDialog(tempApplicationDetail: tempApplicationDetail),
+                        tempApplicationDetail.isComplete! ? ctr.addAdProductsBtnPressed(tempApplicationDetail,context) : Tab3AdApplyHistoryPaymentDialog(tempApplicationDetail: tempApplicationDetail),
                     child: Text(
                       tempApplicationDetail.isComplete! ? '상품등록' : '결제하기',
                       style: MyTextStyles.f12.copyWith(color: tempApplicationDetail.isComplete! ? MyColors.black2 : MyColors.white),

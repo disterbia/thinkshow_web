@@ -156,7 +156,7 @@ class Tab1AdStatusView extends GetView {
                       borderColor: MyColors.grey1,
                       textColor: MyColors.black2,
                       fontSize: 12,
-                      onPressed: () => ctr.addOrEditAdProductsBtnPressed(exposureAdIndex),
+                      onPressed: () => ctr.addOrEditAdProductsBtnPressed(exposureAdIndex,context),
                       text: '상품을 등록해주세요',
                     ),
                   ),

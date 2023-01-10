@@ -128,7 +128,7 @@ class RegisterCeoEmployeePage3View extends GetView {
                 padding: const EdgeInsets.all(10.0),
                 child: CustomButton(
                   onPressed: () {
-                    ctr.nextBtnPressed();
+                    ctr.nextBtnPressed(context);
                   },
                   text: '다음',
                 ),

@@ -9,6 +9,7 @@ import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/modules/main/view/partner_main_view.dart';
 import 'package:wholesaler_partner/app/modules/page3_my_page/controllers/page3_my_page_controller.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/register_ceo_employee_1_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/data/api_provider.dart';
 import 'package:wholesaler_user/app/data/cache_provider.dart';
 import 'package:wholesaler_user/app/data/firebase_service.dart';
@@ -81,7 +82,7 @@ class User_LoginPageController extends GetxController {
 
     bool isSuccess = MyVars.isUserProject()
         ? await userLoginProcess(context)
-        : await partnerLoginProcess();
+        : await partnerLoginProcess(context);
 
     // initialize firebase
     if (isSuccess) {
@@ -93,7 +94,7 @@ class User_LoginPageController extends GetxController {
   void signUpBtnPressed(BuildContext context) {
     MyVars.isUserProject()
         ? context.go(MyRoutes.User_SignUpView)
-        : Get.to(() => RegisterCeoEmployeePage1View());
+        : context.go(PartnerRoutes.PartnerMainView);
   }
 
   // USER Login Process
@@ -116,7 +117,7 @@ class User_LoginPageController extends GetxController {
   }
 
   // PARTNER Login Process
-  Future<bool> partnerLoginProcess() async {
+  Future<bool> partnerLoginProcess(BuildContext context) async {
     log('inside partnerLoginProcess');
     dynamic response = await Partner_apiProvider.Partner_login({
       "account_id": usernameController.text,
@@ -139,17 +140,17 @@ class User_LoginPageController extends GetxController {
       CacheProvider().setOwner(isOwner);
       CacheProvider().setPrivilege(response['is_privilege']);
       CacheProvider().setUserID(usernameController.text);
-      Get.off(() => PartnerMainView());
+      context.go("/");
       return true;
     } else if (status.toString() == "wait") {
-      //mSnackbar(message: '아직 승인이 되지 않았습니다.');
+      mSnackbar(message: '아직 승인이 되지 않았습니다.',context: context);
       return false;
     } else if (status.toString() == "denied") {
-    //  mSnackbar(message: '가입요청이 거부된 회원입니다.');
+    mSnackbar(message: '가입요청이 거부된 회원입니다.',context: context);
       return false;
     } else {
       String description = response["description"];
-     // mSnackbar(message: description);
+     mSnackbar(message: description,context: context);
       return false;
     }
   }

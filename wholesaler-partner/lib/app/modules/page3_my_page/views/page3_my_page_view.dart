@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/modules/ad/controllers/ad_controller.dart';
@@ -27,6 +28,7 @@ import 'package:wholesaler_partner/app/modules/payment/views/payment_view.dart';
 import 'package:wholesaler_partner/app/modules/product_inquiry_list/view/product_inquiry_list_view.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/controllers/top_10_products_controller.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/views/top_10_products_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/bottom_navbar/bottom_navbar_controller.dart';
 import 'package:wholesaler_partner/app/widgets/my_page_item.dart';
 import 'package:wholesaler_partner/app/widgets/two_text_container_widget.dart';
@@ -68,7 +70,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                   _headerStore(),
                   SizedBox(height: 14),
                   // Like, Total products, manage my info
-                  _threeButtons(),
+                  _threeButtons(context),
                 ],
               ),
             ),
@@ -79,7 +81,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                 decoration: BoxDecoration(color: MyColors.grey3),
               ),
             ),
-            _itemList1(),
+            _itemList1(context),
             SizedBox(
               width: double.infinity,
               height: 6,
@@ -87,7 +89,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                 decoration: BoxDecoration(color: MyColors.grey3),
               ),
             ),
-            _itemList2(),
+            _itemList2(context),
             SizedBox(
               width: double.infinity,
               height: 6,
@@ -95,13 +97,13 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                 decoration: BoxDecoration(color: MyColors.grey3),
               ),
             ),
-            _itemList3(),
+            _itemList3(context),
             SizedBox(height: 18),
             _kakaoChannel(),
             SizedBox(height: 22),
             _logoutButton(),
             SizedBox(height: 22),
-            _withdrawButton(),
+            _withdrawButton(context),
             SizedBox(height: 67),
           ],
         ),
@@ -166,7 +168,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
     );
   }
 
-  _threeButtons() {
+  _threeButtons(BuildContext context) {
     return ctr.isLoading.value
         ? LoadingWidget()
         : Row(
@@ -187,7 +189,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                   child: ElevatedButton(
                     onPressed: () {
                       Get.delete<MyInfoMgmtController>();
-                      Get.to(() => MyInfoMgmtView());
+                      context.go(PartnerRoutes.MyInfoMgmtView);
                     },
                     child: Text(
                       '내 정보 관리',
@@ -204,7 +206,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           );
   }
 
-  _itemList1() {
+  _itemList1(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -212,14 +214,14 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           title: 'advertising_center'.tr,
           onPressed: () {
             Get.delete<AdController>();
-            Get.to(() => AdView(), arguments: AdTabs.Tab1AdStatus.index);
+            context.go("/ad/${AdTabs.Tab1AdStatus.index}");
           },
         ),
         Divider(),
         MyPageItem(
           title: 'shopping_ed'.tr,
           onPressed: () {
-            Get.to(() => AdImpressionView());
+            context.go(PartnerRoutes.AdImpressionView);
           },
         ),
         // only show this column to isOwner
@@ -230,7 +232,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                   MyPageItem(
                     title: 'settlement'.tr,
                     onPressed: () {
-                      Get.to(() => PaymentView());
+                      context.go(PartnerRoutes.PaymentView);
                     },
                   ),
                   Divider(),
@@ -238,21 +240,21 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                     title: 'manage_my_bank'.tr,
                     onPressed: () {
                       Get.delete<MyBankAccountMgmtController>();
-                      Get.to(() => MyBankAccountMgmtView());
+                      context.go(PartnerRoutes.MyBankAccountMgmtView);
                     },
                   ),
                   Divider(),
                   MyPageItem(
                     title: 'verify_business_register_doc'.tr,
                     onPressed: () {
-                      Get.to(() => BusinessView());
+                      context.go(PartnerRoutes.BusinessView);
                     },
                   ),
                   Divider(),
                   MyPageItem(
                     title: '상호수정',
                     onPressed: () {
-                      Get.to(()=>BusinessInfo());
+                      context.go(PartnerRoutes.BusinessInfo);
                     },
                   ),
                   Divider(),
@@ -260,7 +262,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
                     title: '직원관리',
                     onPressed: () {
                       Get.delete<EmployeeMgmtController>();
-                      Get.to(() => EmployeeMgmtView());
+                      context.go(PartnerRoutes.EmployeeMgmtView);
                     },
                   ),
                 ],
@@ -270,7 +272,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
     );
   }
 
-  _itemList2() {
+  _itemList2(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -278,7 +280,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           title: '우리매장 TOP10',
           onPressed: () {
             Get.delete<Top10ProductsController>();
-            Get.to(() => Top10ProductsView());
+            context.go(PartnerRoutes.Top10ProductsView);
           },
         ),
         Divider(),
@@ -286,42 +288,42 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           title: 'product_inquiry'.tr,
           onPressed: () {
             Get.delete<ProductInquiryListController>();
-            Get.to(() => ProductInquiryListView());
+            context.go(PartnerRoutes.ProductInquiryListView);
           },
         ),
         Divider(),
         MyPageItem(
           title: 'review'.tr,
           onPressed: () {
-            Get.to(() => ReviewListView());
+            context.go(PartnerRoutes.ReviewListView);
           },
         ),
         Divider(),
         MyPageItem(
           title: 'bulletin'.tr,
           onPressed: () {
-            Get.to(() => BulletinListView());
+            context.go(PartnerRoutes.BulletinListView);
           },
         ),
       ],
     );
   }
 
-  _itemList3() {
+  _itemList3(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MyPageItem(
           title: 'customer_center'.tr,
           onPressed: () {
-            Get.to(() => CustomerCenterView(isWithdrawPage: false));
+            context.go(PartnerRoutes.CustomerCenterView,extra: false);
           },
         ),
         Divider(),
         MyPageItem(
           title: 'privacy_terms'.tr,
           onPressed: () {
-            Get.to(() => User_RegisterPrivacyTermsView());
+            context.go(PartnerRoutes.User_RegisterPrivacyTermsView);
           },
         ),
         Divider(),
@@ -361,6 +363,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             // Get.delete<Page2OrderHistoryView>();
             await Get.deleteAll();
             //await Get.reset();
+
             await Get.off(() => User_LoginPageView());
             print("============${CacheProvider().getUserID()}");
             //Get.offAllNamed('/login');
@@ -381,14 +384,14 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
     );
   }
 
-  _withdrawButton() {
+  _withdrawButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            Get.to(() => CustomerCenterView(isWithdrawPage: true));
+            context.go(PartnerRoutes.CustomerCenterView,extra: true);
           },
           child: Text(
             '탈퇴 요청',

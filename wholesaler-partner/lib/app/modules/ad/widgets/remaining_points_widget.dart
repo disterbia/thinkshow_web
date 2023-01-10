@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab3_ad_apply_history/point_charge_dialog/point_charge_dialog_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
@@ -45,7 +47,7 @@ class RemainingPoints extends GetView {
         mTextButton.icon(
           text: '포인트 사용내역서',
           icon: Icons.keyboard_arrow_right,
-          onPressed: () => Get.to(() => PointMgmtView()),
+          onPressed: () => context.go(PartnerRoutes.PointMgmtView),
         ),
       ],
     );

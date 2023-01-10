@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_4_controller.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/enum.dart';
 import 'package:wholesaler_user/app/modules/auth/register_privacy_terms/views/register_privacy_terms_view.dart';
@@ -115,8 +117,7 @@ class RegisterCeoEmployeePage4View
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        Get.to(() => User_RegisterPrivacyTermsView(),
-                            arguments: PrivacyOrTerms.terms.index);
+                        context.go(PartnerRoutes.User_RegisterPrivacyTermsView,extra:PrivacyOrTerms.terms);
                       },
                       icon: Text(
                         'Accept_terms'.tr,
@@ -150,8 +151,7 @@ class RegisterCeoEmployeePage4View
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        Get.to(() => User_RegisterPrivacyTermsView(),
-                            arguments: PrivacyOrTerms.privacy.index);
+                        context.go(PartnerRoutes.User_RegisterPrivacyTermsView,extra: PrivacyOrTerms.privacy);
                       },
                       icon: Text(
                         'privacy_policy'.tr,

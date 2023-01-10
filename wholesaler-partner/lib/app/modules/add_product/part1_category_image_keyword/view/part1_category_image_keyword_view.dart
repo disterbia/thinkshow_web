@@ -4,11 +4,13 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/modules/add_product/controller/add_product_controller.dart';
 import 'package:wholesaler_partner/app/modules/add_product/part1_category_image_keyword/controller/part1_category_image_keyword_controller.dart';
 import 'package:wholesaler_partner/app/modules/add_product/part1_clothes_category/view/cloth_category_view.dart';
 import 'package:wholesaler_partner/app/modules/add_product/view/widget/add_tag.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/dimens.dart';
@@ -31,7 +33,7 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
       child: Column(
         children: [
           SizedBox(height: 20),
-          _selectCategories(),
+          _selectCategories(context),
           const SizedBox(height: 12.0),
           // _errorText(),
           _selectImages(),
@@ -76,14 +78,14 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
     );
   }
 
-  Widget _selectCategories() {
+  Widget _selectCategories(BuildContext context) {
     return Obx(
       () => addProductController.category.value.id == -1
           ? TextField(
               readOnly: true,
               controller: ctr.categoryController,
               onTap: () {
-                Get.to(() => ClothCategoryView());
+                context.go(PartnerRoutes.ClothCategoryView);
               },
               decoration: InputDecoration(
                 hintText: '카테고리 선택',
@@ -106,7 +108,7 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
           : TextField(
               readOnly: true,
               controller: ctr.categoryController,
-              onTap: () => Get.to(() => ClothCategoryView()),
+              onTap: () => context.go(PartnerRoutes.ClothCategoryView),
               decoration: InputDecoration(
                 hintText: addProductController.category.value.title +
                     ' > ' +

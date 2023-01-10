@@ -30,7 +30,7 @@ class Dingdong3ProductsHorizView extends GetView<Dingdong3ProductsHorizControlle
                     return Container(
                       width: (context.width / 3) - leftPadding,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: MyVars.isSmallPhone() ? 3 : 3),
+                        padding: EdgeInsets.symmetric(horizontal: 3),
                         child: ProductItemVertical(
                           product: ctr.dingDongProducts.elementAt(index),
                         ),

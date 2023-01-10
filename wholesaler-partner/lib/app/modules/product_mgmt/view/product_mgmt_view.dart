@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab1_ad_status/controller/tab1_ad_status_controller.dart';
 import 'package:wholesaler_partner/app/modules/main/view/partner_main_view.dart';
 import 'package:wholesaler_partner/app/modules/page1_home/view/page1_home_view.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/bottom_navbar_view.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/controller/product_mgmt_controller.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/filter/product_filter_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_partner/app/widgets/search_field.dart';
 import "package:wholesaler_user/app/constants/colors.dart";
@@ -23,10 +25,12 @@ class ProductMgmtView extends GetView {
   bool? isTop10Page = false;
   bool? isRegisterProductPage = false;
   bool? isRegisterAdProductPage = false;
+  int? argument;
   ProductMgmtView(
       {this.isTop10Page,
       this.isRegisterProductPage,
-      this.isRegisterAdProductPage}) {
+      this.isRegisterAdProductPage,
+      this.argument}) {
     isRegisterProductPage ??= false;
     isTop10Page ??= false;
     isRegisterAdProductPage ??= false;
@@ -87,7 +91,7 @@ class ProductMgmtView extends GetView {
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            Get.to(() => ProductMgmtFilterView());
+                            context.go(PartnerRoutes.ProductMgmtFilterView);
                           },
                           icon: Image.asset(
                             'assets/icons/ic_filter.png',

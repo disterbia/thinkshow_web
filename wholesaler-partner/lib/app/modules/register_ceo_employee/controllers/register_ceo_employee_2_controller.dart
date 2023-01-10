@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/models/register_ceo_employee/address.dart';
@@ -10,6 +11,7 @@ import 'package:wholesaler_partner/app/models/store_location_model.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_1_controller.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/register_ceo_employee_3_view.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/select_store_location_dialog.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
 class RegisterCeoEmployee2Controller extends GetxController {
@@ -57,20 +59,20 @@ class RegisterCeoEmployee2Controller extends GetxController {
     print(' unit: ${units.value}');
   }
 
-  void nextBtnPressed() {
+  void nextBtnPressed(BuildContext context) {
     if (selectedBuilding.value.id == 0) {
-   //   mSnackbar(message: '건물을 선택해주세요.');
+     mSnackbar(message: '건물을 선택해주세요.',context: context);
       return;
     }
     if (selectedFloor.value.id == 0) {
-    //  mSnackbar(message: '층을 선택해주세요.'.tr);
+      mSnackbar(message: '층을 선택해주세요.'.tr,context: context);
       return;
     }
     if (selectedUnit.value.id == 0) {
-     // mSnackbar(message: '호수를 선택해주세요'.tr);
+      mSnackbar(message: '호수를 선택해주세요'.tr,context: context);
       return;
     }
-    Get.to(() => RegisterCeoEmployeePage3View());
+    context.go(PartnerRoutes.RegisterCeoEmployeePage3View);
   }
 
   searchPressed(String searchValue) async {

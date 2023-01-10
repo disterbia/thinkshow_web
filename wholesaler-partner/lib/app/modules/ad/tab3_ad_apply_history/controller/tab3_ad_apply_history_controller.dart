@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/models/ad_history_model/ad_history_model.dart';
 import 'package:wholesaler_partner/app/models/ad_history_model/application_detail_list.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab1_ad_status/controller/tab1_ad_status_controller.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/controller/product_mgmt_controller.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
@@ -36,10 +38,10 @@ class Tab3AdApplicationHistoryController extends GetxController {
     isLoading.value = false;
   }
 
-  addAdProductsBtnPressed(ApplicationDetailList tempApplicationDetail) {
+  addAdProductsBtnPressed(ApplicationDetailList tempApplicationDetail,BuildContext context) {
     Get.put(ProductMgmtController()).isBottomNavbar.value = true;
     Get.put(ProductMgmtController()).applicationId = tempApplicationDetail.id!;
-    Get.to(() => ProductMgmtView(isRegisterAdProductPage: true), arguments: tempApplicationDetail.id!);
+    context.go(PartnerRoutes.ProductMgmtView,extra: {"isRegisterAdProductPage": true,"argument":tempApplicationDetail.id});
   }
 
   adPaymentBtnPressed(int advertisement_application_id) async {

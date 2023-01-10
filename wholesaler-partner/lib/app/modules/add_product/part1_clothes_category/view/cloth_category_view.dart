@@ -13,20 +13,20 @@ class ClothCategoryView extends GetView<ClothCategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(title: '상품등록', isBackEnable: true),
-      body: body(),
+      body: body(context),
     );
   }
 
-  Widget body() {
+  Widget body(BuildContext context) {
     return ListView(
-      children: [for (var category in ClothCategory.getAll()) _categoryItemBuilder(category)],
+      children: [for (var category in ClothCategory.getAll()) _categoryItemBuilder(category,context)],
     );
   }
 
-  Widget _categoryItemBuilder(ClothCategory category) {
+  Widget _categoryItemBuilder(ClothCategory category,BuildContext context) {
     return ListTile(
       onTap: () {
-        addProductController.toSubCategoryListView(category);
+        addProductController.toSubCategoryListView(category,context);
       },
       title: Text(category.title),
       trailing: Icon(Icons.arrow_forward_ios),

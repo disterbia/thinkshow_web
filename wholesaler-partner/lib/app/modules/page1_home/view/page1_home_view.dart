@@ -1,6 +1,9 @@
+import 'dart:js';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/modules/add_product/add_product_view.dart';
 import 'package:wholesaler_partner/app/modules/dingdong_delivery/views/dingdong_delivery_view.dart';
@@ -11,6 +14,7 @@ import 'package:wholesaler_partner/app/modules/product_mgmt/controller/product_m
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
 import 'package:wholesaler_partner/app/modules/sales_mgmt/views/sales_mgmt_view.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/views/top_10_products_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/bottom_navbar/bottom_navbar_controller.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_partner/app/widgets/search_field.dart';
@@ -53,7 +57,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                     // Top Banner
                     _topBannerImage(),
                     SizedBox(height: 20),
-                    _threeButtonsRow(),
+                    _threeButtonsRow(context),
                     SizedBox(height: 20),
                     Obx(
                       () => ctr.advertisements.isNotEmpty
@@ -75,10 +79,10 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                       ),
                     ),
                     CacheProvider().isPrivilege()
-                        ? _dingdongDelivery()
+                        ? _dingdongDelivery(context)
                         : SizedBox.shrink(),
                     SizedBox(height: 20),
-                    _top10Products(),
+                    _top10Products(context),
                     SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
@@ -88,7 +92,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    CacheProvider().isOwner() ? _payment() : SizedBox(),
+                    CacheProvider().isOwner() ? _payment(context) : SizedBox(),
 
                     _productList(),
                   ],
@@ -98,7 +102,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
     );
   }
 
-  Widget _threeButtonsRow() {
+  Widget _threeButtonsRow(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -108,7 +112,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             style: MyTextStyles.f16,
           ),
           onPressed: () {
-            Get.to(() => AddProductView());
+            context.go(PartnerRoutes.AddProductView);
           },
         ),
         SizedBox(width: 20),
@@ -122,9 +126,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             ProductMgmtController mgmtController =
                 Get.put(ProductMgmtController());
             mgmtController.onInit();
-            Get.to(() => ProductMgmtView(
-                  isTop10Page: false,
-                ));
+            context.go(PartnerRoutes.ProductMgmtView,extra: {"isTopPage":false});
           },
         ),
         SizedBox(width: 20),
@@ -134,7 +136,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             style: MyTextStyles.f16,
           ),
           onPressed: () {
-            Get.to(() => SalesMgmtView());
+            context.go(PartnerRoutes.SalesMgmtView);
           },
         ),
       ],
@@ -214,7 +216,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
     );
   }
 
-  _dingdongDelivery() {
+  _dingdongDelivery(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -232,7 +234,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                 text: 'View_more'.tr,
                 icon: Icons.keyboard_arrow_right_outlined,
                 onPressed: () {
-                  Get.to(() => DingdongDeliveryView());
+                  context.go(PartnerRoutes.DingdongDeliveryView);
                 },
               ),
             ],
@@ -243,7 +245,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
     );
   }
 
-  _top10Products() {
+  _top10Products(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -261,7 +263,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                 text: 'manage'.tr,
                 icon: Icons.keyboard_arrow_right_outlined,
                 onPressed: () {
-                  Get.to(() => Top10ProductsView());
+                  context.go(PartnerRoutes.Top10ProductsView);
                 },
               ),
             ],
@@ -303,7 +305,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
     );
   }
 
-  _payment() {
+  _payment(BuildContext context) {
     return // Payment
         Column(
       children: [
@@ -320,7 +322,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                 text: 'View_more'.tr,
                 icon: Icons.keyboard_arrow_right_outlined,
                 onPressed: () {
-                  Get.to(() => PaymentView());
+                  context.go(PartnerRoutes.PaymentView);
                 },
               ),
             ],

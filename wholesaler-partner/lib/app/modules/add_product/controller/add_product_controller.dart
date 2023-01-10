@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
@@ -22,6 +23,7 @@ import 'package:wholesaler_partner/app/modules/add_product/part3_material_clothw
 import 'package:wholesaler_partner/app/modules/add_product/part4_modelinfo_htmleditor/controller/part4_modelinfo_htmleditor_controller.dart';
 import 'package:wholesaler_partner/app/modules/add_product/part5_country/controller/part5_country_controller.dart';
 import 'package:wholesaler_partner/app/modules/add_product/view/widget/editor_widget/editor_controller.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/Constants/enum.dart';
 import 'package:wholesaler_user/app/models/cloth_category_model.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/cloth_category.dart';
@@ -61,8 +63,8 @@ class AddProductController extends GetxController {
   }
 
 
-  toSubCategoryListView(ClothCategory category) {
-    Get.to(() => ClothCategoryItemsView(category));
+  toSubCategoryListView(ClothCategory category,BuildContext context) {
+    context.go(PartnerRoutes.ClothCategoryItemsView,extra:category);
   }
 
   // EDIT PRODUCT

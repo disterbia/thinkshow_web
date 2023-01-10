@@ -36,8 +36,8 @@ class Top10ProductsView extends GetView<Top10ProductsController> {
             TwoButtons(
               leftBtnText: '베스트 상품 자동등록',
               rightBtnText: '베스트 상품 등록',
-              lBtnOnPressed: ctr.getBestProductsRecommended,
-              rBtnOnPressed: ctr.productManual,
+              lBtnOnPressed: ctr.getBestProductsRecommended(),
+              rBtnOnPressed: ()=>ctr.productManual(context),
             ),
             SizedBox(height: 10),
             Row(

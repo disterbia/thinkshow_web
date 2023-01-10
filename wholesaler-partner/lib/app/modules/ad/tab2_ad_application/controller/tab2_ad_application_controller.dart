@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:syncfusion_flutter_calendar/src/calendar/common/event_args.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/modules/ad/controllers/ad_controller.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab2_ad_application/model/ad_tab2_apply_model.dart';
 import 'package:wholesaler_partner/app/modules/ad/views/ad_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/Constants/constants.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/dialog.dart';
@@ -59,10 +61,10 @@ class Tab2AdApplicationController extends GetxController {
   }
 
   /// Apply Button 신청하기
-  applyBtnPressed() async {
+  applyBtnPressed(BuildContext context) async {
     // If no date is selected
     if (selectedDates.isEmpty) {
-     // mSnackbar(message: '광고 날짜를 선택하세요.', duration: 1);
+      mSnackbar(message: '광고 날짜를 선택하세요.', duration: 1,context: context);
       return;
     }
 
@@ -70,9 +72,9 @@ class Tab2AdApplicationController extends GetxController {
         adApplicationId: tab2AdApplyModel.value.id!,
         applicationDates: selectedDates.value);
 
-    // if (isSuccess) {
-    //   Get.to(AdView(), arguments: AdTabs.Tab3AdApplicationHistory.index);
-    // }
+    if (isSuccess) {
+      context.go("/ad/${AdTabs.Tab3AdApplicationHistory.index}");
+    }
   }
 
   adPolicyBtnPressed() {

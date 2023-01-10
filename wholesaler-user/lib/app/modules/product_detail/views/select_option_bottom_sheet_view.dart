@@ -9,7 +9,7 @@ import 'package:wholesaler_user/app/widgets/dropdown_widget.dart';
 import 'package:wholesaler_user/app/widgets/product/quantity_plus_minus_widget.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 
-Future<dynamic> SelectOptionBottomSheet() {
+Future<dynamic> SelectOptionBottomSheet(BuildContext context) {
   ProductDetailController ctr = Get.put(ProductDetailController());
   Cart1ShoppingBasketController ctr2 = Get.put(Cart1ShoppingBasketController());
 
@@ -17,7 +17,7 @@ Future<dynamic> SelectOptionBottomSheet() {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      context: Get.context!,
+      context: context,
       builder: (context) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

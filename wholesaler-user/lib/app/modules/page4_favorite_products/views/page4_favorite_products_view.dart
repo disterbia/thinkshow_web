@@ -11,7 +11,7 @@ import 'package:wholesaler_user/app/modules/cart/controllers/cart1_shopping_bask
 import 'package:wholesaler_user/app/modules/cart/views/cart1_shopping_basket_view.dart';
 import 'package:wholesaler_user/app/modules/page4_favorite_products/controllers/page4_favorite_products_controller.dart';
 import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/product_gridview_builder/product_gridview_builder.dart';
 

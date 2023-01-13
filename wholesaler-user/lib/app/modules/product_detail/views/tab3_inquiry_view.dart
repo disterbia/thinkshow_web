@@ -9,7 +9,7 @@ import 'package:wholesaler_user/app/models/inquiry_model.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/product_detail/controller/tab_3_inquiry_controller.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/tab3_inquiry_dialog.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 
 class Tab3InquiryView extends GetView {
   Tab3InquiryController ctr = Get.put(Tab3InquiryController());

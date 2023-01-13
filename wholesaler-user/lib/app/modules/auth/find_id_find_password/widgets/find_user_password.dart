@@ -5,7 +5,7 @@ import 'package:wholesaler_user/app/constants/enum.dart';
 import 'package:wholesaler_user/app/modules/auth/password_reset/view/password_reset_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_password_result/controller/find_user_password_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/field_with_button.dart';
 import 'package:wholesaler_user/app/widgets/phone_number_textfield/phone_number_textfield_controller.dart';
 import 'package:wholesaler_user/app/widgets/phone_number_textfield/phone_number_textfield_view.dart';

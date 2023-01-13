@@ -7,7 +7,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/modules/cart/views/cart1_shopping_basket_view.dart';
 import 'package:wholesaler_user/app/modules/page3_product_category_page/controller/product_category_page_controller.dart';
 import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/category_tags.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/cloth_category.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';

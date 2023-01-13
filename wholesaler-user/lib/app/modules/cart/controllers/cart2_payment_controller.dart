@@ -15,7 +15,7 @@ import 'package:wholesaler_user/app/models/store_model.dart';
 import 'package:wholesaler_user/app/modules/cart/controllers/cart1_shopping_basket_controller.dart';
 import 'package:wholesaler_user/app/modules/cart/payment/payment.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/views/order_inquiry_and_review_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
 class Cart2PaymentController extends GetxController {

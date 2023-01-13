@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/data/api_provider.dart';
 import 'package:wholesaler_user/app/modules/page1_home/models/image_banner_model.dart';
 import 'package:wholesaler_user/app/modules/page3_product_category_page/view/product_category_page_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 
 class Page3MoabogiController extends GetxController {
   uApiProvider _apiProvider = uApiProvider();

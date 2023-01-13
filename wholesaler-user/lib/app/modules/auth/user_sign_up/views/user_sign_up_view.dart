@@ -6,12 +6,18 @@ import 'package:wholesaler_user/app/Constants/enum.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/modules/auth/register_privacy_terms/views/register_privacy_terms_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_sign_up/controllers/user_sign_up_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/custom_field.dart';
 import 'package:wholesaler_user/app/widgets/field_with_button.dart';
 import 'package:wholesaler_user/app/widgets/phone_number_textfield/phone_number_textfield_view.dart';
+import 'package:js/js.dart';
+
+import 'dart:js' as js;
+
+@JS('functionName')
+external set _functionName(void Function() f);
 
 class User_SignUpView extends GetView {
   SignupOrEditController ctr = Get.put(SignupOrEditController());
@@ -20,10 +26,17 @@ class User_SignUpView extends GetView {
   init() {
     ctr.init();
   }
+  void _someDartFunction() {
+    js.JsObject obj = js.JsObject.fromBrowserObject(js.context['add']);
+    ctr.address1Controller.text = obj['zonecode'].toString();
+    ctr.address2Controller.text = obj['addr'].toString();
+   // _extraAdress.text=obj['extraAddr'].toString();
+  }
 
   @override
   Widget build(BuildContext context) {
     init();
+    _functionName = allowInterop(_someDartFunction);
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(
@@ -135,6 +148,7 @@ class User_SignUpView extends GetView {
           buttonText: '주소 검색',
           fieldController: ctr.address1Controller,
           onTap: () {
+            js.context.callMethod("aa");
             ctr.searchAddressBtnPressed();
           },
           fieldLabel: 'address'.tr,

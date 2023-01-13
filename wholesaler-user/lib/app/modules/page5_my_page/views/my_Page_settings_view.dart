@@ -15,7 +15,7 @@ import 'package:wholesaler_user/app/modules/my_page_update_password/views/my_pag
 import 'package:wholesaler_user/app/modules/page5_my_page/controllers/page5_my_page_controller.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/views/my_page_down.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/widgets/top_user_id_name_widget.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/dialog.dart';

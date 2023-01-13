@@ -4,7 +4,6 @@ import 'dart:math' as Math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kpostal/kpostal.dart';
 import 'package:wholesaler_user/app/constants/constants.dart';
 import 'package:wholesaler_user/app/data/api_provider.dart';
 import 'package:wholesaler_user/app/models/user_model.dart';
@@ -74,14 +73,9 @@ class SignupOrEditController extends GetxController {
   }
 
   Future<void> searchAddressBtnPressed() async {
-    log('inside searchAddressBtnPressed');
-    Kpostal? result = await Navigator.push(
-        Get.context!, MaterialPageRoute(builder: (_) => KpostalView()));
-    print(result?.address);
-    if (result != null) {
-      address1Controller.text = result.postCode;
-      address2Controller.text = result.address;
-    }
+    // address1Controller.text = result.postCode;
+    // address2Controller.text = result.address;
+
   }
 
   Future<void> saveOrEditBtnPressed(BuildContext context) async {

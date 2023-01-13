@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/dimens.dart';
 import 'package:wholesaler_user/app/modules/page1_home/models/image_banner_model.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/image_slider/controller/image_slider_controller.dart';
 
 import '../../../modules/page3_exhibition_products/view/exhibition_products_view.dart';

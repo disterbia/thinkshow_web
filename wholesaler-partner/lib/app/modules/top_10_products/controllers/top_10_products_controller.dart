@@ -41,7 +41,7 @@ class Top10ProductsController extends GetxController {
     final items = products.removeAt(index);
   }
 
-  void productManual(BuildContext context) {
+   productManual(BuildContext context) {
     context.go(PartnerRoutes.ProductMgmtView,extra:{"isTop10Page":true});
     getBestProducts();
   }

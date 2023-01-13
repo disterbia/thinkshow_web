@@ -7,7 +7,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/modules/page2_store_detail/view/store_detail_view.dart';
 import 'package:wholesaler_user/app/modules/search/controllers/search_page_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/product/product_item_vertical_widget.dart';
 
 class SearchResults extends StatelessWidget {

@@ -65,9 +65,10 @@ class RegisterCeoEmployeePage2View extends GetView {
               // Next Button
               CustomButton(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                onPressed: () {
-                  ctr.nextBtnPressed(context);
-                },
+                onPressed: ()=>
+                    ctr.nextBtnPressed(context)
+
+                ,
                 text: '다음',
               ),
               SizedBox(height: 20)

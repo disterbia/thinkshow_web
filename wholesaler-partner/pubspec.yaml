@@ -47,7 +47,7 @@ dependencies:
   percent_indicator: ^4.0.0
   syncfusion_flutter_calendar: ^19.4.47
   url_launcher: ^6.1.2
-  webview_flutter: ^3.0.4
+#  webview_flutter: ^3.0.4
   wholesaler_user:
     path: ../wholesaler-user
 

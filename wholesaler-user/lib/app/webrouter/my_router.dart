@@ -70,9 +70,9 @@ class MyRoutes {
 
 
 }
-
-class MyPages {
-  static late final  router = GoRouter(
+class FuckingTest{}
+class UserPages {
+  static late final userRouter = GoRouter(
     redirect: (context,state) {
       if (CacheProvider().getToken().isEmpty&&state.subloc!="/signup"&&state.subloc!="/findinfo") {
           return "/login";

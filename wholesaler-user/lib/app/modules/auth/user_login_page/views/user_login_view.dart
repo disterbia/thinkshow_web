@@ -14,7 +14,7 @@ import 'package:wholesaler_user/app/modules/auth/find_id_find_password/views/fin
 import 'package:wholesaler_user/app/modules/auth/user_login_page/controllers/login_controller.dart';
 import 'package:wholesaler_user/app/modules/auth/user_sign_up/views/user_sign_up_view.dart';
 import 'package:wholesaler_user/app/modules/main/view/user_main_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_field.dart';
 

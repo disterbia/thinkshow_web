@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/controllers/top_10_products_controller.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/views/top_10_item_widget.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/appbar_widget.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
@@ -11,7 +13,9 @@ import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 
 class Top10ProductsView extends GetView<Top10ProductsController> {
   Top10ProductsController ctr = Get.put(Top10ProductsController());
-
+  temp(){
+    print("d");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +40,11 @@ class Top10ProductsView extends GetView<Top10ProductsController> {
             TwoButtons(
               leftBtnText: '베스트 상품 자동등록',
               rightBtnText: '베스트 상품 등록',
-              lBtnOnPressed: ctr.getBestProductsRecommended(),
-              rBtnOnPressed: ()=>ctr.productManual(context),
+              lBtnOnPressed: ()=>ctr.getBestProductsRecommended,
+              rBtnOnPressed: (){
+                context.go(PartnerRoutes.ProductMgmtView,extra:{"isTop10Page":true});
+                ctr.getBestProducts();
+              }
             ),
             SizedBox(height: 10),
             Row(

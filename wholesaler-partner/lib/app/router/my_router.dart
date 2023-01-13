@@ -18,12 +18,14 @@ import 'package:wholesaler_partner/app/modules/dingdong_delivery/views/dingdong_
 import 'package:wholesaler_partner/app/modules/employee_mgmt/views/employee_mgmt_view.dart';
 import 'package:wholesaler_partner/app/modules/main/view/partner_main_view.dart';
 import 'package:wholesaler_partner/app/modules/my_bank_account_mgmt/views/my_bank_account_mgmt_view.dart';
+import 'package:wholesaler_partner/app/modules/page3_my_info_mgmt/views/my_info_mgmt_view.dart';
 import 'package:wholesaler_partner/app/modules/page3_my_info_mgmt/views/my_page_down.dart';
 import 'package:wholesaler_partner/app/modules/payment/views/payment_view.dart';
 import 'package:wholesaler_partner/app/modules/product_inquiry_detail/view/product_inquiry_detail_view.dart';
 import 'package:wholesaler_partner/app/modules/product_inquiry_list/view/product_inquiry_list_view.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/filter/product_filter_view.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
+import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/register_ceo_employee_1_view.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/register_ceo_employee_2_view.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/register_ceo_employee_3_view.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/register_ceo_employee_4_view.dart';
@@ -78,7 +80,7 @@ class PartnerRoutes {
   static const PaymentView = "/payment";
   static const BusinessEditView = "/businessedit";
   static const AdView = "/ad/:id";
-  static const RegisterCeoEmployeePage4View = "/registerceoemployee";
+  static const RegisterCeoEmployeePage4View = "/registerceoemployeepage4";
   static const Tab2AdApplicationView = "/tab2adapp/:id";
   static const PointMgmtView = "/pointmgmt";
   static const MyInfoMgmtView = "/myinfomgmt";
@@ -98,14 +100,19 @@ class PartnerRoutes {
   static const RegisterCeoEmployeePage3View = "/registerceoemployeepage3";
   static const RegisterCeoEmployeePage2View = "/registerceoemployeepage2";
   static const BusinessRegistrationSubmitView = "/businessregistrationsubmit";
+  static const User_FindID_FindPasswordView = "/findinfo";
+  static const User_SignUpView = "/signup";
+  static const RegisterCeoEmployeePage1View = "/registerceoemployeepage1";
+  static const ChangeNumberView= "/changenumber";
 }
 
 class PartnerPages {
-  static late final router = GoRouter(
+  static late final partnerRouter = GoRouter(
     redirect: (context, state) {
       if (CacheProvider().getToken().isEmpty &&
-          state.subloc != "/signup" &&
-          state.subloc != "/findinfo") {
+          state.subloc != "/registerceoemployeepage1" && state.subloc != "/registerceoemployeepage2" &&
+          state.subloc != "/registerceoemployeepage3" && state.subloc != "/registerceoemployeepage4" &&
+          state.subloc != "/findinfo" && state.subloc != "/businessregistrationsubmit") {
         return "/login";
       }
       if (state.subloc == "/login" && CacheProvider().getToken().isNotEmpty) {
@@ -136,7 +143,7 @@ class PartnerPages {
       ),
       GoRoute(
           path: PartnerRoutes.AddProductView,
-          builder: (context, state) => AddProductView()
+          builder: (context, state) => state.extra==null ? AddProductView() :AddProductView(argument: state.extra as int,)
       ),
       GoRoute(
           path: PartnerRoutes.ProductMgmtView,
@@ -181,7 +188,7 @@ class PartnerPages {
       ),
       GoRoute(
           path: PartnerRoutes.User_RegisterPrivacyTermsView,
-          builder: (context, state) => User_RegisterPrivacyTermsView(argument: state.extra as PrivacyOrTerms ,)
+          builder: (context, state) => state.extra==null ?User_RegisterPrivacyTermsView(): User_RegisterPrivacyTermsView(argument: state.extra as PrivacyOrTerms ,)
       ),
       GoRoute(
           path: PartnerRoutes.AdImpressionView,
@@ -251,7 +258,26 @@ class PartnerPages {
           path: PartnerRoutes.ProductDetailView,
           builder: (context, state) => ProductDetailView(productId: int.parse(state.params["id"]!))
       ),
-
+      GoRoute(
+          path: PartnerRoutes.User_FindID_FindPasswordView,
+          builder: (context, state) => User_FindID_FindPasswordView()
+      ),
+      GoRoute(
+          path: PartnerRoutes.User_SignUpView,
+          builder: (context, state) => User_SignUpView()
+      ),
+      GoRoute(
+          path: PartnerRoutes.RegisterCeoEmployeePage1View,
+          builder: (context, state) => RegisterCeoEmployeePage1View()
+      ),
+      GoRoute(
+          path: PartnerRoutes.MyInfoMgmtView,
+          builder: (context, state) => MyInfoMgmtView()
+      ),
+      GoRoute(
+          path: PartnerRoutes.ChangeNumberView,
+          builder: (context, state) => ChangeNumberView()
+      ),
     ],
   );
 }

@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/controllers/orders_inquiry_review_controller.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/views/order_inquiry_and_review_view.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/controllers/page5_my_page_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
 class ReviewDetailController extends GetxController {

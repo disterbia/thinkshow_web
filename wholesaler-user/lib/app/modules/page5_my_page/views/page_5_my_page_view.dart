@@ -19,7 +19,7 @@ import 'package:wholesaler_user/app/modules/page5_my_page/controllers/page5_my_p
 import 'package:wholesaler_user/app/modules/page5_my_page/inquiries_page/view/inquiries_page_view.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/widgets/top_user_id_name_widget.dart';
 import 'package:wholesaler_user/app/modules/point_mgmt/views/point_mgmt_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 

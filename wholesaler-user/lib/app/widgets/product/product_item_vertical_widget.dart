@@ -19,7 +19,7 @@ import 'package:wholesaler_user/app/models/product_number_model.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/page4_favorite_products/controllers/page4_favorite_products_controller.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/Product_detail_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/product/number_widget.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 

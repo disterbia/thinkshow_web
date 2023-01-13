@@ -12,7 +12,7 @@ import 'package:wholesaler_user/app/models/review.dart';
 import 'package:wholesaler_user/app/models/writable_review_info_model.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/controllers/orders_inquiry_review_controller.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/product/product_item_horiz_widget.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';

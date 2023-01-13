@@ -6,6 +6,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/add_product/add_product_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/data/api_provider.dart';
 import 'package:wholesaler_user/app/data/cache_provider.dart';
 import 'package:wholesaler_user/app/models/product_model.dart';
@@ -13,7 +14,7 @@ import 'package:wholesaler_user/app/models/store_model.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/cart/controllers/cart1_shopping_basket_controller.dart';
 import 'package:wholesaler_user/app/modules/cart/views/cart1_shopping_basket_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 import 'package:wholesaler_user/app/constants/functions.dart';
 
@@ -178,7 +179,7 @@ class ProductDetailController extends GetxController {
     }
   }
 
-  editProductBtnPressed() {
-    Get.to(() => AddProductView(), arguments: productId);
+  editProductBtnPressed(BuildContext context) {
+    context.go(PartnerRoutes.AddProductView,extra: productId);
   }
 }

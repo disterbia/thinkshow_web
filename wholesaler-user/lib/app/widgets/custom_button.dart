@@ -55,9 +55,9 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed == null
             ? null
-            : () {
-                onPressed!();
-              },
+            : ()=>
+                onPressed!()
+              ,
         child: child ?? Text(text.toString()),
         style: style,
       ),

@@ -101,7 +101,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             SizedBox(height: 18),
             _kakaoChannel(),
             SizedBox(height: 22),
-            _logoutButton(),
+            _logoutButton(context),
             SizedBox(height: 22),
             _withdrawButton(context),
             SizedBox(height: 67),
@@ -346,7 +346,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
     );
   }
 
-  _logoutButton() {
+  _logoutButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
@@ -363,8 +363,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             // Get.delete<Page2OrderHistoryView>();
             await Get.deleteAll();
             //await Get.reset();
-
-            await Get.off(() => User_LoginPageView());
+            context.pushReplacement(PartnerRoutes.USERLOGIN);
             print("============${CacheProvider().getUserID()}");
             //Get.offAllNamed('/login');
 

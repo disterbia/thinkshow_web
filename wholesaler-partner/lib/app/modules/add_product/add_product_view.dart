@@ -18,13 +18,13 @@ import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 
 class AddProductView extends GetView<AddProductController> {
   AddProductController ctr = Get.put(AddProductController());
-
-  AddProductView() {
+  int? argument;
+  AddProductView({this.argument}) {
     // Edit Product
-    if (Get.arguments != null) {
+    if (argument != null) {
       ctr.isEditing.value = true;
-      ctr.productIdforEdit = Get.arguments;
-      ctr.getProductEditInfo(productId: Get.arguments);
+      ctr.productIdforEdit = argument!;
+      ctr.getProductEditInfo(productId: argument);
     }
   }
   @override

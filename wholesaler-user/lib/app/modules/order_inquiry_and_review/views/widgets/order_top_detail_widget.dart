@@ -7,7 +7,7 @@ import 'package:wholesaler_user/app/constants/dimens.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/models/order_model.dart';
 import 'package:wholesaler_user/app/modules/order_details/views/order_details_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
 
 class OrderTopDetailWidget extends StatelessWidget {

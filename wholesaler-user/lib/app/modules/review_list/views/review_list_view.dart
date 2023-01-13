@@ -10,7 +10,7 @@ import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/models/review.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
 import 'package:wholesaler_user/app/modules/review_list/controllers/review_list_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/product/product_item_horiz_widget.dart';
 

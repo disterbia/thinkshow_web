@@ -6,7 +6,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/dimens.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/modules/bulletin_detail/views/bulletin_detail_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 
 import '../controllers/bulletin_list_controller.dart';

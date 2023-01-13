@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,7 +15,7 @@ import 'package:wholesaler_user/app/modules/page2_store_detail/view/store_detail
 import 'package:wholesaler_user/app/modules/page5_my_page/company_intro_page/view/company_intro_view.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/Product_detail_view.dart';
 import 'package:wholesaler_user/app/modules/splash_screen/view/splash_screen_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/firebase_options.dart';
 import 'app/constants/theme.dart';
 import 'app/data/cache_provider.dart';
@@ -44,7 +43,6 @@ Future<void> main() async {
 
   //NotificationService().init();
 
-
   runApp(
     GetMaterialApp.router(
       translations: uLanguages(),
@@ -54,9 +52,9 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
       title: "Wholesale User App",
       // home: UserMainView(),
-      routeInformationParser: MyPages.router.routeInformationParser,
-      routerDelegate: MyPages.router.routerDelegate,
-      routeInformationProvider: MyPages.router.routeInformationProvider,
+      routeInformationParser: UserPages.userRouter.routeInformationParser,
+      routerDelegate: UserPages.userRouter.routerDelegate,
+      routeInformationProvider: UserPages.userRouter.routeInformationProvider,
       //home: SplashScreenPageView(),
 
     ),
@@ -69,12 +67,7 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Get.to(() => ProductDetailView(), arguments: 9659);
-      // Get.to(() => StoreDetailView(storeId: 10));
-      // Get.to(() => ProductCategoryPageView(0));
-      // Get.to(() => ExhibitionProductsView(), arguments: {'imageId': 1});
 
-      // Get.to(() => OrderInquiryAndReviewView(hasHomeButton: false, isBackEnable: true), arguments: false);
     });
     return Container();
   }

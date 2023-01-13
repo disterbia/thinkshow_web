@@ -16,7 +16,7 @@ import 'package:wholesaler_user/app/data/firebase_service.dart';
 import 'package:wholesaler_user/app/models/status_model.dart';
 import 'package:wholesaler_user/app/modules/auth/user_sign_up/views/user_sign_up_view.dart';
 import 'package:wholesaler_user/app/modules/main/view/user_main_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 
 import '../../../../constants/variables.dart';
 import '../../../../widgets/snackbar.dart';
@@ -94,7 +94,7 @@ class User_LoginPageController extends GetxController {
   void signUpBtnPressed(BuildContext context) {
     MyVars.isUserProject()
         ? context.go(MyRoutes.User_SignUpView)
-        : context.go(PartnerRoutes.PartnerMainView);
+        : context.go(PartnerRoutes.RegisterCeoEmployeePage1View);
   }
 
   // USER Login Process

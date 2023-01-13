@@ -12,7 +12,7 @@ import 'package:wholesaler_user/app/modules/page1_home/views/tabs/tab3_new_produ
 import 'package:wholesaler_user/app/modules/page1_home/views/tabs/tab4_ding_dong.dart';
 import 'package:wholesaler_user/app/modules/page1_home/views/tabs/tab5_ding_pick.dart';
 import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/main_appbar.dart';
 import 'package:wholesaler_user/app/widgets/simple_tab_bar.dart';
 

@@ -8,7 +8,7 @@ import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/models/store_model.dart';
 import 'package:wholesaler_user/app/modules/page2_store_detail/view/store_detail_view.dart';
 import 'package:wholesaler_user/app/modules/page2_store_list/controllers/shopping_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 
 class StoreListBuilder extends StatelessWidget {
   Page2StoreListController ctr = Get.put(Page2StoreListController());

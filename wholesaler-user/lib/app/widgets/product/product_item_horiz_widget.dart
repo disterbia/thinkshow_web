@@ -17,7 +17,7 @@ import 'package:wholesaler_user/app/models/product_number_model.dart';
 import 'package:wholesaler_user/app/models/review.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/Product_detail_view.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/product/number_widget.dart';
 import 'package:wholesaler_user/app/widgets/product/quantity_plus_minus_widget.dart';
 

@@ -10,7 +10,7 @@ import 'package:wholesaler_user/app/data/cache_provider.dart';
 import 'package:wholesaler_user/app/modules/auth/find_id_find_password/controllers/find_user_id_controller.dart';
 import 'package:wholesaler_user/app/modules/auth/find_id_find_password/views/find_id_find_password_view.dart';
 import 'package:wholesaler_user/app/modules/main/controllers/user_main_controller.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 

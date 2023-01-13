@@ -32,8 +32,8 @@ class MyVars {
         packageName == 'wholesaler_partner') {
       MyVars.setIsUserProject(false);
     } else {
-      //print(
-     //     'ERROR: isUserProject -> wholesaler partner or wholesaler user project name is changed. You should update isUserProject file');
+      print(
+         'ERROR: isUserProject -> wholesaler partner or wholesaler user project name is changed. You should update isUserProject file');
     }
   }
 }

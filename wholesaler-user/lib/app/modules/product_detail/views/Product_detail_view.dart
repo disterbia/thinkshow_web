@@ -19,7 +19,7 @@ import 'package:wholesaler_user/app/modules/product_detail/views/tab1_detail_inf
 import 'package:wholesaler_user/app/modules/product_detail/views/tab2_review_view.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/tab3_inquiry_view.dart';
 import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
@@ -258,7 +258,7 @@ class ProductDetailView extends GetView {
                     onPressed: () {
                       MyVars.isUserProject()
                           ? SelectOptionBottomSheet(context)
-                          : ctr.editProductBtnPressed();
+                          : ctr.editProductBtnPressed(context);
                     },
                   ),
                 ),

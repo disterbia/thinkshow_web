@@ -14,7 +14,7 @@ import 'package:wholesaler_user/app/modules/cart/views/cart1_shopping_basket_vie
 import 'package:wholesaler_user/app/modules/page3_exhibition_products/view/exhibition_products_view.dart';
 import 'package:wholesaler_user/app/modules/page3_moabogi/controllers/page3_moabogi_controller.dart';
 import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/category_tags.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 

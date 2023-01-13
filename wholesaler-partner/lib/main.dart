@@ -16,7 +16,6 @@ import 'package:wholesaler_user/app/Constants/variables.dart';
 import 'package:wholesaler_user/app/data/cache_provider.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/splash_screen/view/splash_screen_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
 
 
 // @pragma('vm:entry-point')
@@ -56,9 +55,9 @@ Future<void> main() async {
         theme: appThemeDataLight,
         debugShowCheckedModeBanner: false,
         title: "Wholesale Partner App",
-      routeInformationParser: PartnerPages.router.routeInformationParser,
-      routerDelegate: PartnerPages.router.routerDelegate,
-      routeInformationProvider: PartnerPages.router.routeInformationProvider,
+      routeInformationParser: PartnerPages.partnerRouter.routeInformationParser,
+      routerDelegate: PartnerPages.partnerRouter.routerDelegate,
+      routeInformationProvider: PartnerPages.partnerRouter.routeInformationProvider,
         //home: SplashScreenPageView(),
         // getPages: [
         //   GetPage(name: '/login', page: () => User_LoginPageView()),

@@ -7,7 +7,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/models/user_model.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/views/my_Page_settings_view.dart';
-import 'package:wholesaler_user/app/router/my_router.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 
 class TopUserIDUserNameSettings extends StatelessWidget {
   User user;

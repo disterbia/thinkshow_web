@@ -13,7 +13,7 @@ class User_PasswordResultView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '비밀번호 찾기'),
+      appBar: CustomAppbar(isBackEnable: false, title: '비밀번호 찾기'),
       body: Column(
         children: [
           _logo(),

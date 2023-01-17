@@ -221,7 +221,7 @@ class ReviewDetailView extends GetView {
   }
 
   AppBar _appbar(BuildContext context) {
-    return CustomAppbar(isBackEnable: true, title: 'review'.tr, actions: [
+    return CustomAppbar(isBackEnable: false, title: 'review'.tr, actions: [
       IconButton(
         icon: Icon(
           Icons.search,

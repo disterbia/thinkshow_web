@@ -13,7 +13,7 @@ class InquiriesPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: '문의내역'),
+      appBar: CustomAppbar(isBackEnable: false, title: '문의내역'),
       body: Obx(
           ()=>ctr.isLoading.value?LoadingWidget():SingleChildScrollView(
           child: Padding(

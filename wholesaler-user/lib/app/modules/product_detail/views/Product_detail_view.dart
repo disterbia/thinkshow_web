@@ -272,8 +272,8 @@ class ProductDetailView extends GetView {
 
   AppBar _appbar(BuildContext context) {
     return CustomAppbar(
-        isBackEnable: true,
-        hasHomeButton: true,
+        isBackEnable: false,
+        hasHomeButton: false,
         title: '',
         actions: [
           MyVars.isUserProject()

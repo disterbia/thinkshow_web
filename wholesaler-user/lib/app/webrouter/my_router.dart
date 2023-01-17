@@ -128,7 +128,7 @@ class UserPages {
       ),
       GoRoute(
           path: MyRoutes.StoreDetailView,
-          builder: (context, state) => StoreDetailView(storeId: int.parse(state.params["id"]!),prevPage: state.extra as String,)
+          builder: (context, state) => StoreDetailView(storeId: int.parse(state.params["id"]!),prevPage:state.extra==null?null: state.extra as String,)
       ),
       GoRoute(
           path: MyRoutes.SearchPageView,
@@ -157,9 +157,9 @@ class UserPages {
       GoRoute(
           path: MyRoutes.OrderInquiryAndReviewView,
           builder: (context, state)  {
-            Map<String,dynamic> temp = state.extra as Map<String,dynamic>;
-            print("=-=-=--=-=-=-=-===-=-===-=-=-$temp");
-            return OrderInquiryAndReviewView(hasHomeButton: false,isBackEnable: false, argument: temp["argument"],);
+            print("-=-=-=-${state.extra}");
+            Map<String,dynamic>? temp = state.extra==null?null:state.extra as Map<String,dynamic>;
+            return OrderInquiryAndReviewView(hasHomeButton: false,isBackEnable: false, argument: state.extra==null?false:temp!["argument"],);
           }
       ),
       GoRoute(

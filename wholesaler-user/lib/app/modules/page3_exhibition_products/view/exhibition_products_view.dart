@@ -69,7 +69,7 @@ class ExhibitionProductsView extends GetView {
       );
 
   AppBar _appbar(BuildContext context) {
-    return CustomAppbar(isBackEnable: true, title: 'Exhibition_product'.tr, actions: [
+    return CustomAppbar(isBackEnable: false, title: 'Exhibition_product'.tr, actions: [
       IconButton(
         icon: Icon(
           Icons.search,

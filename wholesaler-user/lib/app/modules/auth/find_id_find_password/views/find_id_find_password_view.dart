@@ -18,7 +18,7 @@ class User_FindID_FindPasswordView extends GetView<User_FindID_FindPasswordContr
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '계정 찾기'),
+      appBar: CustomAppbar(isBackEnable: false, title: '계정 찾기'),
       body: _userIdBody(),
     );
   }

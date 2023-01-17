@@ -40,7 +40,7 @@ class User_SignUpView extends GetView {
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(
-          isBackEnable: true, title: ctr.isEditing.value ? '회원정보' : '회원가입'),
+          isBackEnable: false, title: ctr.isEditing.value ? '회원정보' : '회원가입'),
       body: _signUpBody(context),
     );
   }
@@ -149,7 +149,7 @@ class User_SignUpView extends GetView {
           fieldController: ctr.address1Controller,
           onTap: () {
             js.context.callMethod("aa");
-            ctr.searchAddressBtnPressed();
+            //ctr.searchAddressBtnPressed();
           },
           fieldLabel: 'address'.tr,
         ),

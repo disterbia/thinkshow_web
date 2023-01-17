@@ -23,7 +23,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
   Widget build(BuildContext context) {
     init();
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: '주문조회 상세'),
+      appBar: CustomAppbar(isBackEnable: false, title: '주문조회 상세'),
       body: _body(),
     );
   }

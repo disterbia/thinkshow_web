@@ -12,7 +12,7 @@ class CompanyIntroPageView extends GetView<CompanyIntroController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: '회사 소개'),
+      appBar: CustomAppbar(isBackEnable: false, title: '회사 소개'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),

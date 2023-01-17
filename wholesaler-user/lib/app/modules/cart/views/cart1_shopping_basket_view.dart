@@ -27,7 +27,7 @@ class Cart1ShoppingBasketView extends GetView {
     init();
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '장바구니'),
+      appBar: CustomAppbar(isBackEnable: false, title: '장바구니'),
       body: Obx(() => ctr.isLoading.value ? LoadingWidget() : body(context)),
     );
   }

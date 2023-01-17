@@ -14,6 +14,7 @@ class OrderItemListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ctr.init(isReviewPage);
     return ListView.separated(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),

@@ -11,20 +11,19 @@ class OrderInquiryAndReviewController extends GetxController {
   CategoryTagController categoryTagCtr = Get.put(CategoryTagController());
   uApiProvider _apiProvider = uApiProvider();
   bool? isReviewPage;
-
+  bool isFirst = true;
   RxList<OrderOrReview> items = <OrderOrReview>[].obs;
 
   Rx<ScrollController> scrollController = ScrollController().obs;
   int offset = 0;
   RxBool allowCallAPI = true.obs;
 
-  @override
-  Future<void> onInit() async {
-    super.onInit();
-    isReviewPage = Get.arguments;
-   // print('OrderInquiryAndReviewController onInit isReviewPage ${isReviewPage}');
+  Future<void> init(bool argument) async{
+    if(!isFirst) return;
+    isReviewPage = argument;
+    // print('OrderInquiryAndReviewController onInit isReviewPage ${isReviewPage}');
     if (isReviewPage!) {
-     // print('REVIEW PAGE');
+      // print('REVIEW PAGE');
       items.value = await _apiProvider.getUserReviews();
       allowCallAPI.value = false;
     } else {
@@ -38,7 +37,30 @@ class OrderInquiryAndReviewController extends GetxController {
         }
       });
     }
+    isFirst=false;
   }
+  // @override
+  // Future<void> onInit() async {
+  //   super.onInit();
+  //
+  //   isReviewPage = Get.arguments;
+  //  // print('OrderInquiryAndReviewController onInit isReviewPage ${isReviewPage}');
+  //   if (isReviewPage!) {
+  //    // print('REVIEW PAGE');
+  //     items.value = await _apiProvider.getUserReviews();
+  //     allowCallAPI.value = false;
+  //   } else {
+  //     //print('ORDER INQUIRY PAGE');
+  //     getInquiryData();
+  //
+  //     scrollController.value.addListener(() {
+  //       if (scrollController.value.position.pixels == scrollController.value.position.maxScrollExtent && allowCallAPI.isTrue) {
+  //         offset += mConst.limit;
+  //         updateProduct(isScrolling: true, period: getPeriodText());
+  //       }
+  //     });
+  //   }
+  // }
 
   getInquiryData() async {
     items.value = await _apiProvider.getOrderInquiry(period: OrderInquiryPeriod.total, offset: offset, limit: mConst.limit);

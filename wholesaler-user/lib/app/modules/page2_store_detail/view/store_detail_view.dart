@@ -32,7 +32,7 @@ class StoreDetailView extends GetView {
       this.prevPage = prevPage;
       print(prevPage);
     } else {
-      ctr2.dispose();
+      //ctr2.dispose();
     }
   }
 

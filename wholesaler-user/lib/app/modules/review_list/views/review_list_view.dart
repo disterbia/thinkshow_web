@@ -23,7 +23,7 @@ class ReviewListView extends GetView<ReviewListController> {
     return Obx(() {
       return Scaffold(
         appBar: CustomAppbar(
-            isBackEnable: true, title: 'review'.tr, hasHomeButton: true),
+            isBackEnable: false, title: 'review'.tr, hasHomeButton: true),
         body: ctr.isLoading.value
             ? LoadingWidget()
             : ListView.separated(

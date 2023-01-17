@@ -18,7 +18,7 @@ class QuestionAndAnswerView extends GetView<QuestionAndAnswerController> {
     );
   }
 
-  AppBar _appbar() => CustomAppbar(isBackEnable: true, title: 'Q&A');
+  AppBar _appbar() => CustomAppbar(isBackEnable: false, title: 'Q&A');
   Widget _body() => SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),

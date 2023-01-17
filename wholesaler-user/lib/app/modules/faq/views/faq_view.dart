@@ -17,7 +17,7 @@ class FaqView extends GetView<FaqController> {
     return Scaffold(
       backgroundColor: MyColors.white,
       body: _body(),
-      appBar: CustomAppbar(isBackEnable: true, title: 'FAQ'.tr),
+      appBar: CustomAppbar(isBackEnable: false, title: 'FAQ'.tr),
     );
   }
 

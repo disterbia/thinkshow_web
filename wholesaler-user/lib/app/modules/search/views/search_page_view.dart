@@ -18,7 +18,7 @@ class SearchPageView extends GetView<SearchPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: 'search_2'.tr),
+      appBar: CustomAppbar(isBackEnable: false, title: 'search_2'.tr),
       body: SingleChildScrollView(
         controller: ctr.scrollController.value,
         child: Padding(

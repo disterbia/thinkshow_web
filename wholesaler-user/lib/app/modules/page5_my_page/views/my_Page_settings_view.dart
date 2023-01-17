@@ -28,10 +28,11 @@ class MyPageSettingsView extends GetView<Page5MyPageController> {
   int myTest = 0;
   @override
   Widget build(BuildContext context) {
+    ctr.init(context);
     myTest = 0;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppbar(isBackEnable: true, title: 'My_page'.tr),
+      appBar: CustomAppbar(isBackEnable: false, title: 'My_page'.tr),
       body: SafeArea(child: _body(context)),
     );
   }

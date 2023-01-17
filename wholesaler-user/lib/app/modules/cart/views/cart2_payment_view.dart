@@ -24,7 +24,7 @@ class Cart2PaymentView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '결제'),
+      appBar: CustomAppbar(isBackEnable: false, title: '결제'),
       body: body(context),
     );
   }

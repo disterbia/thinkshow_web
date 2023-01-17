@@ -45,6 +45,7 @@ class Cart2PaymentController extends GetxController {
   FocusNode focusNode3 = FocusNode();
 
   void init(Cart2CheckoutModel cart2checkoutModel) {
+    cartItems.clear();
     this.cart2checkoutModel.value = cart2checkoutModel;
 
     // Ordered Products

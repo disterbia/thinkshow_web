@@ -29,6 +29,7 @@ class OrderOrReviewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ctr.init(isReviewPage);
     print("-=-=--=-=-=-=-=-=-=${item}");
     return Column(
       children: [

@@ -9,13 +9,55 @@ import 'package:iamport_flutter/model/payment_data.dart';
 import 'package:wholesaler_user/app/modules/cart/controllers/cart2_payment_controller.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/views/order_inquiry_and_review_view.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
+import 'package:js/js.dart';
+import 'dart:js' as js;
+
+@JS('functionName')
+external set _functionName(void Function() f);
 
 class Payment extends StatelessWidget {
   Cart2PaymentController cart2Ctr = Get.put(Cart2PaymentController());
 
   Payment();
+
+  void _someDartFunction() {
+    js.JsObject obj = js.JsObject.fromBrowserObject(js.context['add']);
+    print("pg:${obj['pg'].toString()}");
+    print("merchant_uid:${obj['merchant_uid'].toString()}");
+    print("amount:${obj['amount'].toString()}");
+    print("buyName:${obj['buyName'].toString()}");
+    print("buyerTel:${obj['buyerTel'].toString()}");
+    print("buyerEmail:${obj['buyerEmail'].toString()}");
+    print("buyerAddr:${obj['buyerAddr'].toString()}");
+    print("buyerPostcode:${obj['buyerPostcode'].toString()}");
+    print("test:${obj['test'].toString()}");
+    // ctr.address1Controller.text = obj['zonecode'].toString();
+    // ctr.address2Controller.text = obj['addr'].toString();
+    // _extraAdress.text=obj['extraAddr'].toString();
+  }
+  void payWithIamport(String userCode,String pg,String merchant_uid,int amount,String buyName,String buyerTel,
+      String buyerEmail,String buyerAddr,String buyerPostcode)  {
+    // Use the JavaScript interop API to call the JavaScript function
+    js.context.callMethod('requestPay', [userCode,pg, merchant_uid, amount, buyName, buyerTel,
+      buyerEmail, buyerAddr, buyerPostcode]);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _functionName = allowInterop(_someDartFunction);
+
+    return Scaffold(body: Container(
+      child: ElevatedButton(child: Text("dd"),onPressed: ()=>payWithIamport(cart2Ctr.cart2checkoutModel.value.iamportInfo!.iamportId!
+          ,cart2Ctr.cart2checkoutModel.value.iamportInfo!.pg!,
+          cart2Ctr.cart2checkoutModel.value.iamportInfo!.merchantUid!.toString(),
+          cart2Ctr.cart2checkoutModel.value.totalProductAmount.value,
+          cart2Ctr.nameController.text,cart2Ctr.phoneFirstPartController.text +
+              cart2Ctr.phoneSecondPartController.text +
+              cart2Ctr.phoneThirdPartController.text,
+          cart2Ctr.cart2checkoutModel.value.userInfo!.email!,
+          cart2Ctr.address2Controller.text,
+          cart2Ctr.address1ZipCodeController.text)),
+    ),);
     // print(
     //     'payment build: cart2Ctr.cart2checkoutModel.value.userInfo!.email! = ${cart2Ctr.cart2checkoutModel.value.userInfo!.email}');
     return IamportPayment(
@@ -61,7 +103,7 @@ class Payment extends StatelessWidget {
             buyerAddr: cart2Ctr.address2Controller.text, // 구매자 주소
             buyerPostcode: cart2Ctr.address1ZipCodeController.text, // 구매자 우편번호
             appScheme: 'wholesaleruser', // 앱 URL scheme
-            displayCardQuota: [2, 3] //결제창 UI 내 할부개월수 제한
+            cardQuota: [2, 3] //결제창 UI 내 할부개월수 제한
             ),
         /* [필수입력] 콜백 함수 */
         callback: (Map<String, dynamic> result) {

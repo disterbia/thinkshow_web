@@ -37,7 +37,7 @@ class ProductCategoryPageView extends GetView<ProductCategoryPageController> {
   }
 
   AppBar _appbar(BuildContext context) {
-    return CustomAppbar(isBackEnable: true, title: ctr.title, actions: [
+    return CustomAppbar(isBackEnable: false, title: ctr.title, actions: [
       IconButton(
         icon: Icon(
           Icons.search,

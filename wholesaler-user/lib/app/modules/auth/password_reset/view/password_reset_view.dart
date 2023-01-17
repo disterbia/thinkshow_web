@@ -17,7 +17,7 @@ class PasswordResetView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, title: '비밀번호 변경'),
+        appBar: CustomAppbar(isBackEnable: false, title: '비밀번호 변경'),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(

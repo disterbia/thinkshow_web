@@ -12,7 +12,7 @@ class MyPageUpdatePasswordView extends GetView<MyPageUpdatePasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: 'Change_Password'.tr),
+      appBar: CustomAppbar(isBackEnable: false, title: 'Change_Password'.tr),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

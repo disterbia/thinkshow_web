@@ -20,7 +20,7 @@ class BulletinListView extends GetView<BulletinListController> {
       Get.find<BulletinListController>().getBulletins();
     }, builder: (_) {
       return Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, title: 'bulletin'.tr),
+        appBar: CustomAppbar(isBackEnable: false, title: 'bulletin'.tr),
         body: ctr.isLoading.value
             ? LoadingWidget()
             : SingleChildScrollView(

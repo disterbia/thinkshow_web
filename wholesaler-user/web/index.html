@@ -119,6 +119,48 @@
       element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
     }
   </script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script>
+var IMP = window.IMP;
+    function requestPay(userCode,pg, merchant_uid, amount, buyName, buyerTel,
+       buyerEmail, buyerAddr, buyerPostcode) {
+        IMP.init(userCode);
+            IMP.request_pay({
+               pg: pg, // PG사
+            pay_method: 'card', // 결제수단
+            name: '아임포트 결제데이터 분석', // <주문명></주문명>
+            merchant_uid: merchant_uid, // 주문번호
+            // merchantUid: 'mid_${DateTime.now().millisecondsSinceEpoch}', // 주문번호
+            amount: amount, // 결제금액
+            buyer_name: buyName, // 구매자 이름
+            buyer_tel: buyerTel, // 구매자 연락처
+            buyer_email:buyerEmail, // 구매자 이메일
+            buyer_addr: buyerAddr, // 구매자 주소
+            buyer_postcode: buyerPostcode, // 구매자 우편번호
+            app_scheme: 'wholesaleruser', // 앱 URL scheme
+            display: {card_quota:[2,3]}
+            //cardQuota: [2, 3] //결제창 UI 내 할부개월수 제한
+            }, function(rsp) {
+            add.pg=pg;
+            add.merchant_uid=merchant_uid;
+            add.amount=amount;
+            add.buyName=buyName;
+            add.buyerTel=buyerTel;
+            add.buyerEmail=buyerEmail;
+            add.buyerEmail=buyerEmail;
+            add.buyerPostcode=buyerPostcode;
+
+                if ( rsp.success ) {
+             add.test = rsp.imp_uid;
+            functionName();
+                } else {
+add.test = rsp.error_msg;
+functionName();
+                }
+            });
+    }
+</script>
   <script>
 
     var serviceWorkerVersion = null;

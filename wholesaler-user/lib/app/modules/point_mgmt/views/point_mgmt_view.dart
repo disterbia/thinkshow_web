@@ -14,7 +14,7 @@ class PointMgmtView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: '포인트'),
+      appBar: CustomAppbar(isBackEnable: false, title: '포인트'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

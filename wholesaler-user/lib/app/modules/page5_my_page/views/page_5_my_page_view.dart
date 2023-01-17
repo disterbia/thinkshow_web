@@ -94,7 +94,6 @@ class Page5MyPageView extends GetView<Page5MyPageController> {
         ),
         _settingBox('주문조회', null, () {
           Get.delete<OrderInquiryAndReviewController>();
-
           context.go( MyRoutes.OrderInquiryAndReviewView,extra:{
             "isBackEnable": false, "hasHomeButton": false,"argument": false},
           );

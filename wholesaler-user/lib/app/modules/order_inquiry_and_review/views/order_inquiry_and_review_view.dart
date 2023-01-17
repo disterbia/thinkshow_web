@@ -19,7 +19,7 @@ class OrderInquiryAndReviewView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    print(Get.arguments);
+    ctr.init(argument);
     return Scaffold(
       appBar: CustomAppbar(isBackEnable: isBackEnable, hasHomeButton: hasHomeButton, title: argument ? '리뷰' : 'order_history'.tr),
       body: SingleChildScrollView(
@@ -28,7 +28,7 @@ class OrderInquiryAndReviewView extends GetView {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 10),
-            Get.arguments
+            argument
                 ? SizedBox.shrink()
                 : Obx(
                     () => Padding(
@@ -57,7 +57,7 @@ class OrderInquiryAndReviewView extends GetView {
                             children: [
                               OrderTopDetailWidget(order: ctr.items[itemIndex]),
                               OrderItemListView(
-                                isReviewPage: Get.arguments,
+                                isReviewPage: argument,
                                 order: ctr.items[itemIndex],
                               ),
                             ],

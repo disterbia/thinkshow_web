@@ -22,7 +22,7 @@ class UserIdResultView extends GetView<UserIdResultController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '아이디 찾기'),
+      appBar: CustomAppbar(isBackEnable: false, title: '아이디 찾기'),
       body: Column(
         children: [
           _space(),

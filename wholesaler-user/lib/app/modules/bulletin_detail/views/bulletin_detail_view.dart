@@ -18,7 +18,7 @@ class BulletinDetailView extends GetView<BulletinController> {
     Get.lazyPut(() => BulletinController());
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: 'bulletin'.tr),
+      appBar: CustomAppbar(isBackEnable: false, title: 'bulletin'.tr),
       body: _body(),
     );
   }

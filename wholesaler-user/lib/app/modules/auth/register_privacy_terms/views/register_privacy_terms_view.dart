@@ -18,7 +18,7 @@ class User_RegisterPrivacyTermsView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '이용약관 & 개인정보', hasHomeButton: false),
+      appBar: CustomAppbar(isBackEnable: false, title: '이용약관 & 개인정보', hasHomeButton: false),
       body: DefaultTabController(
         length: 2, // length of tabs
         initialIndex: argument == PrivacyOrTerms.privacy ? 1 : 0, // initial index of tabs

@@ -148,7 +148,8 @@ class PartnerPages {
       GoRoute(
           path: PartnerRoutes.ProductMgmtView,
           builder: (context, state)  {
-            Map<String,dynamic> temp =state.extra as Map<String,dynamic>;
+            if(state.extra==null) return ProductMgmtView();
+            Map<String,dynamic>? temp =state.extra as Map<String,dynamic>;
             return ProductMgmtView(isRegisterAdProductPage:temp["isRegisterAdProductPage"] ,
               isRegisterProductPage:temp['isRegisterProductPage'] ,argument: temp["argument"],
               isTop10Page: temp["isTop10Page"],);

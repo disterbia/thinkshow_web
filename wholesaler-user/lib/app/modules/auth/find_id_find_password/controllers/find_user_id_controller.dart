@@ -20,7 +20,7 @@ class User_FindID_FindPasswordController extends GetxController {
   pApiProvider partnerApiProvider = pApiProvider();
   uApiProvider userApiProvider = uApiProvider();
 
-  var arguments = Get.arguments;
+  // var arguments = Get.arguments;
 
   late TextEditingController idController;
 
@@ -34,16 +34,16 @@ class User_FindID_FindPasswordController extends GetxController {
   void onInit() {
     super.onInit();
     idController = TextEditingController();
-    if (arguments != null) {
-      print(arguments);
-     // idController.text=arguments["accountId"];
-      try{
-        initialIndex.value = arguments;
-      }catch(e){
-        //idController.text=arguments["accountId"];
-      }
-
-    }
+    // if (arguments != null) {
+    //   print(arguments);
+    //  // idController.text=arguments["accountId"];
+    //   try{
+    //     initialIndex.value = arguments;
+    //   }catch(e){
+    //     //idController.text=arguments["accountId"];
+    //   }
+    //
+    // }
   }
 
   @override

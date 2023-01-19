@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/models/best_products_model.dart';
 import 'package:wholesaler_partner/app/modules/page1_home/controller/partner_home_controller.dart';
@@ -41,8 +42,12 @@ class Top10ProductsController extends GetxController {
     final items = products.removeAt(index);
   }
 
-   productManual(BuildContext context) {
-    context.go(PartnerRoutes.ProductMgmtView,extra:{"isTop10Page":true});
+   productManual(BuildContext context) async{
+     await GetStorage().remove("isRegisterProductPage");
+     await GetStorage().remove("isRegisterAdProductPage");
+     await GetStorage().remove("argument");
+     await GetStorage().write("isTopPage", true);
+    context.go(PartnerRoutes.ProductMgmtView);
     getBestProducts();
   }
 

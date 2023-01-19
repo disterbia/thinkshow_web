@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/data/api_provider.dart';
 import 'package:wholesaler_user/app/models/product_image_model.dart';
 import 'package:wholesaler_user/app/models/product_model.dart';
@@ -9,11 +8,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/controllers/orders_inquiry_review_controller.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/views/order_inquiry_and_review_view.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/controllers/page5_my_page_controller.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
+import 'package:wholesaler_user/app/modules/product_detail/controller/tab_2_review_controller.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
+
+import '../../main/view/user_main_view.dart';
 
 class ReviewDetailController extends GetxController {
   TextEditingController contentController = TextEditingController();
+  Tab2ReviewProductDetailController ctr =
+  Get.put(Tab2ReviewProductDetailController());
 
   uApiProvider _apiProvider = uApiProvider();
 
@@ -26,9 +29,16 @@ class ReviewDetailController extends GetxController {
 
   init(
       {required Review tempSelectedReviw,
-      required bool isComingFromOrderInquiryPage}) {
+        required bool isComingFromOrderInquiryPage}) {
     this.isComingFromReviewListPage = isComingFromOrderInquiryPage;
     // customize for UI
+
+    print(tempSelectedReviw.id);
+    print(tempSelectedReviw.id);
+    print(tempSelectedReviw.id);
+    print(tempSelectedReviw.id);
+    print(tempSelectedReviw.id);
+
     price.value = tempSelectedReviw.product.price!;
     // selectedReviw = tempSelectedReviw.obs;
     selectedReviw = Review(
@@ -50,7 +60,7 @@ class ReviewDetailController extends GetxController {
         imgWidth: tempSelectedReviw.product.imgWidth,
         OLD_option: tempSelectedReviw.product.OLD_option,
         selectedOptionAddPrice:
-            tempSelectedReviw.product.selectedOptionAddPrice,
+        tempSelectedReviw.product.selectedOptionAddPrice,
         orderDetailId: tempSelectedReviw.product.orderDetailId,
       ),
       createdAt: tempSelectedReviw.createdAt,
@@ -61,7 +71,7 @@ class ReviewDetailController extends GetxController {
     reviewImageUrl = tempSelectedReviw.reviewImageUrl.obs;
   }
 
-  uploadReviewImagePressed() async {
+  uploadReviewImagePressed(BuildContext context) async {
     // hide keyboard
     FocusScope.of(Get.context!).requestFocus(new FocusNode());
 
@@ -72,30 +82,30 @@ class ReviewDetailController extends GetxController {
     // upload image
     if (_pickedImage != null) {
       productImageModel =
-          await _apiProvider.postUploadReviewImage(pickedImage: _pickedImage);
+      await _apiProvider.postUploadReviewImage(pickedImage: _pickedImage);
 
-     // mSnackbar(message: "이미지가 등록되었습니다.");
+      mSnackbar(message: "이미지가 등록되었습니다.",context: context);
 
       if (productImageModel!.statusCode == 200) {
-        print(
-            'image uploaded productImageModel.url ${productImageModel!.url}');
+        print('image uploaded productImageModel.url ${productImageModel!.url}');
         selectedReviw!.value.reviewImageUrl = productImageModel!.url;
         reviewImageUrl.value = productImageModel!.url;
       }
     }
   }
 
-  reviewEditPressed() async {
+  reviewEditPressed(BuildContext context) async {
     print('reviewEditPressed');
     bool isSuccess = await _apiProvider.putReviewEdit(
         content: contentController.text,
-        image_path: productImageModel!.path,
+        image: productImageModel,
         reviewId: selectedReviw!.value.id,
         star: selectedReviw!.value.rating);
     print('edit');
     if (isSuccess) {
-    //  mSnackbar(message: '수정이 완료되었습니다.');
-      //Get.back();
+      await ctr.getProductReviews(productId: selectedReviw!.value.product.id);
+      mSnackbar(message: '수정이 완료되었습니다.',context: context);
+      Get.back();
     }
   }
 
@@ -118,9 +128,9 @@ class ReviewDetailController extends GetxController {
       orderDetailId: selectedReviw!.value.product.orderDetailId!,
       content: contentController.text,
       image_path:
-          productImageModel != null && productImageModel!.statusCode == 200
-              ? productImageModel!.path
-              : null,
+      productImageModel != null && productImageModel!.statusCode == 200
+          ? productImageModel!.path
+          : null,
       star: selectedReviw!.value.rating,
     );
 
@@ -130,9 +140,13 @@ class ReviewDetailController extends GetxController {
 
       print(
           'isComingFromReviewListPage $isComingFromReviewListPage go back to review list page');
-      context.go(MyRoutes.OrderInquiryAndReviewView,extra: {
-        "hasHomeButton": false, "isBackEnable": false,"argument": isComingFromReviewListPage!
-      });
+      // Get.to(
+      //     () => OrderInquiryAndReviewView(
+      //         hasHomeButton: true, isBackEnable: false),
+      //     arguments: isComingFromReviewListPage);
+
+      // Get.back();
+      Get.offAll(() => UserMainView());
     }
   }
 }

@@ -27,7 +27,7 @@ class MyInfoMgmtView extends GetView<MyInfoMgmtController> {
     myTest=0;
     return Obx(() {
       return Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, title: '내 정보 관리'),
+        appBar: CustomAppbar(isBackEnable: false, title: '내 정보 관리'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab1_ad_status/controller/tab1_ad_status_controller.dart';
 import 'package:wholesaler_partner/app/modules/main/view/partner_main_view.dart';
 import 'package:wholesaler_partner/app/modules/page1_home/view/page1_home_view.dart';
@@ -16,6 +15,7 @@ import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/product_gridview_builder/product_gridview_builder.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductMgmtView extends GetView {
   ProductMgmtController ctr = Get.put(ProductMgmtController());
@@ -25,7 +25,7 @@ class ProductMgmtView extends GetView {
   bool? isTop10Page = false;
   bool? isRegisterProductPage = false;
   bool? isRegisterAdProductPage = false;
-  int? argument;
+  dynamic argument;
   ProductMgmtView(
       {this.isTop10Page,
       this.isRegisterProductPage,
@@ -36,7 +36,7 @@ class ProductMgmtView extends GetView {
     isRegisterAdProductPage ??= false;
   }
   init() {
-    ctr.init();
+    ctr.init(argument: argument);
   }
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class ProductMgmtView extends GetView {
                 child: isTop10Page! ||
                         isRegisterProductPage! ||
                         isRegisterAdProductPage!
-                    ? _addButton()
+                    ? _addButton(context)
                     : ProductMgmtBottmNavbar(),
               ),
             ),
@@ -126,6 +126,9 @@ class ProductMgmtView extends GetView {
                       isShowLoadingCircle: ctr.allowCallAPI,
                       //ctr.allowCallAPI,
                     ),
+                    SizedBox(
+                      height: 30,
+                    )
                   ],
                 ),
               ),
@@ -139,7 +142,7 @@ class ProductMgmtView extends GetView {
         });
   }
 
-  Widget _addButton() {
+  Widget _addButton(BuildContext context) {
     return Obx(
       () => ctr.isAdding.value
           ? LoadingWidget()
@@ -162,7 +165,7 @@ class ProductMgmtView extends GetView {
                     return;
                   }
                   if (!isRegisterProductPage!) {
-                    await ctr.addToTop10();
+                    await ctr.addToTop10(context);
                     return;
                   }
                 },

@@ -17,7 +17,7 @@ class AdImpressionView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, title: '쇼핑에드'),
+        appBar: CustomAppbar(isBackEnable: false, title: '쇼핑에드'),
         body: SingleChildScrollView(
           child: Obx(
             () => ctr.isLoading.value

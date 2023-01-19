@@ -19,8 +19,7 @@ import 'package:wholesaler_user/app/widgets/product_gridview_builder/product_gri
 
 class Tab1HomeView extends GetView<Tab1UserHomeController> {
   Tab1UserHomeController ctr = Get.put(Tab1UserHomeController());
- // CategoryTagController categoryTagCtr = Get.put(CategoryTagController());
- //  Page1HomeController page1HomeCtr = Get.put(Page1HomeController());
+  //  Page1HomeController page1HomeCtr = Get.put(Page1HomeController());
   CarousalProductHorizontalController recommendedProductCtr = Get.put(CarousalProductHorizontalController());
 
   init() {
@@ -33,7 +32,7 @@ class Tab1HomeView extends GetView<Tab1UserHomeController> {
   Widget build(BuildContext context) {
     init();
     return Obx(
-       ()=> ctr.isLoading.value&&recommendedProductCtr.isLoading.value ? LoadingWidget():SingleChildScrollView(
+          ()=> ctr.isLoading.value&&recommendedProductCtr.isLoading.value ? LoadingWidget():SingleChildScrollView(
         controller: ctr.scrollController.value,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,21 +45,21 @@ class Tab1HomeView extends GetView<Tab1UserHomeController> {
             // ),
             // SizedBox(height: 20),
             recommendedProductCtr.products.length!=0?Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          _recommendedItemsTitle(),
-                          CarousalProductHorizontalView(),
-                        ],
-                      ),
-                    ):Container()
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  _recommendedItemsTitle(),
+                  CarousalProductHorizontalView(),
+                ],
+              ),
+            ):Container()
 
             ,
             Divider(thickness: 6, color: MyColors.grey3),
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15),
               child: Obx(
-                () => HorizontalChipList().getAllMainCat(
+                    () => HorizontalChipList().getAllMainCat(
                     categoryList: ClothCategory.getAllMainCat().map((e) => e.name).toList(),
                     onTapped: () {
                       ctr.updateProducts();
@@ -79,8 +78,8 @@ class Tab1HomeView extends GetView<Tab1UserHomeController> {
             ),
           ],
         ),
-    ),
-     );
+      ),
+    );
   }
 
   // Widget _dingdongBanner() {

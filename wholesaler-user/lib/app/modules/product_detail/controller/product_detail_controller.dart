@@ -180,6 +180,6 @@ class ProductDetailController extends GetxController {
   }
 
   editProductBtnPressed(BuildContext context) {
-    context.go(PartnerRoutes.AddProductView,extra: productId);
+    context.go("/editproduct/$productId");
   }
 }

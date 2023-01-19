@@ -6,7 +6,8 @@ import 'package:wholesaler_user/app/modules/order_inquiry_and_review/views/widge
 import 'package:wholesaler_user/app/models/order_model.dart';
 
 class OrderItemListView extends StatelessWidget {
-  OrderInquiryAndReviewController ctr = Get.put(OrderInquiryAndReviewController());
+  OrderInquiryAndReviewController ctr =
+  Get.put(OrderInquiryAndReviewController());
 
   bool isReviewPage;
   OrderOrReview order;
@@ -14,7 +15,6 @@ class OrderItemListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ctr.init(isReviewPage);
     return ListView.separated(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -25,6 +25,9 @@ class OrderItemListView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int productIndex) {
         // OrderItem ListView
+        print(order.products[productIndex].orderDetailId);
+        print(order.products[productIndex].orderDetailId);
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: OrderOrReviewItem(

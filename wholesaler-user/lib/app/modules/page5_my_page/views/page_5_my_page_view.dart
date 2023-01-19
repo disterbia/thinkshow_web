@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/Constants/functions.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
@@ -19,9 +18,10 @@ import 'package:wholesaler_user/app/modules/page5_my_page/controllers/page5_my_p
 import 'package:wholesaler_user/app/modules/page5_my_page/inquiries_page/view/inquiries_page_view.dart';
 import 'package:wholesaler_user/app/modules/page5_my_page/widgets/top_user_id_name_widget.dart';
 import 'package:wholesaler_user/app/modules/point_mgmt/views/point_mgmt_view.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
+import 'package:go_router/go_router.dart';
 
 class Page5MyPageView extends GetView<Page5MyPageController> {
   late Page5MyPageController ctr;
@@ -48,23 +48,23 @@ class Page5MyPageView extends GetView<Page5MyPageController> {
           Divider(thickness: 6, color: MyColors.grey3),
           _settingOption('최근 본 상품', () {
             Get.delete<Page4Favorite_RecentlyViewedController>();
-            context.go(MyRoutes.Page4FavoriteProductsView,extra: {"isRecentSeenProduct": true});
+            Get.to(() => Page4FavoriteProductsView(isRecentSeenProduct: true));
           }),
           Divider(color: MyColors.grey3),
           _settingOption('문의내역', () {
-            context.go(MyRoutes.InquiriesPageView);
+            Get.to(() => InquiriesPageView());
           }),
           Divider(color: MyColors.grey3),
           _settingOption('FAQ', () {
-            context.go(MyRoutes.FaqView);
+            Get.to(() => FaqView());
           }),
           Divider(color: MyColors.grey3),
           _settingOption('공지사항', () {
-            context.go(MyRoutes.BulletinListView);
+            Get.to(() => BulletinListView());
           }),
           Divider(color: MyColors.grey3),
           _settingOption('회사 소개', () {
-            context.go(MyRoutes.CompanyIntroPageView);
+            Get.to(() => CompanyIntroPageView());
           }),
           Divider(color: MyColors.grey3),
           _settingOption('로그아웃', () {
@@ -79,7 +79,7 @@ class Page5MyPageView extends GetView<Page5MyPageController> {
     return Padding(
         padding: const EdgeInsets.all(15.0),
         child: Obx(
-          () => TopUserIDUserNameSettings(
+              () => TopUserIDUserNameSettings(
             user: ctr.user.value,
             showSettingsIcon: true,
           ),
@@ -94,32 +94,30 @@ class Page5MyPageView extends GetView<Page5MyPageController> {
         ),
         _settingBox('주문조회', null, () {
           Get.delete<OrderInquiryAndReviewController>();
-          context.go( MyRoutes.OrderInquiryAndReviewView,extra:{
-            "isBackEnable": false, "hasHomeButton": false,"argument": false},
-          );
+          context.go(MyRoutes.OrderInquiryAndReviewView,extra:{ "isBackEnable": false, "hasHomeButton": false, "arguments": false});
         }),
         SizedBox(
           width: 10,
         ),
         _settingBox(
-            '리뷰',
+            '작성 가능한 리뷰',
             ctr.user.value.waitingReviewCount != null
                 ? ctr.user.value.waitingReviewCount.toString()
                 : '0', () {
           Get.delete<OrderInquiryAndReviewController>();
-          context.go( MyRoutes.OrderInquiryAndReviewView,extra:{
-            "isBackEnable": false, "hasHomeButton": false,"argument": true},
-          );
+          context.go(MyRoutes.OrderInquiryAndReviewView,extra:{ "isBackEnable": false, "hasHomeButton": false, "arguments": true});
         }),
         SizedBox(
           width: 10,
         ),
         Obx(() => ctr.user.value.points != null
             ? _settingBox(
-                '내 포인트',
-                Utils.numberFormat(number: ctr.user.value.points!.value),
-                () => context.go(MyRoutes.PointMgmtView),
-              )
+          '내 포인트',
+          Utils.numberFormat(number: ctr.user.value.points!.value),
+              () => Get.to(
+                () => PointMgmtView(),
+          ),
+        )
             : Container()),
         SizedBox(
           width: 10,
@@ -151,23 +149,23 @@ class Page5MyPageView extends GetView<Page5MyPageController> {
           height: 80,
           decoration: BoxDecoration(
               borderRadius:
-                  BorderRadius.all(Radius.circular(MyDimensions.radius)),
+              BorderRadius.all(Radius.circular(MyDimensions.radius)),
               border: Border.all(color: MyColors.grey1)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
                   child: Text(
-                label,
-                style: MyTextStyles.f16,
-              )),
+                    label,
+                    style: MyTextStyles.f16,
+                  )),
               value != null
                   ? Center(
-                      child: Text(
-                        value,
-                        style: MyTextStyles.f16,
-                      ),
-                    )
+                child: Text(
+                  value,
+                  style: MyTextStyles.f16,
+                ),
+              )
                   : SizedBox.shrink()
             ],
           ),

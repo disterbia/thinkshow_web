@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/models/product_inquiry_model.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab2_ad_application/view/tab2_ad_application_view.dart';
@@ -71,7 +72,9 @@ class PartnerRoutes {
   static const USERLOGIN = '/login';
   static const ProductDetailView = '/product/:id';
   static const DingdongDeliveryView = "/dingdongDelivery";
+  static const ProductInquiryDetailView = '/productinquiry';
   static const AdOrderView = "/adorder/:id";
+  static const EditProductView = "/editproduct/:id";
   static const AddProductView = "/addproduct";
   static const ProductMgmtView = "/productmgt";
   static const SalesMgmtView = "/salesmgt";
@@ -80,7 +83,6 @@ class PartnerRoutes {
   static const PaymentView = "/payment";
   static const BusinessEditView = "/businessedit";
   static const AdView = "/ad/:id";
-  static const RegisterCeoEmployeePage4View = "/registerceoemployeepage4";
   static const Tab2AdApplicationView = "/tab2adapp/:id";
   static const PointMgmtView = "/pointmgmt";
   static const MyInfoMgmtView = "/myinfomgmt";
@@ -97,23 +99,31 @@ class PartnerRoutes {
   static const ClothCategoryItemsView = "/clothcategoryitem";
   static const ClothCategoryView = "/clothcategory";
   static const ProductMgmtFilterView = "/productmgmtfilter";
-  static const RegisterCeoEmployeePage3View = "/registerceoemployeepage3";
+  static const RegisterCeoEmployeePage1View = "/registerceoemployeepage1";
   static const RegisterCeoEmployeePage2View = "/registerceoemployeepage2";
+  static const RegisterCeoEmployeePage3View = "/registerceoemployeepage3";
+  static const RegisterCeoEmployeePage4View = "/registerceoemployeepage4";
   static const BusinessRegistrationSubmitView = "/businessregistrationsubmit";
   static const User_FindID_FindPasswordView = "/findinfo";
   static const User_SignUpView = "/signup";
-  static const RegisterCeoEmployeePage1View = "/registerceoemployeepage1";
+
   static const ChangeNumberView= "/changenumber";
+  static const ReviewDetailView = '/reviewdetail';
 }
 
 class PartnerPages {
   static late final partnerRouter = GoRouter(
     redirect: (context, state) {
+      bool isProcess = GetStorage().read("isProcess")??true;
       if (CacheProvider().getToken().isEmpty &&
           state.subloc != "/registerceoemployeepage1" && state.subloc != "/registerceoemployeepage2" &&
           state.subloc != "/registerceoemployeepage3" && state.subloc != "/registerceoemployeepage4" &&
           state.subloc != "/findinfo" && state.subloc != "/businessregistrationsubmit") {
         return "/login";
+      }
+      if(!isProcess&& (state.subloc == "/registerceoemployeepage2" ||
+      state.subloc == "/registerceoemployeepage3" || state.subloc == "/registerceoemployeepage4")){
+        return "/registerceoemployeepage1";
       }
       if (state.subloc == "/login" && CacheProvider().getToken().isNotEmpty) {
         return "/";
@@ -143,17 +153,31 @@ class PartnerPages {
       ),
       GoRoute(
           path: PartnerRoutes.AddProductView,
-          builder: (context, state) => state.extra==null ? AddProductView() :AddProductView(argument: state.extra as int,)
+          builder: (context, state) => AddProductView()
+      ),
+      GoRoute(
+          path: PartnerRoutes.EditProductView,
+          builder: (context, state) => AddProductView(argument: int.parse(state.params["id"]!))
       ),
       GoRoute(
           path: PartnerRoutes.ProductMgmtView,
           builder: (context, state)  {
-            if(state.extra==null) return ProductMgmtView();
-            Map<String,dynamic>? temp =state.extra as Map<String,dynamic>;
-            return ProductMgmtView(isRegisterAdProductPage:temp["isRegisterAdProductPage"] ,
-              isRegisterProductPage:temp['isRegisterProductPage'] ,argument: temp["argument"],
-              isTop10Page: temp["isTop10Page"],);
+            // if(state.extra==null) return ProductMgmtView();
+            // Map<String,dynamic>? temp =state.extra as Map<String,dynamic>;
+            GetStorage temp = GetStorage();
+            print(temp.read("isRegisterAdProductPage"));
+            print(temp.read("isRegisterProductPage"));
+            print(temp.read("argument"));
+            print(temp.read("isTop10Page"));
+            return ProductMgmtView(isRegisterAdProductPage:temp.read("isRegisterAdProductPage") ,
+              isRegisterProductPage:temp.read('isRegisterProductPage') ,argument: temp.read("argument"),
+              isTop10Page: temp.read("isTop10Page"),);
           }
+      ),
+      GoRoute(
+          path: PartnerRoutes.ProductInquiryDetailView,
+          builder: (context, state) =>state.extra == null ? ProductInquiryListView():
+              ProductInquiryDetailView(state.extra as ProductInquiry)
       ),
       GoRoute(
           path: PartnerRoutes.SalesMgmtView,
@@ -222,6 +246,16 @@ class PartnerPages {
       GoRoute(
           path: PartnerRoutes.ReviewListView,
           builder: (context, state) => ReviewListView()
+      ),
+      GoRoute(
+          path: PartnerRoutes.ReviewDetailView,
+          builder: (context, state)  {
+            if(state.extra==null) return ReviewListView();
+            Map<String,dynamic> temp =state.extra as Map<String,dynamic>;
+
+            return ReviewDetailView(selectedReviw: temp["selectedReviw"],
+              isComingFromReviewPage: temp["isComingFromReviewPage"],isEditing: temp["isEditing"]??false,);
+          }
       ),
       GoRoute(
           path: PartnerRoutes.BulletinListView,

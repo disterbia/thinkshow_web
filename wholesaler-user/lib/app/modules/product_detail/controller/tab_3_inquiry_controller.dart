@@ -15,8 +15,8 @@ class Tab3InquiryController extends GetxController {
   int productId = -1;
 
   Future<void> init() async {
-    productId = Get.arguments;
-    callInquiryAPI();
+    // productId = Get.arguments;
+    // callInquiryAPI();
   }
 
   callInquiryAPI() async {

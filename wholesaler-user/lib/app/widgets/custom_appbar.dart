@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/main/view/partner_main_view.dart';
 import 'package:wholesaler_user/app/Constants/variables.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
@@ -13,7 +14,8 @@ AppBar CustomAppbar(
     Function()? onPressed,
     Color? backgroundColor,
     List<Widget>? actions,
-    bool isOffAllHome = false}) {
+    bool isOffAllHome = false,
+    BuildContext? context}) {
   return AppBar(
     centerTitle: true,
     leadingWidth: 100,
@@ -38,9 +40,11 @@ AppBar CustomAppbar(
             splashColor: Colors.white,
             onPressed: () {
               if (isOffAllHome) {
-                Get.offAll(() => PartnerMainView());
+                // Get.offAll(() => PartnerMainView());
+
               } else {
-                Get.back();
+                Future.delayed(Duration.zero,()=>Navigator.pop(context!));
+                // Get.back();
               }
             },
           ),

@@ -20,7 +20,7 @@ class ProductInquiryDetailView extends GetView<ProductInquiryDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, hasHomeButton: true, title: '상품 문의'),
+      appBar: CustomAppbar(isBackEnable: false, hasHomeButton: false, title: '상품 문의'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

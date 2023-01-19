@@ -17,7 +17,7 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: '직원관리'),
+      appBar: CustomAppbar(isBackEnable: false, title: '직원관리'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 22, bottom: 89),

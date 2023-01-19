@@ -9,13 +9,20 @@ class ExhibitionProductsController extends GetxController {
   pApiProvider _apiProvider = pApiProvider();
   int imageId = 0;
   RxList<Product> products = <Product>[].obs;
+  bool isFirst = true;
 
-  @override
-  void onInit() async {
-    var arguments = Get.arguments;
-    imageId = arguments['imageId'];
+  init(int argument) async{
+    if(!isFirst) return;
+    imageId = argument;
     await getExhibitInformation(imageId);
+    isFirst=false;
   }
+  // @override
+  // void onInit() async {
+  //   var arguments = Get.arguments;
+  //   imageId = arguments['imageId'];
+  //   await getExhibitInformation(imageId);
+  // }
 
   Future<void> getExhibitInformation(int imageId) async {
     await _apiProvider.getExhibitDetails(imageId.toString()).then((response) {

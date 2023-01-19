@@ -103,7 +103,7 @@ class Payment extends StatelessWidget {
             buyerAddr: cart2Ctr.address2Controller.text, // 구매자 주소
             buyerPostcode: cart2Ctr.address1ZipCodeController.text, // 구매자 우편번호
             appScheme: 'wholesaleruser', // 앱 URL scheme
-            cardQuota: [2, 3] //결제창 UI 내 할부개월수 제한
+           // cardQuota: [2, 3] //결제창 UI 내 할부개월수 제한
             ),
         /* [필수입력] 콜백 함수 */
         callback: (Map<String, dynamic> result) {

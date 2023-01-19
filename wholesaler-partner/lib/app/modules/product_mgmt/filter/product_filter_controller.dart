@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/controller/product_mgmt_controller.dart';
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
-import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/cloth_category.dart';
 import 'package:wholesaler_user/app/widgets/range_date_picker/range_date_picker_controller.dart';
 
@@ -46,7 +44,7 @@ class ProductMgmtFilterController extends GetxController {
     isLoading.value = false;
   }
 
-  void applyFilterPressed(BuildContext context) async{
+  void applyFilterPressed() async{
     print('selected dates: ${startDateController.text} ~ ${endDateController.text}');
     for (int i = 0; i < clothCategories.length; i++) {
       if (clothCategories[i].isSelected!.value == true) {
@@ -80,8 +78,8 @@ class ProductMgmtFilterController extends GetxController {
     }
 
    await productMgmtCtr.getProductsWithFilter(startDate: startDateController.text, endDate: endDateController.text, clothCatIds: selectedClothCatIds);
-     //Get.back();
-    context.go(PartnerRoutes.ProductMgmtView);
+     Get.back();
+   // Get.to(ProductMgmtView());
   }
 
   chipPressed(int i) {

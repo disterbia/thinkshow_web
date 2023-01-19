@@ -8,13 +8,23 @@ class ClothCategoryController extends GetxController {
   AddProductController addProductController = Get.find<AddProductController>();
   AP_Part2Controller part2Controller = Get.find<AP_Part2Controller>();
 
+  //에디터 다 클리어해줘야함;;
+
   clothCategorySelected(ClothCategoryModel subCat, ClothCategory clothCategory) {
+    // print('asdfasdfasdf');
     addProductController.selectedSubCat.value = subCat;
     addProductController.category.value = clothCategory;
     addProductController.category.value.selectedSubcatIndex = clothCategory.subCategories.indexOf(subCat);
     addProductController.productModifyModel.value.subCategoryId = subCat.id;
     addProductController.isChangeCategoryInEditeMode.value = true;
-    part2Controller.createProductBodySizeList(clothCategory.id);
+
+
+    print(subCat.id);
+    print(subCat.id);
+    print(subCat.id);
+
+    part2Controller.createProductBodySizeList(subCat.id);
+
     Get.back();
     Get.back();
   }

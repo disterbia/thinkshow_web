@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
@@ -9,14 +10,13 @@ import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import '../controllers/register_ceo_employee_1_controller.dart';
 import 'register_ceo_employee_2_view.dart';
 
-class RegisterCeoEmployeePage1View extends GetView<RegisterCeoEmployee1Controller> {
-  RegisterCeoEmployee1Controller registerCeoEmployeeCtr = Get.put(RegisterCeoEmployee1Controller());
+class RegisterCeoEmployeePage1View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: 'SignUp'.tr),
+      appBar: CustomAppbar(isBackEnable: true, title: 'SignUp'.tr,context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -34,9 +34,11 @@ class RegisterCeoEmployeePage1View extends GetView<RegisterCeoEmployee1Controlle
             SizedBox(height: 80),
             // CEO Button
             CustomButton(
-              onPressed: () {
-                registerCeoEmployeeCtr.isEmployee.value = false;
+              onPressed: () async{
+                await GetStorage().write("isEmployee", false);
+                await GetStorage().write("isProcess", true);
                 context.go(PartnerRoutes.RegisterCeoEmployeePage2View);
+                await GetStorage().write("isProcess", false);
               },
               text: 'CEO'.tr,
             ),
@@ -49,8 +51,8 @@ class RegisterCeoEmployeePage1View extends GetView<RegisterCeoEmployee1Controlle
               borderColor: MyColors.primary,
               backgroundColor: MyColors.white,
               textColor: MyColors.black,
-              onPressed: () {
-                registerCeoEmployeeCtr.isEmployee.value = true;
+              onPressed: () async {
+                await GetStorage().write("isEmployee", true);
                 context.go(PartnerRoutes.RegisterCeoEmployeePage2View);
               },
             )

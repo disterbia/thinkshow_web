@@ -24,9 +24,9 @@ class Tab2AdApplicationController extends GetxController {
 
   RxBool isAdAvailable = false.obs;
   RxBool isLoading = false.obs;
-  int adsId = Get.arguments;
+  // int adsId = Get.arguments;
 
-  init() async {
+  init(int adsId) async {
     isLoading.value=true;
     var response = await _apiProvider.getAdTab2AdApplyInquiry(adsId);
     if (response != null) {

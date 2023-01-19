@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
@@ -15,8 +16,6 @@ import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
 class RegisterCeoEmployee2Controller extends GetxController {
-  RegisterCeoEmployee1Controller registerCeoEmployeeCtr =
-      Get.put(RegisterCeoEmployee1Controller());
   pApiProvider apiProvider = pApiProvider();
   RxList<Address> buildings = <Address>[].obs;
   RxList<Address> floors = <Address>[].obs;
@@ -147,7 +146,7 @@ class RegisterCeoEmployee2Controller extends GetxController {
     // If CEO: user can select buildings without business name. ex: 102호
     // If Staff: user can select buildings WITH business name. ex: 102호 - 네이밋
     late bool isBuildingSelectable;
-    if (registerCeoEmployeeCtr.isEmployee.value) {
+    if (GetStorage().read("isEmployee")) {
       // condition 1: if business_name (ex: 네이밋) is not null, then selectable
       if (building.is_entering_store == null ||
           (building.is_entering_store != null && building.is_entering_store!)) {

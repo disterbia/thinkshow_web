@@ -16,13 +16,14 @@ import 'package:wholesaler_user/app/widgets/range_date_picker/range_date_picker_
 
 class ProductMgmtFilterView extends GetView {
   ProductMgmtFilterController ctr = Get.put(ProductMgmtFilterController());
-  RangeDatePickerController rangeDatePickerCtr = Get.put(RangeDatePickerController());
+  RangeDatePickerController rangeDatePickerCtr =
+      Get.put(RangeDatePickerController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      bottomNavigationBar: BottomNavBarBuilder(context),
+      bottomNavigationBar: BottomNavBarBuilder(),
       appBar: CustomAppbar(isBackEnable: true, title: '상품관리'),
       body: SingleChildScrollView(
         child: Padding(
@@ -65,6 +66,7 @@ class ProductMgmtFilterView extends GetView {
                       SizedBox(height: 10),
                       GridView.count(
                         scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         crossAxisCount: 3,
                         childAspectRatio: 0.99,
@@ -78,6 +80,7 @@ class ProductMgmtFilterView extends GetView {
                             ),
                         ],
                       ),
+                      SizedBox(height: 10),
                     ],
                   ),
           ),
@@ -86,29 +89,30 @@ class ProductMgmtFilterView extends GetView {
     );
   }
 
-  BottomNavBarBuilder(BuildContext context) {
+  BottomNavBarBuilder() {
     return SafeArea(
       child: Container(
           height: 60,
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: CustomButton(
-            onPressed: () => ctr.applyFilterPressed(context),
+            onPressed: () => ctr.applyFilterPressed(),
             text: '필터 적용',
           )),
     );
   }
 
   chipBuilder() {
-    List<ChipWidget> categoryChips = [];
+    List<Widget> categoryChips = [];
     // Add ALL chip
     for (int i = 0; i < ctr.categoryDates.length; i++) {
-      categoryChips.add(
-        ChipWidget(
+      categoryChips.add(Padding(
+        padding: EdgeInsets.only(right: 5),
+        child: ChipWidget(
           isSelected: ctr.selectedCategoryDateIndex.value == i,
           title: ctr.categoryDates[i],
           onTap: () => ctr.chipPressed(i),
         ),
-      );
+      ));
     }
     print('categoryChips length ${categoryChips.length}');
 

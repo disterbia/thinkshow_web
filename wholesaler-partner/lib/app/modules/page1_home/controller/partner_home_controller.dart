@@ -35,21 +35,20 @@ class PartnerHomeController extends GetxController {
   RxBool isShowSplashScreen = true.obs;
   RxBool isLoading = false.obs;
 
-  void init() async{
+  void init() async {
     print('PartnerHomeController init');
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
-     // isShowSplashScreen.value = false;
-    isLoading.value=true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // isShowSplashScreen.value = false;
+      isLoading.value = true;
       await getMainStore();
-    await getBestProducts();
-    await getAds();
-    await callGetProductsAPI();
-      isLoading.value=false;
-     });
+      await getBestProducts();
+      await getAds();
+      await callGetProductsAPI();
+      isLoading.value = false;
+    });
   }
 
   @override
-
   InternalFinalCallback<void> get onDelete => super.onDelete;
 
   @override
@@ -59,10 +58,10 @@ class PartnerHomeController extends GetxController {
         'inside PartnerHomeController onInit isScrollCtrAlreadySet $isScrollCtrAlreadySet');
     if (isScrollCtrAlreadySet == false) {
       scrollController.value.addListener(() {
-        // print('scrollController.value.addListener ${scrollController.value.offset}');
         if (scrollController.value.position.pixels ==
-                scrollController.value.position.maxScrollExtent &&
+            scrollController.value.position.maxScrollExtent &&
             allowCallAPI.isTrue) {
+
           offset += mConst.limit;
           callGetProductsAPI(
               searchContent: searchController.text,
@@ -74,6 +73,7 @@ class PartnerHomeController extends GetxController {
 
     isScrollCtrAlreadySet = true;
   }
+
   Future<void> uploadImageBtnPressed() async {
     print('inside uploadMainTopImage1234');
     _pickedImage = await ImagePicker()
@@ -82,7 +82,7 @@ class PartnerHomeController extends GetxController {
     if (_pickedImage != null) {
       isLoadingImage.value = true;
       ProductImageModel? imageModel =
-          await _apiProvider.uploadStoreImage(pickedImage: _pickedImage!);
+      await _apiProvider.uploadStoreImage(pickedImage: _pickedImage!);
       print('imageModel $imageModel');
       if (imageModel != null) {
         mainStoreInfo.value.mainTopImageUrl = imageModel.url.obs;
@@ -113,11 +113,10 @@ class PartnerHomeController extends GetxController {
   }
 
   Future<void> getBestProducts() async {
-
     bestProducts.clear();
     offset = 0;
     List<BestProductsModel> bestProductsModels =
-        await _apiProvider.getBestProducts();
+    await _apiProvider.getBestProducts();
 
     Store tempStore = Store(
       id: bestProductsModels.isNotEmpty
@@ -173,7 +172,11 @@ class PartnerHomeController extends GetxController {
     }
 
     if (raw.length < mConst.limit) {
+      print('raw.length ${raw.length}');
+      print('mConst.limit ${mConst.limit}');
       allowCallAPI.value = false;
+    } else {
+      allowCallAPI.value = true;
     }
   }
 

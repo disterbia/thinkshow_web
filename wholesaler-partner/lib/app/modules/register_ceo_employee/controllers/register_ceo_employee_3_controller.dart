@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_1_controller.dart';
@@ -13,8 +14,6 @@ import 'package:wholesaler_user/app/widgets/snackbar.dart';
 import '../../business_registration_submit/controllers/business_registration_submit_controller.dart';
 
 class RegisterCeoEmployee3Controller extends GetxController {
-  RegisterCeoEmployee1Controller register1Ctr =
-      Get.put(RegisterCeoEmployee1Controller());
 
   TextEditingController companyNameCtr = TextEditingController();
   TextEditingController ceoNameCtr = TextEditingController();
@@ -64,7 +63,8 @@ class RegisterCeoEmployee3Controller extends GetxController {
   }
 
   void nextBtnPressed(BuildContext context) {
-    if (companyNameCtr.text.isEmpty && register1Ctr.isEmployee.isFalse) {
+    bool isEmployee = GetStorage().read("isEmployee");
+    if (companyNameCtr.text.isEmpty && !isEmployee) {
       mSnackbar(message: '상호명을 입력하세요.',context: context);
       return;
     }
@@ -97,19 +97,19 @@ class RegisterCeoEmployee3Controller extends GetxController {
       return;
     }
     if (BusinessRegisterNumCtr.text.isEmpty &&
-        register1Ctr.isEmployee.isFalse) {
+        !isEmployee) {
       mSnackbar(message: '사업자등록번호를 입력하세요.',context: context);
       return;
     }
     if (BusinessRegisterNumCtr.text.length != 10 &&
-        register1Ctr.isEmployee.isFalse) {
+        !isEmployee) {
       mSnackbar(message: '사업자등록번호 10자리를 입력하세요.',context: context);
       return;
     }
     if (Get.find<BusinessRegistrationSubmitController>()
             .uploadedImageURL
             .isEmpty &&
-        register1Ctr.isEmployee.isFalse) {
+        !isEmployee) {
       mSnackbar(message: '사업자등록증 이미지를 업로드하세요.',context: context);
       return;
     }

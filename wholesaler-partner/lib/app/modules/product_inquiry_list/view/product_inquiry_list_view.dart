@@ -13,7 +13,7 @@ class ProductInquiryListView extends GetView<ProductInquiryListController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, hasHomeButton: true, title: 'product_inquiry'.tr),
+        appBar: CustomAppbar(isBackEnable: false, hasHomeButton: false, title: 'product_inquiry'.tr),
         body: ctr.isLoading.value
             ? LoadingWidget()
             : Padding(

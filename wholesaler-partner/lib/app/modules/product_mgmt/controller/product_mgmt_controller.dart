@@ -26,9 +26,9 @@ class ProductMgmtController extends GetxController {
   RxBool allowCallAPI = true.obs;
   RxBool isLoading = false.obs;
   RxString startDate = "".obs;
-  RxString endDate= "".obs;
+  RxString endDate = "".obs;
   RxList<int> clothCatIds = <int>[].obs;
-
+  bool isFirst = true;
   // @override
   // void onClose() {
   //   // TODO: implement onClose
@@ -36,30 +36,43 @@ class ProductMgmtController extends GetxController {
   //   super.onClose();
   // }
 
-  void init() async{
+  void init({int? argument}) async {
+    if (argument != null) {
+      if(isFirst){
+        applicationId = argument;
+        isFirst=false;
+      }
+    }
     print('PartnerHomeController init');
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       // isShowSplashScreen.value = false;
-      isLoading.value=true;
-      await getProducts(startDate: startDate.value,endDate: endDate.value,clothCatIds: clothCatIds,isScrolling: false);
-      isLoading.value=false;
+      isLoading.value = true;
+      await getProducts(
+          startDate: startDate.value,
+          endDate: endDate.value,
+          clothCatIds: clothCatIds,
+          isScrolling: false);
+      isLoading.value = false;
     });
   }
 
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
-    if (Get.arguments != null) {
-      applicationId = Get.arguments;
-    }
+
 
     scrollController.value.addListener(() {
-      print("dd");
-      if (scrollController.value.position.pixels ==
-          scrollController.value.position.maxScrollExtent) {
+      print(scrollController.value.position.pixels);
+      print(scrollController.value.position.maxScrollExtent);
+      if (scrollController.value.position.pixels >
+              scrollController.value.position.maxScrollExtent - 50 &&
+          allowCallAPI.isTrue) {
         offset += mConst.limit;
-        getProducts(startDate: startDate.value,endDate: endDate.value,clothCatIds: clothCatIds,isScrolling: true);
-        print("작동ㄴㄴ");
+        getProducts(
+            startDate: startDate.value,
+            endDate: endDate.value,
+            clothCatIds: clothCatIds,
+            isScrolling: true);
       }
     });
   }
@@ -78,8 +91,7 @@ class ProductMgmtController extends GetxController {
         productsId.add(product.id);
       }
     }
-    print(
-        'selectAllCheckbox ${productsId.length} productsId ${productsId}');
+    print('selectAllCheckbox ${productsId.length} productsId ${productsId}');
   }
 
   Future<void> getProducts(
@@ -122,10 +134,12 @@ class ProductMgmtController extends GetxController {
 
     if (raw.length < mConst.limit) {
       allowCallAPI.value = false;
+    } else {
+      allowCallAPI.value = true;
     }
   }
 
-  Future<void> deleteSelectedProducts() async {
+  Future<void> deleteSelectedProducts(BuildContext context) async {
     StatusModel statusModel = await _apiProvider.deleteProduct();
     log('deleteSelectedProducts finished. ${statusModel.message}');
 
@@ -145,11 +159,11 @@ class ProductMgmtController extends GetxController {
       isSelectAll.value = false;
       getProducts(isScrolling: false);
     } else {
-   //   mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
     }
   }
 
-  void addOrRemoveTop10SelectedProducts() async {
+  void addOrRemoveTop10SelectedProducts(BuildContext context) async {
     bool isTop10 = products
         .firstWhere((element) => productsId.first == element.id)
         .isTop10!
@@ -175,16 +189,19 @@ class ProductMgmtController extends GetxController {
       productsId.clear();
       isSelectAll.value = false;
     } else {
-      //mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
     }
   }
 
-  Future<void> soldOut() async {
+  Future<void> soldOut(BuildContext context) async {
     print('product ids ${productsId}');
     bool isSoldout = products
         .firstWhere((element) => productsId.first == element.id)
         .isSoldout!
         .value;
+
+    print('asdfasdfasdfasdfasdfasdf');
+    print(isSoldout);
 
     StatusModel statusModel = await _apiProvider
         .soldOut(data: {"productIdList": productsId, "is_release": isSoldout});
@@ -202,11 +219,11 @@ class ProductMgmtController extends GetxController {
       productsId.clear();
       isSelectAll.value = false;
     } else {
-     // mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
     }
   }
 
-  Future<void> addToDingDong() async {
+  Future<void> addToDingDong(BuildContext context) async {
     print('addToDingDong productsId ${productsId}');
     Product product =
         products.firstWhere((element) => productsId.first == element.id);
@@ -229,11 +246,11 @@ class ProductMgmtController extends GetxController {
       productsId.clear();
       isSelectAll.value = false;
     } else {
-    //  mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
     }
   }
 
-  Future<void> addToTop10() async {
+  Future<void> addToTop10(BuildContext context) async {
     isAdding.value = true;
     StatusModel statusModel =
         await _apiProvider.addToTop10(data: {"productIdList": productsId});
@@ -242,7 +259,7 @@ class ProductMgmtController extends GetxController {
 
     if (statusModel.statusCode == 200) {
       if (statusModel.message == '') {
-        //mSnackbar(message: '오류: 관리자에게 문의하세요.');
+        mSnackbar(message: '오류: 관리자에게 문의하세요.',context: context);
       }
       // for loop productsIds
       for (int i = 0; i < productsId.length; i++) {
@@ -254,13 +271,13 @@ class ProductMgmtController extends GetxController {
       productsId.clear();
       isSelectAll.value = false;
 
-      //mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
       log('update state product mgmt');
     } else {
       if (statusModel.message == '') {
-      //  mSnackbar(message: '오류: 관리자에게 문의하세요.');
+        mSnackbar(message: '오류: 관리자에게 문의하세요.',context: context);
       } else {
-       // mSnackbar(message: statusModel.message);
+        mSnackbar(message: statusModel.message,context: context);
       }
     }
     Get.back();
@@ -272,13 +289,13 @@ class ProductMgmtController extends GetxController {
     getProducts(isScrolling: false);
   }
 
-   Future<void> getProductsWithFilter (
-      {String? startDate, String? endDate, List<int>? clothCatIds}) async{
-    this.startDate.value=startDate!;
-    this.endDate.value=endDate!;
-    this.clothCatIds.value=clothCatIds!;
+  Future<void> getProductsWithFilter(
+      {String? startDate, String? endDate, List<int>? clothCatIds}) async {
+    this.startDate.value = startDate!;
+    this.endDate.value = endDate!;
+    this.clothCatIds.value = clothCatIds!;
 
-   await getProducts(
+    await getProducts(
         startDate: startDate,
         endDate: endDate,
         clothCatIds: clothCatIds,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:wholesaler_partner/app/modules/business_registration_submit/controllers/business_registration_submit_controller.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_1_controller.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_3_controller.dart';
@@ -14,8 +15,6 @@ import 'package:wholesaler_user/app/widgets/field_with_button.dart';
 class RegisterCeoEmployeePage3View extends GetView {
   RegisterCeoEmployee3Controller ctr =
       Get.put(RegisterCeoEmployee3Controller());
-  RegisterCeoEmployee1Controller registerCeoEmployeeCtr =
-      Get.put(RegisterCeoEmployee1Controller());
   BusinessRegistrationSubmitController registerImageSubmitCtr =
       Get.put(BusinessRegistrationSubmitController());
 
@@ -24,9 +23,9 @@ class RegisterCeoEmployeePage3View extends GetView {
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(
-        isBackEnable: true,
+        isBackEnable: false,
         title:
-            '회원가입 (${registerCeoEmployeeCtr.isEmployee.value ? '직원' : '대표'})',
+            '회원가입 (${GetStorage().read("isEmployee")? '직원' : '대표'})',
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -36,7 +35,7 @@ class RegisterCeoEmployeePage3View extends GetView {
             children: [
               SizedBox(height: 20),
               // Company name - 상호명
-              registerCeoEmployeeCtr.isEmployee.isFalse
+              !GetStorage().read("isEmployee")
                   ? Column(
                       children: [
                         CustomField(
@@ -50,7 +49,7 @@ class RegisterCeoEmployeePage3View extends GetView {
 
               // CEO / staff name
               CustomField(
-                  fieldLabel: registerCeoEmployeeCtr.isEmployee.isFalse
+                  fieldLabel: !GetStorage().read("isEmployee")
                       ? '대표자 이름'
                       : '직원 이름',
                   fieldText: '성함을 입력해주세요.',
@@ -94,7 +93,7 @@ class RegisterCeoEmployeePage3View extends GetView {
               SizedBox(height: 16),
               // Business Registration Number
 
-              registerCeoEmployeeCtr.isEmployee.value
+              GetStorage().read("isEmployee")
                   ? SizedBox()
                   : CustomField(
                       fieldLabel: 'business_register_number'.tr,
@@ -107,7 +106,7 @@ class RegisterCeoEmployeePage3View extends GetView {
                       isTextKeyboard: true,
                     ),
               // Submit Business Registration File
-              registerCeoEmployeeCtr.isEmployee.isFalse
+              !GetStorage().read("isEmployee")
                   ? Column(
                       children: [
                         SizedBox(height: 35),
@@ -127,8 +126,10 @@ class RegisterCeoEmployeePage3View extends GetView {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: CustomButton(
-                  onPressed: () {
+                  onPressed: () async{
+                    await GetStorage().write("isProcess", true);
                     ctr.nextBtnPressed(context);
+                    await GetStorage().write("isProcess", false);
                   },
                   text: '다음',
                 ),

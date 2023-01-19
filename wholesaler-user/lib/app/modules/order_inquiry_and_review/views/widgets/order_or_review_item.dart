@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/enum.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
@@ -12,25 +11,28 @@ import 'package:wholesaler_user/app/models/review.dart';
 import 'package:wholesaler_user/app/models/writable_review_info_model.dart';
 import 'package:wholesaler_user/app/modules/order_inquiry_and_review/controllers/orders_inquiry_review_controller.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/product/product_item_horiz_widget.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
 class OrderOrReviewItem extends StatelessWidget {
-  OrderInquiryAndReviewController ctr = Get.put(OrderInquiryAndReviewController());
+  OrderInquiryAndReviewController ctr =
+  Get.put(OrderInquiryAndReviewController());
 
   final int productId;
   bool isOrderDetailPage;
   bool isReviewPage;
   OrderOrReview item;
 
-  OrderOrReviewItem({required this.productId, this.isOrderDetailPage = false, this.isReviewPage = false, required this.item});
+  OrderOrReviewItem(
+      {required this.productId,
+        this.isOrderDetailPage = false,
+        this.isReviewPage = false,
+        required this.item});
 
   @override
   Widget build(BuildContext context) {
-    ctr.init(isReviewPage);
-    print("-=-=--=-=-=-=-=-=-=${item}");
+
     return Column(
       children: [
         // _informationBox(),
@@ -43,19 +45,21 @@ class OrderOrReviewItem extends StatelessWidget {
         // Delivery Status: 배달 상태
         _deliveryStatusBuilder(),
         SizedBox(height: 10),
-        Text("송장번호 : ${item.products[productId].delivery_company_name??""}+ ${item.products[productId].delivery_invoice_number??""}"),
-        isReviewPage ? _reviewPageBottomButtons(context) : _orderPageBottomButtons(context),
+        Text(
+            "송장번호 : ${item.products[productId].delivery_company_name ?? ""}  ${item.products[productId].delivery_invoice_number ?? ""}"),
+        isReviewPage ? _reviewPageBottomButtons() : _orderPageBottomButtons(context),
       ],
     );
   }
 
-  _reviewPageBottomButtons(BuildContext context) {
-    return WriteReviewElevatedButtion(context);
+  _reviewPageBottomButtons() {
+    return WriteReviewElevatedButtion();
   }
 
   _orderPageBottomButtons(BuildContext context) {
     // 결제완료, 상품준비중
-    if (item.products[productId].orderStatus == OrderStatus.payFinished || item.products[productId].orderStatus == OrderStatus.preparingProduct) {
+    if (item.products[productId].orderStatus == OrderStatus.payFinished ||
+        item.products[productId].orderStatus == OrderStatus.preparingProduct) {
       return SizedBox(
         width: double.infinity,
         child: OutlinedButton(
@@ -74,7 +78,8 @@ class OrderOrReviewItem extends StatelessWidget {
       return SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () => ctr.orderSettledBtnPressed(item.products[productId].orderDetailId!,context),
+          onPressed: () => ctr
+              .orderSettledBtnPressed(item.products[productId].orderDetailId!,context),
           child: Text(
             '구매확정',
           ),
@@ -83,35 +88,41 @@ class OrderOrReviewItem extends StatelessWidget {
     }
 
     // 구매확정
-    if (item.products[productId].orderStatus == OrderStatus.deliveryConfirmed && !item.products[productId].isReviewWritten!) {
-      return WriteReviewElevatedButtion(context);
+    if (item.products[productId].orderStatus == OrderStatus.deliveryConfirmed &&
+        !item.products[productId].isReviewWritten!) {
+      return WriteReviewElevatedButtion();
     }
 
     // 기타: 배송시작 (아무것도 보여주지마세요)
     return SizedBox.shrink();
   }
 
-  Widget WriteReviewElevatedButtion(BuildContext context) {
-   // print('WriteReviewElevatedButtion orderDetailId = ${item.products[productId].orderDetailId}');
-   // print('WriteReviewElevatedButtion price = ${item.products[productId].price}');
+  //44
+  Widget WriteReviewElevatedButtion() {
+    print(item.products[productId].orderDetailId);
+    print(item.products[productId].orderDetailId);
+    print(item.products[productId].orderDetailId);
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          context.go(MyRoutes.ReviewDetailView,extra: {
-            "isComingFromReviewPage": isReviewPage,
-            "isEditing": false,
-            "selectedReviw": Review(
-              id: -1,
-              content: '',
-              rating: 0,
-              ratingType: ProductRatingType.star,
-              date: DateTime.now(),
-              createdAt: Utils.dateToString(date: DateTime.now()),
-              product: item.products[productId],
-              reviewImageUrl: '',
+          Get.to(
+                () => ReviewDetailView(
+              isComingFromReviewPage: isReviewPage,
+              isEditing: false,
+              selectedReviw: Review(
+                id: -1,
+                content: '',
+                rating: 0,
+                ratingType: ProductRatingType.star,
+                date: DateTime.now(),
+                createdAt: Utils.dateToString(date: DateTime.now()),
+                product: item.products[productId],
+                reviewImageUrl: '',
+              ),
             ),
-          });
+          );
         },
         child: Text(
           '리뷰쓰기',
@@ -122,22 +133,29 @@ class OrderOrReviewItem extends StatelessWidget {
 
   _deliveryStatusBuilder() {
     String statusMessage = '';
-    if (item.products[productId].orderStatus == OrderStatus.payFinished || item.products[productId].orderStatus == OrderStatus.preparingProduct) {
+    if (item.products[productId].orderStatus == OrderStatus.payFinished ||
+        item.products[productId].orderStatus == OrderStatus.preparingProduct) {
       statusMessage = '상품준비중';
-    } else if (item.products[productId].orderStatus == OrderStatus.deliveryStart || item.products[productId].orderStatus == OrderStatus.delivering) {
+    } else if (item.products[productId].orderStatus ==
+        OrderStatus.deliveryStart ||
+        item.products[productId].orderStatus == OrderStatus.delivering) {
       statusMessage = '배송중';
-    }else if(item.products[productId].orderStatus == OrderStatus.cancelOrder){
+    } else if (item.products[productId].orderStatus ==
+        OrderStatus.cancelOrder) {
       statusMessage = '주문취소';
-    }else if(item.products[productId].orderStatus == OrderStatus.exchangeApply){
+    } else if (item.products[productId].orderStatus ==
+        OrderStatus.exchangeApply) {
       statusMessage = '교환신청';
-    }else if(item.products[productId].orderStatus == OrderStatus.exchangeFinished){
-      statusMessage='교환완료';
-    }else if(item.products[productId].orderStatus == OrderStatus.returnApply){
+    } else if (item.products[productId].orderStatus ==
+        OrderStatus.exchangeFinished) {
+      statusMessage = '교환완료';
+    } else if (item.products[productId].orderStatus ==
+        OrderStatus.returnApply) {
       statusMessage = '반품신청';
-    }else if(item.products[productId].orderStatus == OrderStatus.returnFinished){
+    } else if (item.products[productId].orderStatus ==
+        OrderStatus.returnFinished) {
       statusMessage = '반품완료';
-    }
-    else {
+    } else {
       statusMessage = '배송완료';
     }
     return Row(

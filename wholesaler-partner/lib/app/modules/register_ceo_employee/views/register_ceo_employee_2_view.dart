@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_2_controller.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_1_controller.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/widgets/register_ceo_employee_2_address_dropdown.dart';
@@ -9,15 +10,14 @@ import 'package:wholesaler_user/app/widgets/custom_button.dart';
 
 class RegisterCeoEmployeePage2View extends GetView {
   RegisterCeoEmployee2Controller ctr = Get.put(RegisterCeoEmployee2Controller());
-  RegisterCeoEmployee1Controller registerCeoEmployeeCtr = Get.put(RegisterCeoEmployee1Controller());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(
-        isBackEnable: true,
-        title: '회원가입 (${registerCeoEmployeeCtr.isEmployee.value ? '직원' : '대표'})',
+        isBackEnable: false,
+        title: '회원가입 (${GetStorage().read("isEmployee") ? '직원' : '대표'})',
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -37,7 +37,7 @@ class RegisterCeoEmployeePage2View extends GetView {
               ),
 
               // Search Company - 상호명 검색
-              registerCeoEmployeeCtr.isEmployee.value
+              GetStorage().read("isEmployee")
                   ? Column(
                       children: [
                         SizedBox(height: 10),
@@ -65,10 +65,11 @@ class RegisterCeoEmployeePage2View extends GetView {
               // Next Button
               CustomButton(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                onPressed: ()=>
-                    ctr.nextBtnPressed(context)
-
-                ,
+                onPressed: () async
+                {await GetStorage().write("isProcess", true);
+                  ctr.nextBtnPressed(context);
+                await GetStorage().write("isProcess", false);
+                },
                 text: '다음',
               ),
               SizedBox(height: 20)

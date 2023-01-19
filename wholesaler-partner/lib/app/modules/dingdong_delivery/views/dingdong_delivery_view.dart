@@ -20,7 +20,7 @@ class DingdongDeliveryView extends GetView {
   Widget build(BuildContext context) {
     init();
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: false, hasHomeButton: true, title: '띵동 배송'),
+      appBar: CustomAppbar(isBackEnable: false, hasHomeButton: false, title: '띵동 배송'),
       body: SingleChildScrollView(
         controller: ctr.scrollController.value,
         child: Padding(

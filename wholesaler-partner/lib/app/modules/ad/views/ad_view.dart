@@ -19,7 +19,7 @@ class AdView extends StatelessWidget {
     ctr.tabController.index = argument!;
     return Scaffold(resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: 'ad_apply'.tr),
+      appBar: CustomAppbar(isBackEnable: false, title: 'ad_apply'.tr),
       body: DefaultTabController(
         length: 2, // length of tabs
         initialIndex: ctr.currentTab.value,

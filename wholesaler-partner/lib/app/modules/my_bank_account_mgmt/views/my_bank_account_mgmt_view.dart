@@ -15,7 +15,7 @@ class MyBankAccountMgmtView extends GetView<MyBankAccountMgmtController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, hasHomeButton: false, title: '내 계좌번호 등록'),
+        appBar: CustomAppbar(isBackEnable: false, hasHomeButton: false, title: '내 계좌번호 등록'),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

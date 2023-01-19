@@ -85,10 +85,10 @@ class User_LoginPageController extends GetxController {
         : await partnerLoginProcess(context);
 
     // initialize firebase
-    if (isSuccess) {
-      print('before initialize firebase');
-      await FirebaseService.init();
-    }
+    // if (isSuccess) {
+    //   print('before initialize firebase');
+    //   await FirebaseService.init();
+    // }
   }
 
   void signUpBtnPressed(BuildContext context) {

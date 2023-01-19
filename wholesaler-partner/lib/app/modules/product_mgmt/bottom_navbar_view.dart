@@ -28,10 +28,22 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
               showDialog(
                   context: Get.context!,
                   builder: (context) {
-                    return _dialog(ProductMgmtButtons.soldout);
+                    if (ctr.products
+                        .firstWhere(
+                            (element) => ctr.productsId.first == element.id)
+                        .isSoldout!
+                        .value)
+                      return _dialog(ProductMgmtButtons.restock,context);
+                    else
+                      return _dialog(ProductMgmtButtons.soldout,context);
                   });
             },
-            child: Text('품절'),
+            child: ctr.products
+                    .firstWhere((element) => ctr.productsId.first == element.id)
+                    .isSoldout!
+                    .value
+                ? Text(ProductMgmtButtons.restock)
+                : Text(ProductMgmtButtons.soldout),
           ),
         ),
         SizedBox(width: 10),
@@ -55,7 +67,7 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
                     showDialog(
                         context: Get.context!,
                         builder: (context) {
-                          return _dialog(ProductMgmtButtons.dingdong);
+                          return _dialog(ProductMgmtButtons.dingdong,context);
                         });
                   },
                   child: Text('띵동'),
@@ -70,7 +82,7 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
               showDialog(
                   context: Get.context!,
                   builder: (context) {
-                    return _dialog(ProductMgmtButtons.delete);
+                    return _dialog(ProductMgmtButtons.delete,context);
                   });
             },
           ),
@@ -79,7 +91,7 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
     );
   }
 
-  Widget _dialog(String text) {
+  Widget _dialog(String text,BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(
@@ -87,7 +99,8 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 28.0, bottom: 10, right: 10, left: 10),
+        padding:
+            const EdgeInsets.only(top: 28.0, bottom: 10, right: 10, left: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -107,15 +120,16 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
                 rBtnOnPressed: () {
                   log('selected: $text');
                   if (text == ProductMgmtButtons.delete) {
-                    ctr.deleteSelectedProducts();
+                    ctr.deleteSelectedProducts(context);
                   } else if (text == ProductMgmtButtons.top10) {
-                    ctr.addOrRemoveTop10SelectedProducts();
-                  } else if (text == ProductMgmtButtons.soldout) {
-                    ctr.soldOut();
+                    ctr.addOrRemoveTop10SelectedProducts(context);
+                  } else if (text == ProductMgmtButtons.soldout ||
+                      text == ProductMgmtButtons.restock) {
+                    ctr.soldOut(context);
                   } else if (text == ProductMgmtButtons.dingdong) {
-                    ctr.addToDingDong();
+                    ctr.addToDingDong(context);
                   }
-                  ctr.isBottomNavbar.value=false;
+                  ctr.isBottomNavbar.value = false;
                   Get.back();
                 },
                 lBtnOnPressed: () {

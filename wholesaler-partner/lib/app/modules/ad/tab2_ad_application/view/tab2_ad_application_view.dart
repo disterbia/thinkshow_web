@@ -16,14 +16,14 @@ class Tab2AdApplicationView extends GetView {
   Tab2AdApplicationView({this.argument});
 
   onInit() async {
-    await ctr.init();
+    await ctr.init(argument!);
   }
 
   @override
   Widget build(BuildContext context) {
     onInit();
     return Obx(
-      () => Scaffold(appBar: CustomAppbar(title: "광고신청",isBackEnable: true,),
+      () => Scaffold(appBar: CustomAppbar(title: "광고신청",isBackEnable: false,),
         body: ctr.isLoading.value? LoadingWidget():SingleChildScrollView(
           child:
           ctr.isAdAvailable.value

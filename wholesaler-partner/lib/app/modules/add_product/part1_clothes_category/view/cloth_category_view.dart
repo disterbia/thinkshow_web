@@ -12,7 +12,7 @@ class ClothCategoryView extends GetView<ClothCategoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: '상품등록', isBackEnable: true),
+      appBar: CustomAppbar(title: '상품등록', isBackEnable: false),
       body: body(context),
     );
   }

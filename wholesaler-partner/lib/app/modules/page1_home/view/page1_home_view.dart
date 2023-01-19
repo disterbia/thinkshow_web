@@ -1,8 +1,10 @@
 import 'dart:js';
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/modules/add_product/add_product_view.dart';
@@ -112,7 +114,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             style: MyTextStyles.f16,
           ),
           onPressed: () {
-            context.go(PartnerRoutes.AddProductView);
+            context.go(PartnerRoutes. AddProductView);
           },
         ),
         SizedBox(width: 20),
@@ -126,7 +128,11 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             ProductMgmtController mgmtController =
                 Get.put(ProductMgmtController());
             mgmtController.onInit();
-            context.go(PartnerRoutes.ProductMgmtView,extra: {"isTopPage":false});
+            await GetStorage().remove("isRegisterProductPage");
+            await GetStorage().remove("isRegisterAdProductPage");
+            await GetStorage().remove("argument");
+            await GetStorage().write("isTop10Page", false);
+            context.go(PartnerRoutes.ProductMgmtView);
           },
         ),
         SizedBox(width: 20),
@@ -275,28 +281,33 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             height: 240,
             child: Obx(
               () => ctr.bestProducts.isNotEmpty
-                  ? ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: ctr.bestProducts.length,
-                      separatorBuilder: (BuildContext context, int index) =>
-                          SizedBox(width: 14),
-                      itemBuilder: (BuildContext context, int index) {
-                        return SizedBox(
-                          width: 105,
-                          child: ProductItemVertical(
-                            product: ctr.bestProducts.elementAt(index),
-                            productNumber: ProductNumber(
-                              number: index + 1,
-                              backgroundColor:
-                                  MyColors.numberColors.length > index
-                                      ? MyColors.numberColors[index]
-                                      : MyColors.numberColors[0],
+                  ? ScrollConfiguration(behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },),
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: ctr.bestProducts.length,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            SizedBox(width: 14),
+                        itemBuilder: (BuildContext context, int index) {
+                          return SizedBox(
+                            width: 105,
+                            child: ProductItemVertical(
+                              product: ctr.bestProducts.elementAt(index),
+                              productNumber: ProductNumber(
+                                number: index + 1,
+                                backgroundColor:
+                                    MyColors.numberColors.length > index
+                                        ? MyColors.numberColors[index]
+                                        : MyColors.numberColors[0],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    )
+                          );
+                        },
+                      ),
+                  )
                   : Center(child: Text('제품을 등록해주세요.')),
             ),
           ),

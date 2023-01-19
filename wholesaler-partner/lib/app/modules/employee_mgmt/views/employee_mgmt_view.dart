@@ -20,7 +20,7 @@ class EmployeeMgmtView extends GetView<EmployeeMgmtController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, hasHomeButton: false, title: '직원관리'),
+      appBar: CustomAppbar(isBackEnable: false, hasHomeButton: false, title: '직원관리'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),

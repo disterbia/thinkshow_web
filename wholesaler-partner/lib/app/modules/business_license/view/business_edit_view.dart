@@ -22,7 +22,7 @@ class BusinessEditView extends StatelessWidget {
     return Scaffold(resizeToAvoidBottomInset: false,
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(
-        isBackEnable: true,
+        isBackEnable: false,
         title: '사업자정보 수정',
       ),
       body: Padding(

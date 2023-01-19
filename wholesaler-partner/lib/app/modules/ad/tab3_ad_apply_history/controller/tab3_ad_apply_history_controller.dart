@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/models/ad_history_model/ad_history_model.dart';
@@ -38,10 +39,14 @@ class Tab3AdApplicationHistoryController extends GetxController {
     isLoading.value = false;
   }
 
-  addAdProductsBtnPressed(ApplicationDetailList tempApplicationDetail,BuildContext context) {
+  addAdProductsBtnPressed(ApplicationDetailList tempApplicationDetail,BuildContext context) async{
     Get.put(ProductMgmtController()).isBottomNavbar.value = true;
     Get.put(ProductMgmtController()).applicationId = tempApplicationDetail.id!;
-    context.go(PartnerRoutes.ProductMgmtView,extra: {"isRegisterAdProductPage": true,"argument":tempApplicationDetail.id});
+    await GetStorage().remove("isRegisterProductPage");
+    await GetStorage().remove("isTop10Page");
+    await GetStorage().write("isRegisterAdProductPage", true);
+    await GetStorage().write("argument",tempApplicationDetail.id);
+    context.go(PartnerRoutes.ProductMgmtView);
   }
 
   adPaymentBtnPressed(int advertisement_application_id) async {

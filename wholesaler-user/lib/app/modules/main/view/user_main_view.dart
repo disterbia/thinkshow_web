@@ -25,7 +25,7 @@ class UserMainView extends GetView<UserMainController> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseService.init();
+    //FirebaseService.init();
     return WillPopScope(
       onWillPop: () => ctr.onWillPop(),
       child: Scaffold(

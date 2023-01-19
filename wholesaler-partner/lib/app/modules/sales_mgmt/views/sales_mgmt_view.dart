@@ -13,7 +13,7 @@ class SalesMgmtView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: '매출관리'),
+      appBar: CustomAppbar(isBackEnable: false, title: '매출관리'),
       body: SingleChildScrollView(
         // controller: ctr.scrollController.value,
         child: Column(

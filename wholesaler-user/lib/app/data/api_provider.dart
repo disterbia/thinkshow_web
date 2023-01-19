@@ -142,7 +142,7 @@ class uApiProvider extends GetConnect {
     log('inside postUserSignUp');
     SignupOrEditController signUpCtr = Get.put(SignupOrEditController());
     PhoneNumberPhoneVerifyController phoneCtr =
-        Get.put(PhoneNumberPhoneVerifyController());
+    Get.put(PhoneNumberPhoneVerifyController());
 
     log('signUpCtr.passwordController.text:' +
         signUpCtr.passwordController.text);
@@ -166,7 +166,7 @@ class uApiProvider extends GetConnect {
     };
     log('before response');
     final response =
-        await post(mConst.API_BASE_URL + mConst.API_USER_PATH + '/user', body);
+    await post(mConst.API_BASE_URL + mConst.API_USER_PATH + '/user', body);
     log('postUserSignUp response ${response.body}');
 
     if (response.statusCode == 200) {
@@ -367,10 +367,10 @@ class uApiProvider extends GetConnect {
 
   Future<List<Product>> getProductsWithCat(
       {required int categoryId,
-      required int offset,
-      required int limit,
-      int? storeId,
-      String? sort}) async {
+        required int offset,
+        required int limit,
+        int? storeId,
+        String? sort}) async {
     print('getProductsWithCat> cat id: $categoryId');
     print('getProductsWithCat> offset: $offset');
     print('getProductsWithCat> limit: $limit');
@@ -570,8 +570,8 @@ class uApiProvider extends GetConnect {
 
   Future<List<Product>> getDingdongProductsWithCat(
       {required int categoryId,
-      required int offset,
-      required int limit}) async {
+        required int offset,
+        required int limit}) async {
     log('cat id: $categoryId');
     String url = mConst.API_BASE_URL +
         mConst.API_USER_PATH +
@@ -976,6 +976,9 @@ class uApiProvider extends GetConnect {
   Future<OrderOrReview> getOrderDetail({required int orderId}) async {
     String url = mConst.API_BASE_URL + mConst.API_USER_PATH + '/order/$orderId';
     final response = await get(url, headers: headers);
+
+    print(url);
+
     log('getOrderDetail response: ${response.bodyString}');
 
     if (response.statusCode == 200) {
@@ -992,6 +995,8 @@ class uApiProvider extends GetConnect {
         );
 
         Product tempProduct = Product(
+          orderDetailId: orderDetailsJSON['id'],
+          price: orderDetailsJSON['product_price'],
           id: orderDetailsJSON['product_id'],
           title: orderDetailsJSON['product_name'],
           showQuantityPlusMinus: false,
@@ -1079,7 +1084,7 @@ class uApiProvider extends GetConnect {
             ? (json['store_info']['thumbnail_image_url'] as String).obs
             : null,
         isBookmarked:
-            json['store_info']['is_favorite'] == true ? true.obs : false.obs,
+        json['store_info']['is_favorite'] == true ? true.obs : false.obs,
       );
 
       // product images
@@ -1137,9 +1142,9 @@ class uApiProvider extends GetConnect {
         sizes: sizes,
         isLiked: json['is_favorite'] == true ? true.obs : false.obs,
         clothDetailSpec:
-            ProductClothDetailSpec.fromJson(json['clothing_detail_spec']),
+        ProductClothDetailSpec.fromJson(json['clothing_detail_spec']),
         clothCaringGuide:
-            ProductClothCaringGuide.fromJson(json['clothing_care_guide']),
+        ProductClothCaringGuide.fromJson(json['clothing_care_guide']),
         productModelInfo: ProductModelInfo.fromJson(json['model_info']),
         return_exchange_info: json['return_exchange_info'],
         colors: colors,
@@ -1160,18 +1165,27 @@ class uApiProvider extends GetConnect {
         mConst.API_USER_PATH +
         '/product/$productId/reviews?offset=$offset&limit=$limit';
     final response = await get(url, headers: headers);
+
+    print(url);
+    print(url);
+    print(url);
+
     log('getProductReviews response: ${response.bodyString}');
     if (response.statusCode == 200) {
       var json = jsonDecode(response.bodyString!);
 
       WritableReviewInfoModel writableReviewInfoModel =
-          WritableReviewInfoModel.fromJson(json['writable_review_info']);
+      WritableReviewInfoModel.fromJson(json['writable_review_info']);
       print(
           'writableReviewInfoModel ${writableReviewInfoModel.order_detail_id}');
 
       // Review list
       List<Review> tempReviews = [];
       for (var reviewJSON in json['review_list']) {
+        print(reviewJSON['product_info']['thumbnail_image_url']);
+        print(reviewJSON['product_info']['thumbnail_image_url']);
+        print(reviewJSON['product_info']['thumbnail_image_url']);
+
         // product
         Product tempProduct = Product(
           id: reviewJSON['product_info']['product_id'],
@@ -1239,8 +1253,8 @@ class uApiProvider extends GetConnect {
   /// Product Detail Page > Add Inquiry
   Future<bool> postAddInquiry(
       {required int productId,
-      required String content,
-      required bool isSecret}) async {
+        required String content,
+        required bool isSecret}) async {
     String url = mConst.API_BASE_URL +
         mConst.API_USER_PATH +
         '/products/$productId/inquiry';
@@ -1256,11 +1270,11 @@ class uApiProvider extends GetConnect {
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.bodyString!);
-     // mSnackbar(message: '문의 등록이 완료되였습니다.');
+      //mSnackbar(message: '문의 등록이 완료되였습니다.');
       return true;
     } else {
       log('error getUserInfo: ${response.bodyString}');
-     // mSnackbar(message: '오류: ' + response.statusText!);
+    //  mSnackbar(message: '오류: ' + response.statusText!);
       return false;
     }
   }
@@ -1370,9 +1384,9 @@ class uApiProvider extends GetConnect {
   /// review detail page -> edit review
   Future<void> postReviewEdit(
       {required int reviewId,
-      required String content,
-      required String image_path,
-      required int star}) async {
+        required String content,
+        required String image_path,
+        required int star}) async {
     String url = mConst.API_BASE_URL +
         mConst.API_USER_PATH +
         '/product/review/$reviewId';
@@ -1385,15 +1399,15 @@ class uApiProvider extends GetConnect {
     final response = await post(url, data, headers: headers);
 
     print('uploadProductImage response ${response.bodyString}');
-   // mSnackbar(message: response.bodyString!);
+    //mSnackbar(message: response.bodyString!);
   }
 
   /// review detail page -> Add new review
   Future<bool> postReviewAdd(
       {required int orderDetailId,
-      required String content,
-      String? image_path,
-      required double star}) async {
+        required String content,
+        String? image_path,
+        required double star}) async {
     print(
         'postReviewAdd: orderDetailId $orderDetailId content $content image_path $image_path star $star');
     String url = mConst.API_BASE_URL +
@@ -1410,7 +1424,7 @@ class uApiProvider extends GetConnect {
 
     print('postReviewAdd response ${response.bodyString}');
     if (response.statusCode == 200) {
-     // mSnackbar(message: '정상적으로 등록 되었습니다.');
+    //  mSnackbar(message: '정상적으로 등록 되었습니다.');
       return true;
     } else {
      // mSnackbar(message: '오류: ${response.bodyString}');
@@ -1562,11 +1576,11 @@ class uApiProvider extends GetConnect {
   /// Product detail > edit review
   Future<bool> putReviewEdit(
       {required int reviewId,
-      required String content,
-      required String image_path,
-      required double star}) async {
-    print(
-        'putReviewEdit reviewId $reviewId content $content image_path $image_path star $star');
+        required String content,
+        required ProductImageModel? image,
+        required double star}) async {
+    // print(
+    //     'putReviewEdit reviewId $reviewId content $content image_path $image_path star $star');
 
     String url = mConst.API_BASE_URL +
         mConst.API_USER_PATH +
@@ -1574,7 +1588,7 @@ class uApiProvider extends GetConnect {
 
     Map<String, dynamic> data = {
       'content': content,
-      'image_path': image_path,
+      'image_path': image != null ? image.path : null,
       'star': star,
     };
 
@@ -1587,7 +1601,7 @@ class uApiProvider extends GetConnect {
     } else {
       var jsonList = jsonDecode(response.bodyString!);
       log('putReviewEdit error:' + jsonList.toString());
-      //mSnackbar(message: '오류: ${response.bodyString!}');
+     // mSnackbar(message: '오류: ${response.bodyString!}');
       return Future.error(response.statusText!);
     }
   }
@@ -1716,7 +1730,7 @@ class uApiProvider extends GetConnect {
     if (response.statusCode == 200) {
       Iterable raw = jsonDecode(response.bodyString!);
       List<BulletinModel> bulletins =
-          raw.map((model) => BulletinModel.fromJson(model)).toList();
+      raw.map((model) => BulletinModel.fromJson(model)).toList();
 
       return bulletins;
     } else {
@@ -1730,7 +1744,7 @@ class uApiProvider extends GetConnect {
     String url = mConst.API_BASE_URL + mConst.API_USER_PATH + '/checkout';
 
     final response =
-        await post(url, cart1ordersModel.toJson(), headers: headers);
+    await post(url, cart1ordersModel.toJson(), headers: headers);
     print('postOrderCheckout ${response.bodyString}');
 
     if (response.statusCode == 200) {
@@ -1738,7 +1752,7 @@ class uApiProvider extends GetConnect {
       return Cart2CheckoutModel.fromJson(json);
     } else {
       log('error postOrderCheckout: ${response.bodyString}');
-     // mSnackbar(message: '오류: ${response.bodyString!}');
+      //mSnackbar(message: '오류: ${response.bodyString!}');
       return Future.error(response.statusText!);
     }
   }
@@ -1778,15 +1792,15 @@ class uApiProvider extends GetConnect {
       return true;
     } else {
       log('error postPaymentSucessfullyFinished.');
-      //mSnackbar(message: '오류: ${response.bodyString!}');
+     // mSnackbar(message: '오류: ${response.bodyString!}');
       return false;
     }
   }
 
   Future<List<Product>> getSearchProducts(
       {required String searchContent,
-      required int offset,
-      required int limit}) async {
+        required int offset,
+        required int limit}) async {
     String url = mConst.API_BASE_URL +
         mConst.API_USER_PATH +
         '/search/products?searchContent=$searchContent&offset=$offset&limit=$limit';
@@ -1824,8 +1838,8 @@ class uApiProvider extends GetConnect {
   // 주문 > 주소 검색
   Future<int> getDeliveryFee(
       {required int checkout_id,
-      required String postCode,
-      required String address}) async {
+        required String postCode,
+        required String address}) async {
     String url = mConst.API_BASE_URL +
         mConst.API_USER_PATH +
         '/chechkout/$checkout_id/delivery';
@@ -1850,8 +1864,8 @@ class uApiProvider extends GetConnect {
 
   Future<bool> changePassword(
       {required String originalPassword,
-      required String newPassword,
-      required String newPasswordVerify}) async {
+        required String newPassword,
+        required String newPasswordVerify}) async {
     String url = mConst.API_BASE_URL + mConst.API_USER_PATH + '/me/password';
 
     Map<String, dynamic> data = {};
@@ -1866,7 +1880,7 @@ class uApiProvider extends GetConnect {
       return true;
     } else {
       log('error:' + response.bodyString!);
-     // mSnackbar(message: '오류: ${response.bodyString!}');
+      //mSnackbar(message: '오류: ${response.bodyString!}');
       return false;
       // return Future.error(response.statusText!);
     }
@@ -1884,9 +1898,21 @@ class uApiProvider extends GetConnect {
       return true;
     } else {
       log('error:' + response.bodyString!);
-    //  mSnackbar(message: '오류: ${response.bodyString!}');
+     // mSnackbar(message: '오류: ${response.bodyString!}');
       return false;
       // return Future.error(response.statusText!);
+    }
+  }
+
+  Future<dynamic> getAllCategory() async {
+    String url = mConst.API_BASE_URL + mConst.API_USER_PATH + '/all-categories';
+    final response = await get(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      // mSnackbar(message: '휴대폰 번호가 변경되었습니다.');
+      return jsonDecode(response.bodyString!);
+    } else {
+      return null;
     }
   }
 
@@ -1903,7 +1929,7 @@ class uApiProvider extends GetConnect {
       return true;
     } else {
       log('error:' + response.bodyString!);
-      //mSnackbar(message: '오류: ${response.bodyString!}');
+     // mSnackbar(message: '오류: ${response.bodyString!}');
       return false;
       // return Future.error(response.statusText!);
     }
@@ -1915,14 +1941,14 @@ class uApiProvider extends GetConnect {
     final response = await put(url, data, headers: headers);
 
     if (response.statusCode == 200) {
-     // mSnackbar(message: '휴대폰 번호가 변경되었습니다.');
+    //  mSnackbar(message: '휴대폰 번호가 변경되었습니다.');
       return jsonDecode(response.bodyString!);
     } else {
       print('${response.body} ');
       if (response.statusCode == 400) {
-      //  mSnackbar(message: '인증번호를 다시 확인해주세요.');
+     //   mSnackbar(message: '인증번호를 다시 확인해주세요.');
       } else {
-     //   mSnackbar(message: jsonDecode(response.bodyString!)['description']);
+      //  mSnackbar(message: jsonDecode(response.bodyString!)['description']);
       }
       return null;
     }
@@ -1980,7 +2006,7 @@ class uApiProvider extends GetConnect {
       return true;
     } else {
       log('changeQuantityInBasket error:' + response.bodyString!);
-     // mSnackbar(message: response.bodyString!['description']);
+      //mSnackbar(message: response.bodyString!['description']);
       return false;
     }
   }

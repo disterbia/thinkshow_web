@@ -22,9 +22,10 @@ class AdOrderView extends GetView {
   AdOrderView({this.id});
   @override
   Widget build(BuildContext context) {
+    ctr.init(id!);
     return Obx(
       () =>Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, title: '광고'),
+        appBar: CustomAppbar(isBackEnable: false, title: '광고'),
         body: ctr.isLoading.value ?LoadingWidget():
         SingleChildScrollView(
           child: Column(

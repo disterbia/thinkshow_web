@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/models/product_inquiry_model.dart';
 import 'package:wholesaler_partner/app/modules/product_inquiry_detail/view/product_inquiry_detail_view.dart';
@@ -17,10 +16,9 @@ import 'package:wholesaler_user/app/models/product_number_model.dart';
 import 'package:wholesaler_user/app/models/review.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/Product_detail_view.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/product/number_widget.dart';
 import 'package:wholesaler_user/app/widgets/product/quantity_plus_minus_widget.dart';
-
+import 'package:wholesaler_user/app/utils/utils.dart';
 import '../../modules/product_detail/controller/product_detail_controller.dart';
 
 class ProductItemHorizontal extends StatelessWidget {
@@ -56,21 +54,21 @@ class ProductItemHorizontal extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (inquiry != null) {
-          context.go(MyRoutes.ProductInquiryDetailView,extra: inquiry);
+          Get.to(() => ProductInquiryDetailView(inquiry!));
           return;
         }
 
         if (review != null) {
           log('review != null great');
-          context.go(MyRoutes.ReviewDetailView,extra:{
-            "selectedReviw": review!,
-            "isComingFromReviewPage": true,} );
-
+          Get.to(() => ReviewDetailView(
+            selectedReviw: review!,
+            isComingFromReviewPage: true,
+          ));
           return;
         }
         if (product.id != -1) {
           //print("${product.id}asdfasdf");
-          context.go("/product/${product.id}");
+          Get.to(() => ProductDetailView(), arguments: product.id);
         }
       },
       child: Center(
@@ -127,6 +125,11 @@ class ProductItemHorizontal extends StatelessWidget {
   }
 
   ImageBuilder() {
+    print(product.imgUrl);
+    print(product.imgUrl);
+    print(product.imgUrl);
+    print(product.imgUrl);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(4),
       child: CachedNetworkImage(
@@ -184,7 +187,7 @@ class ProductItemHorizontal extends StatelessWidget {
           product.title,
           overflow: TextOverflow.ellipsis,
           style:
-              titleStyle ?? MyTextStyles.f14.copyWith(color: MyColors.black2),
+          titleStyle ?? MyTextStyles.f14.copyWith(color: MyColors.black2),
         ),
       ),
     );
@@ -289,7 +292,8 @@ class ProductItemHorizontal extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              '${product.totalCount}',
+              Utils.numberFormat(number: product.totalCount!),
+              // '${product.totalCount}',
               style: MyTextStyles.f16_bold.copyWith(color: MyColors.black2),
             ),
             Text(
@@ -307,6 +311,7 @@ class ProductItemHorizontal extends StatelessWidget {
   SoldQuantityBuilder() {
     if (product.soldQuantity != null) {
       return Text('${product.soldQuantity.toString()}회');
+      // return Text('${Utils.numberFormat(number: product.soldQuantity!)}회');
     }
     return SizedBox.shrink();
   }

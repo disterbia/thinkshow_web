@@ -31,18 +31,18 @@ class Page2OrderHistoryController extends GetxController {
 
   void init() async{
     print('PartnerHomeController init');
-   // WidgetsBinding.instance.addPostFrameCallback((_) async{
-      // isShowSplashScreen.value = false;
-      isLoading.value=true;
+    // WidgetsBinding.instance.addPostFrameCallback((_) async{
+    // isShowSplashScreen.value = false;
+    isLoading.value=true;
     var date = DateTime.now();
     var prevMonth = DateTime(date.year, date.month - 3, date.day);
     startDateController = TextEditingController(
         text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
     endDateController =
         TextEditingController(text: DateFormat('yyyy-MM-dd').format(prevMonth));
-      await getOrders(isScrolling: false);
-      isLoading.value=false;
-   // });
+    await getOrders(isScrolling: false);
+    isLoading.value=false;
+    // });
   }
   @override
   void onInit() async {
@@ -50,7 +50,7 @@ class Page2OrderHistoryController extends GetxController {
     scrollController.value.addListener(() {
       // print('scrollController.value.position.pixels: ${scrollController.value.position.pixels}');
       if (scrollController.value.position.pixels ==
-              scrollController.value.position.maxScrollExtent &&
+          scrollController.value.position.maxScrollExtent &&
           allowCallAPI.isTrue) {
         offset += mConst.limit;
         getOrders(isScrolling: true);
@@ -96,6 +96,9 @@ class Page2OrderHistoryController extends GetxController {
     totalAmount.value = response.totalAmount ?? 0;
     if (response.orders!.length < mConst.limit) {
       allowCallAPI.value = false;
+    }
+    else{
+      allowCallAPI.value = true;
     }
   }
 }

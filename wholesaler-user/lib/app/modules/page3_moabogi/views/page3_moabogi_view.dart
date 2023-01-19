@@ -4,7 +4,6 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/dimens.dart';
@@ -17,6 +16,7 @@ import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
 import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/category_tags.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
+import 'package:go_router/go_router.dart';
 
 class Page3MoabogiView extends GetView<Page3MoabogiController> {
   Page3MoabogiController ctr = Get.put(Page3MoabogiController());
@@ -29,28 +29,30 @@ class Page3MoabogiView extends GetView<Page3MoabogiController> {
     ctr.getBannerData();
     ctr2.init(context);
     return Scaffold(
-      appBar: _appbar(context),
+      appBar: _appbar(),
       body: _body(context),
     );
   }
 
-  Widget _body(context) => Obx(
+  Widget _body(BuildContext context) => Obx(
         () => ctr.isLoading.value
-            ? LoadingWidget()
-            : SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 20),
-                    HorizontalChipList().getIconTextList(
-                        onPressed: (index) => ctr.chipPressed(index,context)),
-                    _dingDongDeliveryBanner(),
-                    Divider(thickness: 6, color: MyColors.grey3),
-                    _imageList(context),
-                  ],
-                ),
-              ),
-      );
+        ? LoadingWidget()
+        : SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 20),
+
+          HorizontalChipList().getIconTextList(
+              onPressed: (index) => ctr.chipPressed(index,context)),
+
+          _dingDongDeliveryBanner(),
+          Divider(thickness: 6, color: MyColors.grey3),
+          _imageList(context),
+        ],
+      ),
+    ),
+  );
 
   // ####### DingDong delivery banner
   Widget _dingDongDeliveryBanner() {
@@ -62,7 +64,7 @@ class Page3MoabogiView extends GetView<Page3MoabogiController> {
         decoration: BoxDecoration(
             color: MyColors.grey5,
             borderRadius:
-                BorderRadius.all(Radius.circular(MyDimensions.radius)),
+            BorderRadius.all(Radius.circular(MyDimensions.radius)),
             border: Border.all(color: MyColors.grey6)),
         child: Row(
           children: [
@@ -104,7 +106,7 @@ class Page3MoabogiView extends GetView<Page3MoabogiController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Obx(
-        () => ListView.separated(
+            () => ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: ctr.imageBanners.length,
@@ -128,7 +130,7 @@ class Page3MoabogiView extends GetView<Page3MoabogiController> {
     );
   }
 
-  AppBar _appbar(BuildContext context) {
+  AppBar _appbar() {
     return CustomAppbar(isBackEnable: false, title: 'See_all'.tr, actions: [
       IconButton(
         icon: Icon(
@@ -136,40 +138,40 @@ class Page3MoabogiView extends GetView<Page3MoabogiController> {
           color: MyColors.black,
         ),
         onPressed: () {
-          context.go(MyRoutes.SearchPageView);
+          Get.to(() => SearchPageView());
         },
       ),
       Obx(
-        () => ctr2.getNumberProducts() != 0
+            () => ctr2.getNumberProducts() != 0
             ? Badge(
-                badgeColor: MyColors.primary,
-                badgeContent: Text(
-                  ctr2.getNumberProducts().toString(),
-                  style: TextStyle(
-                      color: MyColors.black,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold),
-                ),
-                toAnimate: false,
-                position: BadgePosition.topEnd(top: 5, end: 5),
-                child: IconButton(
-                    onPressed: () {
-                      context.go(MyRoutes.Cart1ShoppingBasketView);
-                    },
-                    icon: Icon(
-                      Icons.shopping_cart_outlined,
-                      color: MyColors.black,
-                    )),
-              )
+          badgeColor: MyColors.primary,
+          badgeContent: Text(
+            ctr2.getNumberProducts().toString(),
+            style: TextStyle(
+                color: MyColors.black,
+                fontSize: 11,
+                fontWeight: FontWeight.bold),
+          ),
+          toAnimate: false,
+          position: BadgePosition.topEnd(top: 5, end: 5),
+          child: IconButton(
+              onPressed: () {
+                Get.to(() => Cart1ShoppingBasketView());
+              },
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: MyColors.black,
+              )),
+        )
             : IconButton(
-                onPressed: () {
-                  context.go(MyRoutes.Cart1ShoppingBasketView);
-                },
-                icon: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: MyColors.black,
-                ),
-              ),
+          onPressed: () {
+            Get.to(() => Cart1ShoppingBasketView());
+          },
+          icon: Icon(
+            Icons.shopping_cart_outlined,
+            color: MyColors.black,
+          ),
+        ),
       )
     ]);
   }

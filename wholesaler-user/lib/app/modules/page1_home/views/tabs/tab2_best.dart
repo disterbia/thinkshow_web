@@ -16,15 +16,15 @@ class Tab2BestView extends GetView<Tab2BestController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=> ctr.isLoading.value?LoadingWidget():SingleChildScrollView(
+          ()=> ctr.isLoading.value?LoadingWidget():SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15),
               child: Obx(() => HorizontalChipList().getAllMainCat(
                   categoryList:
-                      ClothCategory.getAllMainCat().map((e) => e.name).toList(),
+                  ClothCategory.getAllMainCat().map((e) => e.name).toList(),
                   onTapped: () async{
                     await ctr.updateProducts();
                   })),
@@ -55,7 +55,7 @@ class Tab2BestView extends GetView<Tab2BestController> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Obx(
-            () => DropdownButton(
+                () => DropdownButton(
               hint: Text(ctr.dropdownItems[ctr.selectedDropdownIndex.value]),
               items: itemsBuilder(ctr.dropdownItems),
               onChanged: (String? newValue) {

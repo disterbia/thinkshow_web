@@ -29,42 +29,47 @@ class AddProductView extends GetView<AddProductController> {
   }
   @override
   Widget build(BuildContext context) {
-    FocusScope.of(context).requestFocus(FocusNode());
+    // FocusScope.of(context).requestFocus(FocusNode());
     return Scaffold(
       backgroundColor: MyColors.white,
       resizeToAvoidBottomInset: false,
 
-      bottomNavigationBar: bottomSheet(),
+      bottomNavigationBar: bottomSheet(context),
       appBar:
-          CustomAppbar(isBackEnable: false, hasHomeButton: true, title: '상품등록'),
+      CustomAppbar(isBackEnable: false, hasHomeButton: true, title: '상품등록'),
       // GestureDetector: when click on anywhere on the screen close keyboard
-      body:
-      GestureDetector(onTap: () => FocusScope.of(context).requestFocus( FocusNode()),child: body()),
-      // GestureDetector(
-      //   onTap: () {
-      //     FocusScope.of(context).requestFocus(FocusNode());
-      //   },
-      //   child: body(),
-      // ),
+      // body: GestureDetector(
+      //     onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      //     child: body()),
+      // body: body(),
+      body: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: body()),
     );
   }
 
   Widget body() {
     return Obx(
-        ()=>ctr.isLoading.value?LoadingWidget(): SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          AP_Part1View(),
-          _divider(),
-          AP_Part2View(),
-          _divider(),
-          AP_Part3View(),
-          _divider(),
-          AP_Part4View(),
-          _divider(),
-          AP_Part5View(),
-          _divider(),
-          SizedBox(height: 100),
-        ]),
+          () => ctr.isLoading.value
+          ? LoadingWidget()
+          : SingleChildScrollView(
+        child: GestureDetector(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AP_Part1View(),
+                _divider(),
+                AP_Part2View(),
+                _divider(),
+                AP_Part3View(),
+                _divider(),
+                AP_Part4View(),
+                _divider(),
+                AP_Part5View(),
+                _divider(),
+                SizedBox(height: 100),
+              ]),
+        ),
       ),
     );
   }
@@ -77,7 +82,7 @@ class AddProductView extends GetView<AddProductController> {
   }
 }
 
-Widget bottomSheet() {
+Widget bottomSheet(BuildContext context) {
   AP_Part2Controller part2controller = Get.put(AP_Part2Controller());
   AddProductController addProductCtr = Get.find<AddProductController>();
   return Container(
@@ -94,9 +99,9 @@ Widget bottomSheet() {
             rightBtnText: addProductCtr.isEditing.isTrue ? '수정하기' : '상품등록하기',
             lBtnOnPressed: () {
               showDialog(
-                  context: Get.context!,
+                  context: context,
                   builder: (context) {
-                    return _saveDialog(
+                    return _saveDialog(context,
                         title: '상품등록중입니다. 상품등록화면에서 나가시겠습니까?',
                         subtitle: '* 확인을 누르시면 입력중인 상품정보가 삭제되고 상품등록이 완료되지 않습니다',
                         isCloseBtnPressed: true);
@@ -105,11 +110,10 @@ Widget bottomSheet() {
             rBtnOnPressed: () {
               //part2controller.isOptionCheckbox.value = false;
 
-
               showDialog(
-                  context: Get.context!,
+                  context: context,
                   builder: (context) {
-                    return _saveDialog(
+                    return _saveDialog(context,
                         title: addProductCtr.isEditing.isTrue
                             ? '상품 수정을 완료하시겠습니까?'
                             : '상품 등록을 완료하시겠습니까?',
@@ -123,10 +127,10 @@ Widget bottomSheet() {
   );
 }
 
-Dialog _saveDialog(
+Dialog _saveDialog(BuildContext context,
     {required String title,
-    String? subtitle,
-    required bool isCloseBtnPressed}) {
+      String? subtitle,
+      required bool isCloseBtnPressed}) {
   AP_Part6Controller ctr = Get.put(AP_Part6Controller());
   AddProductController addProductCtr = Get.find<AddProductController>();
 
@@ -148,15 +152,15 @@ Dialog _saveDialog(
                 ),
                 subtitle != null
                     ? Column(
-                        children: [
-                          SizedBox(height: 20),
-                          Text(
-                            subtitle,
-                            style:
-                                MyTextStyles.f14.copyWith(color: MyColors.red),
-                          ),
-                        ],
-                      )
+                  children: [
+                    SizedBox(height: 20),
+                    Text(
+                      subtitle,
+                      style:
+                      MyTextStyles.f14.copyWith(color: MyColors.red),
+                    ),
+                  ],
+                )
                     : SizedBox.shrink(),
               ],
             ),
@@ -169,24 +173,27 @@ Dialog _saveDialog(
                   child: ctr.isLoading.value
                       ? LoadingWidget()
                       : TwoButtons(
-                          leftBtnText: 'cancel'.tr,
-                          rightBtnText: 'ok'.tr,
-                          lBtnOnPressed: () {
-                            print(addProductCtr.isEditing.isTrue);
-                            Get.back();
-                          },
-                          rBtnOnPressed: () {
-                            if (isCloseBtnPressed) {
-                              Get.back();
-                               Get.back();
-                            } else {
-                              print("dddddddddddddddddddd${addProductCtr.productIdforEdit}");
-                              print("dddddddddddddddddddd${addProductCtr.productNameController.text}");
-                              // addProductCtr.isEditing.isTrue?
-                              // ctr.editProduct():ctr.addProduct();
-                            }
-                          },
-                        ),
+                    leftBtnText: 'cancel'.tr,
+                    rightBtnText: 'ok'.tr,
+                    lBtnOnPressed: () {
+                      print(addProductCtr.isEditing.isTrue);
+
+                    },
+                    rBtnOnPressed: () {
+                      if (isCloseBtnPressed) {
+                        Future.delayed(Duration.zero,()=>Navigator.pop(context));
+                        Future.delayed(Duration.zero,()=>Navigator.pop(context));
+                      } else {
+                        print(
+                            "dddddddddddddddddddd${addProductCtr.productIdforEdit}");
+                        print(
+                            "dddddddddddddddddddd${addProductCtr.productNameController.text}");
+                        addProductCtr.isEditing.isTrue
+                            ? ctr.editProduct(context)
+                            : ctr.addProduct(context);
+                      }
+                    },
+                  ),
                 ),
               ],
             );

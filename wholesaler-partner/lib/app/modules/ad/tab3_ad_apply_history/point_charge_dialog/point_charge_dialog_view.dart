@@ -110,7 +110,7 @@ PointChargeDialog(context) {
               leftBtnText: '취소',
               rightBtnText: '충전신청',
               lBtnOnPressed: () {
-                Get.back();
+                Navigator.pop(context);
               },
               rBtnOnPressed: () => ctr.chargeBtnPressed(context),
             )

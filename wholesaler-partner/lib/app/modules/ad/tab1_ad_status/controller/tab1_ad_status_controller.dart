@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
@@ -81,10 +82,14 @@ class Tab1AdStatusController extends GetxController {
   }
 
   // 상품을 등록해주세요 button pressed
-  addOrEditAdProductsBtnPressed(int exposureAdIndex,BuildContext context) {
+  Future<void> addOrEditAdProductsBtnPressed(int exposureAdIndex,BuildContext context) async{
     Get.put(ProductMgmtController()).isBottomNavbar.value = true;
     Get.put(ProductMgmtController()).applicationId = exposureAds[exposureAdIndex].ads_application_id;
-    context.go(PartnerRoutes.ProductMgmtView,extra: {"isRegisterAdProductPage":true,"argument":exposureAds[exposureAdIndex].ads_application_id});
+    await GetStorage().remove("isRegisterProductPage");
+    await GetStorage().remove("isTop10Page");
+    await GetStorage().write("isRegisterAdProductPage", true);
+    await GetStorage().write("argument",exposureAds[exposureAdIndex].ads_application_id);
+    context.go(PartnerRoutes.ProductMgmtView);
   }
 
   // After the user selects products from Products Mgmt page

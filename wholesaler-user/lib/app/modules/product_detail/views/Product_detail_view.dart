@@ -38,7 +38,7 @@ class ProductDetailView extends GetView {
       await ctr.findById(productId!);
       ctr.productId=productId!;
       CacheProvider().addRecentlyViewedProduct(productId!);
-      print('ProductDetailView > addRecentlyViewedProduct: Get.arguments $productId');
+      //print('ProductDetailView > addRecentlyViewedProduct: Get.arguments $productId');
     }
   }
 

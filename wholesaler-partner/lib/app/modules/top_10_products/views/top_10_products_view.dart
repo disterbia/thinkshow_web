@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/controllers/top_10_products_controller.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/views/top_10_item_widget.dart';
@@ -30,7 +31,7 @@ class Top10ProductsView extends GetView<Top10ProductsController> {
           ),
         ),
       ),
-      appBar: CustomAppbar(isBackEnable: false, hasHomeButton: true, title: '우리매장 TOP10'),
+      appBar: CustomAppbar(isBackEnable: false, hasHomeButton: false, title: '우리매장 TOP10'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -40,9 +41,13 @@ class Top10ProductsView extends GetView<Top10ProductsController> {
             TwoButtons(
               leftBtnText: '베스트 상품 자동등록',
               rightBtnText: '베스트 상품 등록',
-              lBtnOnPressed: ()=>ctr.getBestProductsRecommended,
-              rBtnOnPressed: (){
-                context.go(PartnerRoutes.ProductMgmtView,extra:{"isTop10Page":true});
+              lBtnOnPressed: ctr.getBestProductsRecommended,
+              rBtnOnPressed: () async{
+                await GetStorage().remove("isRegisterProductPage");
+                await GetStorage().remove("isRegisterAdProductPage");
+                await GetStorage().remove("argument");
+                await GetStorage().write("isTop10Page", true);
+                context.go(PartnerRoutes.ProductMgmtView);
                 ctr.getBestProducts();
               }
             ),

@@ -22,6 +22,7 @@ class ExhibitionProductsView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    ctr.init(imageId!);
     ctr2.init(context);
     return Scaffold(
       appBar: _appbar(context),

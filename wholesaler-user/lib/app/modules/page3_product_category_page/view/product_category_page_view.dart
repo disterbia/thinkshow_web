@@ -2,12 +2,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/modules/cart/views/cart1_shopping_basket_view.dart';
 import 'package:wholesaler_user/app/modules/page3_product_category_page/controller/product_category_page_controller.dart';
 import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/category_tags.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/cloth_category.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
@@ -17,12 +15,11 @@ import '../../cart/controllers/cart1_shopping_basket_controller.dart';
 
 class ProductCategoryPageView extends GetView<ProductCategoryPageController> {
   ProductCategoryPageController ctr = Get.put(ProductCategoryPageController());
-    Cart1ShoppingBasketController ctr2 = Get.put(Cart1ShoppingBasketController());
+  Cart1ShoppingBasketController ctr2 = Get.put(Cart1ShoppingBasketController());
 
   ProductCategoryPageView(selectedMainCatIndex) {
     ctr.selectedMainCatIndex = selectedMainCatIndex;
   }
-
 
 
   @override
@@ -31,51 +28,54 @@ class ProductCategoryPageView extends GetView<ProductCategoryPageController> {
     ctr2.init(context);
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: _appbar(context),
+      appBar: _appbar(),
       body: _body(),
     );
   }
 
-  AppBar _appbar(BuildContext context) {
-    return CustomAppbar(isBackEnable: false, title: ctr.title, actions: [
+  AppBar _appbar() {
+    return CustomAppbar(isBackEnable: true, title: ctr.title, actions: [
       IconButton(
         icon: Icon(
           Icons.search,
           color: MyColors.black,
         ),
         onPressed: () {
-          context.go(MyRoutes.SearchPageView);
+          Get.to(() => SearchPageView());
         },
       ),
       Obx(
-          () => ctr2.getNumberProducts() != 0
-              ? Badge(
-                  badgeColor: MyColors.primary,
-                  badgeContent: Text(
-                    ctr2.getNumberProducts().toString(),
-                    style: TextStyle(color: MyColors.black, fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  toAnimate: false,
-                  position: BadgePosition.topEnd(top: 5, end: 5),
-                  child: IconButton(
-                      onPressed: () {
-                        context.go(MyRoutes.Cart1ShoppingBasketView);
-                      },
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: MyColors.black,
-                      )),
-                )
-              : IconButton(
-                  onPressed: () {
-                    context.go(MyRoutes.Cart1ShoppingBasketView);
-                  },
-                  icon: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: MyColors.black,
-                  ),
-                ),
+            () => ctr2.getNumberProducts() != 0
+            ? Badge(
+          badgeColor: MyColors.primary,
+          badgeContent: Text(
+            ctr2.getNumberProducts().toString(),
+            style: TextStyle(
+                color: MyColors.black,
+                fontSize: 11,
+                fontWeight: FontWeight.bold),
+          ),
+          toAnimate: false,
+          position: BadgePosition.topEnd(top: 5, end: 5),
+          child: IconButton(
+              onPressed: () {
+                Get.to(() => Cart1ShoppingBasketView());
+              },
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: MyColors.black,
+              )),
         )
+            : IconButton(
+          onPressed: () {
+            Get.to(() => Cart1ShoppingBasketView());
+          },
+          icon: Icon(
+            Icons.shopping_cart_outlined,
+            color: MyColors.black,
+          ),
+        ),
+      )
     ]);
   }
 
@@ -87,12 +87,14 @@ class ProductCategoryPageView extends GetView<ProductCategoryPageController> {
         children: [
           SizedBox(height: 5),
           Obx(
-            () => Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+                () => Padding(
+              padding: const EdgeInsets.only(left: 15),
               child: HorizontalChipList().getAllSubcat(
                 parentId: ctr.selectedMainCatIndex + 1,
-                subCatList: ClothCategory.getAllSubcatTitles(mainCatIndex: ctr.selectedMainCatIndex + 1),
-                onTapped: (selectedSubcat) => ctr.subCatChipPressed(selectedSubcat),
+                subCatList: ClothCategory.getAllSubcatTitles(
+                    mainCatIndex: ctr.selectedMainCatIndex + 1),
+                onTapped: (selectedSubcat) =>
+                    ctr.subCatChipPressed(selectedSubcat),
               ),
             ),
           ),
@@ -120,12 +122,13 @@ class ProductCategoryPageView extends GetView<ProductCategoryPageController> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Obx(
-            () => DropdownButton(
+                () => DropdownButton(
               hint: Text(ctr.dropdownItems[ctr.selectedDropdownIndex.value]),
               items: itemsBuilder(ctr.dropdownItems),
               onChanged: (String? newValue) {
-               // print('$newValue');
-                ctr.selectedDropdownIndex.value = ctr.dropdownItems.indexOf(newValue!);
+                // print('$newValue');
+                ctr.selectedDropdownIndex.value =
+                    ctr.dropdownItems.indexOf(newValue!);
                 ctr.updateProducts(isScrolling: false);
               },
             ),

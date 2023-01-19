@@ -7,10 +7,8 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  go_router: ^6.0.0
-  url_strategy: ^0.2.0
   badges: ^2.0.3
-  flutter_quill: ^6.1.11
+  flutter_quill: ^6.0.0
   pointer_interceptor: ^0.9.3+3
   cached_network_image: ^3.2.1
   carousel_slider: ^4.0.0
@@ -34,7 +32,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   get: ^4.6.1
   get_storage: ^2.0.3
-#  html_editor_enhanced: ^2.5.0
+  #  html_editor_enhanced: ^2.5.0
   image_picker: ^0.8.4+9
   intl: ^0.17.0
   modal_bottom_sheet: ^2.0.0
@@ -67,11 +65,24 @@ flutter:
     - assets/icons/
     - assets/fonts/SpoqaHanSansNeo/
     - assets/shared_images_icons/
+    - assets/diagraming/
 
   fonts:
     - family: SpoqaHanSansNeo-Medium
       fonts:
         - asset: assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.ttf
+    - family: Nanum_Gothic
+      fonts:
+        - asset: assets/fonts/Nanum_Gothic/NanumGothic-Regular.ttf
+    - family: Nanum_Myeongjo
+      fonts:
+        - asset: assets/fonts/Nanum_Myeongjo/NanumMyeongjo-Regular.ttf
+    - family: Noto_Sans
+      fonts:
+        - asset: assets/fonts/Noto_Sans_KR/NotoSansKR-Regular.otf
+    - family: Noto_Serif
+      fonts:
+        - asset: assets/fonts/Noto_Serif_KR/NotoSerifKR-Regular.otf
 
 flutter_icons:
   android: "launcher_icon"

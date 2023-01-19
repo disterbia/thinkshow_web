@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/modules/ad/controllers/ad_controller.dart';
@@ -50,6 +49,7 @@ import '../../my_bank_account_mgmt/controllers/my_bank_account_mgmt_controller.d
 import '../../page3_my_info_mgmt/controllers/my_info_mgmt_controller.dart';
 import '../../product_inquiry_list/controller/product_inquiry_list_controller.dart';
 import '../../product_inquiry_list/view/product_inquiry_list_view.dart';
+import 'package:go_router/go_router.dart';
 
 class Page3MyPageView extends GetView<Page3MyPageController> {
   Page3MyPageController ctr = Get.put(Page3MyPageController());
@@ -59,7 +59,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
     return Obx(() {
       return ctr.isLoading.value
           ? LoadingWidget()
-      : SingleChildScrollView(
+          : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -118,28 +118,28 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           height: 60,
           width: 60,
           child: ctr.store.imgUrl == null ||
-                  ctr.store.imgUrl != null && ctr.store.imgUrl == ''
+              ctr.store.imgUrl != null && ctr.store.imgUrl == ''
               ? CircleAvatar(
-                  backgroundColor: MyColors.grey1,
-                  child: Icon(
-                    Icons.store,
-                    color: MyColors.black,
-                  ),
-                )
+            backgroundColor: MyColors.grey1,
+            child: Icon(
+              Icons.store,
+              color: MyColors.black,
+            ),
+          )
               : CachedNetworkImage(
-                  imageUrl: ctr.store.imgUrl!.value,
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: 60.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover),
-                    ),
-                  ),
-                  // placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
+            imageUrl: ctr.store.imgUrl!.value,
+            imageBuilder: (context, imageProvider) => Container(
+              width: 60.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
+            // placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
         ),
         SizedBox(width: 14),
         Row(
@@ -150,7 +150,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  ctr.storeName.value!,
+                  ctr.storeName.value,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(width: 6),
@@ -172,38 +172,38 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
     return ctr.isLoading.value
         ? LoadingWidget()
         : Row(
-            children: [
-              Expanded(
-                  child: TwoTextContainer(
-                      topText: 'number_of_likes'.tr,
-                      bottomText: ctr.store.totalStoreLiked.toString() + '회')),
-              SizedBox(width: 20),
-              Expanded(
-                  child: TwoTextContainer(
-                      topText: 'All_products'.tr,
-                      bottomText: ctr.store.totalProducts.toString())),
-              SizedBox(width: 20),
-              Expanded(
-                child: SizedBox(
-                  width: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.delete<MyInfoMgmtController>();
-                      context.go(PartnerRoutes.MyInfoMgmtView);
-                    },
-                    child: Text(
-                      '내 정보 관리',
-                      style: MyTextStyles.f12.copyWith(color: MyColors.black2),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: MyColors.grey1,
-                      elevation: 0,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
+      children: [
+        Expanded(
+            child: TwoTextContainer(
+                topText: 'number_of_likes'.tr,
+                bottomText: ctr.store.totalStoreLiked.toString() + '회')),
+        SizedBox(width: 20),
+        Expanded(
+            child: TwoTextContainer(
+                topText: 'All_products'.tr,
+                bottomText: ctr.store.totalProducts.toString())),
+        SizedBox(width: 20),
+        Expanded(
+          child: SizedBox(
+            width: 100,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.delete<MyInfoMgmtController>();
+                context.go(PartnerRoutes.MyInfoMgmtView);
+              },
+              child: Text(
+                '내 정보 관리',
+                style: MyTextStyles.f12.copyWith(color: MyColors.black2),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: MyColors.grey1,
+                elevation: 0,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 
   _itemList1(BuildContext context) {
@@ -227,46 +227,46 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
         // only show this column to isOwner
         ctr.isOwner
             ? Column(
-                children: [
-                  Divider(),
-                  MyPageItem(
-                    title: 'settlement'.tr,
-                    onPressed: () {
-                      context.go(PartnerRoutes.PaymentView);
-                    },
-                  ),
-                  Divider(),
-                  MyPageItem(
-                    title: 'manage_my_bank'.tr,
-                    onPressed: () {
-                      Get.delete<MyBankAccountMgmtController>();
-                      context.go(PartnerRoutes.MyBankAccountMgmtView);
-                    },
-                  ),
-                  Divider(),
-                  MyPageItem(
-                    title: 'verify_business_register_doc'.tr,
-                    onPressed: () {
-                      context.go(PartnerRoutes.BusinessView);
-                    },
-                  ),
-                  Divider(),
-                  MyPageItem(
-                    title: '상호수정',
-                    onPressed: () {
-                      context.go(PartnerRoutes.BusinessInfo);
-                    },
-                  ),
-                  Divider(),
-                  MyPageItem(
-                    title: '직원관리',
-                    onPressed: () {
-                      Get.delete<EmployeeMgmtController>();
-                      context.go(PartnerRoutes.EmployeeMgmtView);
-                    },
-                  ),
-                ],
-              )
+          children: [
+            Divider(),
+            MyPageItem(
+              title: 'settlement'.tr,
+              onPressed: () {
+                context.go(PartnerRoutes.PaymentView);
+              },
+            ),
+            Divider(),
+            MyPageItem(
+              title: 'manage_my_bank'.tr,
+              onPressed: () {
+                Get.delete<MyBankAccountMgmtController>();
+                context.go(PartnerRoutes.MyBankAccountMgmtView);
+              },
+            ),
+            Divider(),
+            MyPageItem(
+              title: 'verify_business_register_doc'.tr,
+              onPressed: () {
+                context.go(PartnerRoutes.BusinessView);
+                           },
+            ),
+            Divider(),
+            MyPageItem(
+              title: '상호수정',
+              onPressed: () {
+                context.go(PartnerRoutes.BusinessInfo);
+              },
+            ),
+            Divider(),
+            MyPageItem(
+              title: '직원관리',
+              onPressed: () {
+                Get.delete<EmployeeMgmtController>();
+                context.go(PartnerRoutes.EmployeeMgmtView);
+              },
+            ),
+          ],
+        )
             : SizedBox(),
       ],
     );
@@ -363,7 +363,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             // Get.delete<Page2OrderHistoryView>();
             await Get.deleteAll();
             //await Get.reset();
-            context.pushReplacement(PartnerRoutes.USERLOGIN);
+            context.go(PartnerRoutes.USERLOGIN);
             print("============${CacheProvider().getUserID()}");
             //Get.offAllNamed('/login');
 
@@ -390,7 +390,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            context.go(PartnerRoutes.CustomerCenterView,extra: true);
+            context.go(PartnerRoutes.CustomerCenterView,extra:true);
           },
           child: Text(
             '탈퇴 요청',

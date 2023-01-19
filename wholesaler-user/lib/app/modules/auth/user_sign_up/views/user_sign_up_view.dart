@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/Constants/enum.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/modules/auth/register_privacy_terms/views/register_privacy_terms_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_sign_up/controllers/user_sign_up_controller.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/custom_field.dart';
 import 'package:wholesaler_user/app/widgets/field_with_button.dart';
 import 'package:wholesaler_user/app/widgets/phone_number_textfield/phone_number_textfield_view.dart';
-import 'package:js/js.dart';
-
-import 'dart:js' as js;
-
-@JS('functionName')
-external set _functionName(void Function() f);
 
 class User_SignUpView extends GetView {
   SignupOrEditController ctr = Get.put(SignupOrEditController());
@@ -26,21 +18,14 @@ class User_SignUpView extends GetView {
   init() {
     ctr.init();
   }
-  void _someDartFunction() {
-    js.JsObject obj = js.JsObject.fromBrowserObject(js.context['add']);
-    ctr.address1Controller.text = obj['zonecode'].toString();
-    ctr.address2Controller.text = obj['addr'].toString();
-   // _extraAdress.text=obj['extraAddr'].toString();
-  }
 
   @override
   Widget build(BuildContext context) {
     init();
-    _functionName = allowInterop(_someDartFunction);
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(
-          isBackEnable: false, title: ctr.isEditing.value ? '회원정보' : '회원가입'),
+          isBackEnable: true, title: ctr.isEditing.value ? '회원정보' : '회원가입'),
       body: _signUpBody(context),
     );
   }
@@ -60,13 +45,13 @@ class User_SignUpView extends GetView {
             _passwordBuilder(),
             _nameBuilder(),
             SizedBox(height: 15),
-            _addressBuilder(),
+            _addressBuilder(context),
             // address search
             SizedBox(height: 15),
             _phoneNumberPhoneVerifyBuilder(),
             // _birthdayBuilder(),
             // SizedBox(height: 10),
-            _termsAndPrivacyBuilder(context),
+            _termsAndPrivacyBuilder(),
             SizedBox(height: 10),
             _saveButtonBuilder(context),
             SizedBox(height: 50),
@@ -78,26 +63,26 @@ class User_SignUpView extends GetView {
 
   Widget _idBuilder(BuildContext context) {
     return // ID
-        !ctr.isEditing.value
-            ? Column(
-                children: [
-                  CustomField(
-                    buttonText: 'check_available'.tr,
-                    fieldController: ctr.idController,
-                    fieldText: 'EX)id1234',
-                    onTap: () {
-                      ctr.checkIdAvailableBtnPressed(context);
-                    },
-                    fieldLabel: '아이디',
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(20),
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]"))
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                ],
-              )
-            : SizedBox.shrink();
+      !ctr.isEditing.value
+          ? Column(
+        children: [
+          CustomField(
+            buttonText: 'check_available'.tr,
+            fieldController: ctr.idController,
+            fieldText: 'EX)id1234',
+            onTap: () {
+              ctr.checkIdAvailableBtnPressed(context);
+            },
+            fieldLabel: '아이디',
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(20),
+              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]"))
+            ],
+          ),
+          SizedBox(height: 15),
+        ],
+      )
+          : SizedBox.shrink();
   }
 
   _emailBuilder() {
@@ -110,26 +95,26 @@ class User_SignUpView extends GetView {
 
   Widget _passwordBuilder() {
     return // Password
-        !ctr.isEditing.value
-            ? Column(
-                children: [
-                  CustomField(
-                    fieldLabel: '비밀번호',
-                    fieldText: '숫자, 영문, 특수문자 최소 8자',
-                    fieldController: ctr.passwordController,
-                    isObscureText: true,
-                  ),
-                  SizedBox(height: 15),
-                  CustomField(
-                    fieldLabel: 'verify_password'.tr,
-                    fieldText: '비밀번호를 한번 더 입력해주세요',
-                    fieldController: ctr.passwordVerifyController,
-                    isObscureText: true,
-                  ),
-                  SizedBox(height: 15),
-                ],
-              )
-            : SizedBox.shrink();
+      !ctr.isEditing.value
+          ? Column(
+        children: [
+          CustomField(
+            fieldLabel: '비밀번호',
+            fieldText: '숫자, 영문, 특수문자 최소 8자',
+            fieldController: ctr.passwordController,
+            isObscureText: true,
+          ),
+          SizedBox(height: 15),
+          CustomField(
+            fieldLabel: 'verify_password'.tr,
+            fieldText: '비밀번호를 한번 더 입력해주세요',
+            fieldController: ctr.passwordVerifyController,
+            isObscureText: true,
+          ),
+          SizedBox(height: 15),
+        ],
+      )
+          : SizedBox.shrink();
   }
 
   Widget _nameBuilder() {
@@ -139,7 +124,9 @@ class User_SignUpView extends GetView {
         fieldController: ctr.nameController);
   }
 
-  Widget _addressBuilder() {
+
+  FocusNode _addressFocusNode = FocusNode();
+  Widget _addressBuilder(BuildContext context) {
     return Column(
       children: [
         CustomField(
@@ -147,9 +134,9 @@ class User_SignUpView extends GetView {
           fieldText: 'Zip_code'.tr,
           buttonText: '주소 검색',
           fieldController: ctr.address1Controller,
-          onTap: () {
-            js.context.callMethod("aa");
-            //ctr.searchAddressBtnPressed();
+          onTap: () async{
+            await ctr.searchAddressBtnPressed();
+            FocusScope.of(context).requestFocus(_addressFocusNode);
           },
           fieldLabel: 'address'.tr,
         ),
@@ -162,6 +149,7 @@ class User_SignUpView extends GetView {
         ),
         SizedBox(height: 10),
         CustomTextField(
+          focusNode: _addressFocusNode,
           labelText: 'Address details'.tr,
           controller: ctr.address3Controller,
         ),
@@ -172,13 +160,13 @@ class User_SignUpView extends GetView {
   Widget _phoneNumberPhoneVerifyBuilder() {
     return !ctr.isEditing.value
         ? Column(
-            children: [
-              PhoneNumberPhoneVerify(
-                spaceBetween: 15,
-              ),
-              SizedBox(height: 15),
-            ],
-          )
+      children: [
+        PhoneNumberPhoneVerify(
+          spaceBetween: 15,
+        ),
+        SizedBox(height: 15),
+      ],
+    )
         : SizedBox.shrink();
   }
 
@@ -227,22 +215,22 @@ class User_SignUpView extends GetView {
   //   );
   // }
 
-  Widget _termsAndPrivacyBuilder(BuildContext context) {
+  Widget _termsAndPrivacyBuilder() {
     return !ctr.isEditing.value
         ? Column(
-            children: [
-              Divider(thickness: 6, color: MyColors.grey3),
-              _agreeToAll(),
-              _termsAndConditions(context),
-              _privacyPolicy(context),
-            ],
-          )
+      children: [
+        Divider(thickness: 6, color: MyColors.grey3),
+        _agreeToAll(),
+        _termsAndConditions(),
+        _privacyPolicy(),
+      ],
+    )
         : SizedBox.shrink();
   }
 
   Widget _agreeToAll() {
     return Obx(
-      () => Row(
+          () => Row(
         children: [
           SizedBox(
             height: 24,
@@ -263,7 +251,7 @@ class User_SignUpView extends GetView {
     );
   }
 
-  Widget _termsAndConditions(BuildContext context) {
+  Widget _termsAndConditions() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -276,7 +264,8 @@ class User_SignUpView extends GetView {
             SizedBox(width: 10),
             CustomButton(
               onPressed: () {
-                context.go(MyRoutes.User_RegisterPrivacyTermsView,extra:PrivacyOrTerms.terms);
+                Get.to(() => User_RegisterPrivacyTermsView(),
+                    arguments: PrivacyOrTerms.terms);
               },
               text: '자세히보기',
               textColor: MyColors.black2,
@@ -289,7 +278,7 @@ class User_SignUpView extends GetView {
         Row(
           children: [
             Obx(
-              () => Checkbox(
+                  () => Checkbox(
                   activeColor: MyColors.secondaryColor,
                   value: ctr.firstConditions.value,
                   onChanged: (value) {
@@ -310,7 +299,7 @@ class User_SignUpView extends GetView {
     );
   }
 
-  Widget _privacyPolicy(BuildContext context) {
+  Widget _privacyPolicy() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -324,7 +313,8 @@ class User_SignUpView extends GetView {
               textColor: MyColors.black2,
               fontSize: 12,
               onPressed: () {
-                context.go(MyRoutes.User_RegisterPrivacyTermsView,extra: PrivacyOrTerms.privacy);
+                Get.to(() => User_RegisterPrivacyTermsView(),
+                    arguments: PrivacyOrTerms.privacy);
               },
               text: '자세히보기',
               backgroundColor: MyColors.grey1,
@@ -335,7 +325,7 @@ class User_SignUpView extends GetView {
         Row(
           children: [
             Obx(
-              () => Checkbox(
+                  () => Checkbox(
                   activeColor: MyColors.secondaryColor,
                   value: ctr.secondConditions.value,
                   onChanged: (value) {

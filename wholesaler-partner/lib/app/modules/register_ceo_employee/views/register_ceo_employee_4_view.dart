@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers/register_ceo_employee_4_controller.dart';
 import 'package:wholesaler_partner/app/router/my_router.dart';
@@ -18,17 +19,14 @@ class RegisterCeoEmployeePage4View
   RegisterCeoEmployee4Controller ctr =
       Get.put(RegisterCeoEmployee4Controller());
 
-  RegisterCeoEmployee1Controller registerCeoEmployeeCtr =
-      Get.put(RegisterCeoEmployee1Controller());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppbar(
-        isBackEnable: true,
+        isBackEnable: false,
         title:
-            '회원가입 (${registerCeoEmployeeCtr.isEmployee.value ? '직원' : '대표'})',
+            '회원가입 (${GetStorage().read("isEmployee") ? '직원' : '대표'})',
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -173,7 +171,7 @@ class RegisterCeoEmployeePage4View
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
                       onPressed: () {
-                        registerCeoEmployeeCtr.isEmployee.value
+                        GetStorage().read("isEmployee")
                             ? ctr.employeeRegisterBtnPressed()
                             : ctr.registerBtnPressed();
                       },

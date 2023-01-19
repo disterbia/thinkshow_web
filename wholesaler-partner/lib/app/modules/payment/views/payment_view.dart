@@ -20,7 +20,7 @@ class PaymentView extends GetView {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: CustomAppbar(isBackEnable: true, title: '정산'),
+        appBar: CustomAppbar(isBackEnable: false, title: '정산'),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [

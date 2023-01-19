@@ -18,7 +18,7 @@ class BusinessView extends GetView {
   Widget build(BuildContext context) {
     Get.lazyPut(() => BusinessLicenseController());
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: true, title: '사업자등록증 확인'),
+      appBar: CustomAppbar(isBackEnable: false, title: '사업자등록증 확인'),
       body: _body(context),
     );
   }

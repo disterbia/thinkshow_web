@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/enum.dart';
@@ -12,55 +11,61 @@ import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_logi
 import 'package:wholesaler_user/app/modules/product_detail/controller/product_detail_controller.dart';
 import 'package:wholesaler_user/app/modules/product_detail/controller/tab_2_review_controller.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
-import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/product/product_item_horiz_widget.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 
 class Tab2ReviewView extends GetView {
-  Tab2ReviewProductDetailController ctr = Get.put(Tab2ReviewProductDetailController());
+  Tab2ReviewProductDetailController ctr =
+  Get.put(Tab2ReviewProductDetailController());
   ProductDetailController productDetailCtr = Get.put(ProductDetailController());
 
   Tab2ReviewView();
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (ctr.reviews.isNotEmpty && ctr.reviews.first.writableReviewInfoModel!.is_writable!) _addReviewButton(context),
-            for (Review review in ctr.reviews) _reviewItemBuilder(review,context),
-            if (ctr.reviews.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Center(child: Text('아직 등록된 리뷰가 없습니다')),
-              ),
-            SizedBox(
-              height: 20,
-            )
-          ],
-        ),
-      ),
+    return Obx(
+          () {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (ctr.reviews.isNotEmpty &&
+                    ctr.reviews.first.writableReviewInfoModel!.is_writable!)
+                  _addReviewButton(),
+                for (Review review in ctr.reviews) _reviewItemBuilder(review,context),
+                if (ctr.reviews.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Center(child: Text('아직 등록된 리뷰가 없습니다')),
+                  ),
+                SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _addReviewButton(BuildContext context) {
+  Widget _addReviewButton() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: OutlinedButton(
         onPressed: (() {
           if (CacheProvider().getToken().isEmpty) {
-            context.go(MyRoutes.USERLOGIN);
+            Get.to(() => User_LoginPageView());
             return;
           }
-          context.go(MyRoutes.ReviewDetailView,extra:
-          { "isComingFromReviewPage": true,
-            "isEditing": false,
-            "selectedReviw": Review(
+          Get.to(() => ReviewDetailView(
+            isComingFromReviewPage: true,
+            isEditing: false,
+            selectedReviw: Review(
                 id: -1,
                 content: '',
                 rating: 0,
@@ -69,8 +74,9 @@ class Tab2ReviewView extends GetView {
                 createdAt: Utils.dateToString(date: DateTime.now()),
                 product: ctr.reviews.first.product,
                 reviewImageUrl: '',
-                writableReviewInfoModel: ctr.reviews.first
-                    .writableReviewInfoModel)} );
+                writableReviewInfoModel:
+                ctr.reviews.first.writableReviewInfoModel),
+          ));
         }),
         child: Text(
           '리뷰 작성',
@@ -94,11 +100,11 @@ class Tab2ReviewView extends GetView {
           for (String imageUrl in review.images!) _imageBuilder(imageUrl),
         review.reviewImageUrl != null
             ? CachedNetworkImage(
-                imageUrl: review.reviewImageUrl!,
-                fit: BoxFit.contain,
-                // placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              )
+          imageUrl: review.reviewImageUrl!,
+          fit: BoxFit.contain,
+          // placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        )
             : SizedBox.shrink(),
       ],
     );
@@ -179,11 +185,11 @@ class Tab2ReviewView extends GetView {
             fontSize: 12,
             textColor: MyColors.black2,
             onPressed: () {
-              context.go(MyRoutes.ReviewDetailView,extra: {
-                "isComingFromReviewPage": true,
-                "isEditing": true,
-                "selectedReviw": review,
-              });
+              Get.to(() => ReviewDetailView(
+                isComingFromReviewPage: true,
+                isEditing: true,
+                selectedReviw: review,
+              ));
             },
           ),
           SizedBox(width: 10),

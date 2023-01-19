@@ -23,7 +23,7 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
   Widget build(BuildContext context) {
     init();
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: false, title: '주문조회 상세'),
+      appBar: CustomAppbar(isBackEnable: true, title: '주문조회 상세'),
       body: _body(),
     );
   }
@@ -35,63 +35,86 @@ class OrderDetailsView extends GetView<OrderDetailsController> {
         children: [
           // Item list view
           Obx(
-            () => ctr.order.value.id != -1
+                () => ctr.order.value.id != -1
                 ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                OrderTopDetailWidget(
+                  order: ctr.order.value,
+                  isHideDetailInfoBtn: true,
+                ),
+                OrderItemListView(
+                  isReviewPage: false,
+                  order: ctr.order.value,
+                ),
+                Container(
+                  height: 6,
+                  color: MyColors.grey1,
+                ),
+                // 받는 사람 정보
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      OrderTopDetailWidget(
-                        order: ctr.order.value,
-                        isHideDetailInfoBtn: true,
+                      _header('받는 사람 정보'),
+                      SizedBox(height: 10),
+                      Divider(height: 1),
+                      SizedBox(height: 10),
+                      _tile('gift_recipient'.tr,
+                          ctr.order.value.user.userName),
+                      SizedBox(height: 10),
+                      _tile('contact'.tr,
+                          ctr.order.value.user.phoneNumber.toString()),
+                      SizedBox(height: 10),
+                      _tile(
+                        'address'.tr,
+                        ctr.order.value.address.address +
+                            ' \n' +
+                            ctr.order.value.address.addressDetail,
                       ),
-                      OrderItemListView(
-                        isReviewPage: false,
-                        order: ctr.order.value,
-                      ),
-                      Container(
-                        height: 6,
-                        color: MyColors.grey1,
-                      ),
-                      // 받는 사람 정보
-                      Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _header('받는 사람 정보'),
-                            SizedBox(height: 10),
-                            Divider(height: 1),
-                            SizedBox(height: 10),
-                            _tile('gift_recipient'.tr, ctr.order.value.user.userName),
-                            SizedBox(height: 10),
-                            _tile('contact'.tr, ctr.order.value.user.phoneNumber.toString()),
-                            SizedBox(height: 10),
-                            _tile(
-                              'address'.tr,
-                              ctr.order.value.address.address + ' \n' + ctr.order.value.address.addressDetail,
-                            ),
-                            SizedBox(height: 10),
-                            _tile('요청사항', ctr.order.value.address.requestMessage),
-                            SizedBox(height: 50),
-                            _header('Payment_info'.tr),
-                            SizedBox(height: 10),
-                            Divider(height: 1),
-                            SizedBox(height: 10),
-                            _spaceBetweenTile('payment_method'.tr, ctr.order.value.paymentMethod),
-                            SizedBox(height: 10),
-                            Divider(height: 1),
-                            SizedBox(height: 20),
-                            _spaceBetweenTile('총 상품 금액', Utils.numberFormat(number: ctr.order.value.product_amount!, suffix: '원')),
-                            SizedBox(height: 10),
-                            _spaceBetweenTile('총 결제 금액', Utils.numberFormat(number: ctr.order.value.totalPayAmount!, suffix: '원')),
-                            SizedBox(height: 10),
-                            _spaceBetweenTile('totall_shipping_fee'.tr, Utils.numberFormat(number: ctr.order.value.deliveryFee, suffix: '원')),
-                            SizedBox(height: 10),
-                            _spaceBetweenTile('point'.tr, '-' + Utils.numberFormat(number: ctr.order.value.pointUsed, suffix: '원')),
-                          ],
-                        ),
-                      ),
+                      SizedBox(height: 10),
+                      _tile(
+                          '요청사항', ctr.order.value.address.requestMessage),
+                      SizedBox(height: 50),
+                      _header('Payment_info'.tr),
+                      SizedBox(height: 10),
+                      Divider(height: 1),
+                      SizedBox(height: 10),
+                      _spaceBetweenTile('payment_method'.tr,
+                          ctr.order.value.paymentMethod),
+                      SizedBox(height: 10),
+                      Divider(height: 1),
+                      SizedBox(height: 20),
+                      _spaceBetweenTile(
+                          '총 상품 금액',
+                          Utils.numberFormat(
+                              number: ctr.order.value.product_amount!,
+                              suffix: '원')),
+                      SizedBox(height: 10),
+                      _spaceBetweenTile(
+                          '총 결제 금액',
+                          Utils.numberFormat(
+                              number: ctr.order.value.totalPayAmount!,
+                              suffix: '원')),
+                      SizedBox(height: 10),
+                      _spaceBetweenTile(
+                          'totall_shipping_fee'.tr,
+                          Utils.numberFormat(
+                              number: ctr.order.value.deliveryFee,
+                              suffix: '원')),
+                      SizedBox(height: 10),
+                      _spaceBetweenTile(
+                          'point'.tr,
+                          '-' +
+                              Utils.numberFormat(
+                                  number: ctr.order.value.pointUsed,
+                                  suffix: '원')),
                     ],
-                  )
+                  ),
+                ),
+              ],
+            )
                 : Center(child: LoadingWidget()),
           ),
 

@@ -42,7 +42,9 @@ class ClothCategoryItemsView extends StatelessWidget {
 
   Widget _itemBuilder(ClothCategoryModel subCat) {
     return ListTile(
-      onTap: () => ctr.clothCategorySelected(subCat, clothCategory),
+      onTap: () {
+        ctr.clothCategorySelected(subCat, clothCategory);
+      },
       title: Text(subCat.name),
     );
   }

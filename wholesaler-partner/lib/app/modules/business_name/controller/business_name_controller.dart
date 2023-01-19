@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_partner/app/models/register_ceo_employee/address.dart';
 import 'package:wholesaler_partner/app/modules/page3_my_page/controllers/page3_my_page_controller.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/models/status_model.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 import 'dart:convert';
@@ -120,18 +122,19 @@ class BusinessInfoController extends GetxController {
     isLoading.value = false;
   }
 
-saveCompanyName() {
+saveCompanyName(BuildContext context) {
+    print("dsfsdfdsfds");
   isLoading.value = true;
   _apiProvider.saveCompanyName({
     "business_name":
         companyNameController.text.isEmpty ? companyName.value : companyNameController.text,
   }).then((StatusModel response) {
     if (response.statusCode == 200) {
-      //mSnackbar(message: response.message);
+      mSnackbar(message: response.message,context: context);
       page3MyPageController.getUserInfo();
-      Get.back();
+      context.go(PartnerRoutes.BusinessInfo);
     } else {
-      //mSnackbar(message: response.message);
+      mSnackbar(message: response.message,context: context);
     }
 
     isLoading.value = false;

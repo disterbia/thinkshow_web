@@ -14,7 +14,7 @@ class CustomerCenterView extends GetView<CustomerCenterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-          isBackEnable: true, title: isWithdrawPage ? '탈퇴 안내' : '고객센터'),
+          isBackEnable: false, title: isWithdrawPage ? '탈퇴 안내' : '고객센터'),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

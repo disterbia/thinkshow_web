@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
+import 'package:wholesaler_user/app/Constants/variables.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/models/review.dart';
@@ -23,7 +25,7 @@ class ReviewListView extends GetView<ReviewListController> {
     return Obx(() {
       return Scaffold(
         appBar: CustomAppbar(
-            isBackEnable: false, title: 'review'.tr, hasHomeButton: true),
+            isBackEnable: false, title: 'review'.tr, hasHomeButton: false),
         body: ctr.isLoading.value
             ? LoadingWidget()
             : ListView.separated(
@@ -32,9 +34,13 @@ class ReviewListView extends GetView<ReviewListController> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
+                      MyVars.isUserProject()?
                       context.go(MyRoutes.ReviewDetailView,extra: {
                         "selectedReviw": ctr.reviews[index],
-                        "isComingFromReviewPage": T
+                        "isComingFromReviewPage": true
+                      }): context.go(PartnerRoutes.ReviewDetailView,extra: {
+                        "selectedReviw": ctr.reviews[index],
+                        "isComingFromReviewPage": true
                       });
                     },
                     child: ProductItemHorizontal.review(

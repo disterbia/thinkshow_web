@@ -21,7 +21,7 @@ class BusinessInfo extends StatelessWidget {
       return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: CustomAppbar(
-        isBackEnable: true, hasHomeButton: false, title: '상호명 변경'),
+        isBackEnable: false, hasHomeButton: false, title: '상호명 변경'),
           body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ctr.isLoading.value
@@ -98,7 +98,7 @@ class BusinessInfo extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
                       width: Get.width,
-                      onPressed: ctr.saveCompanyName,
+                      onPressed: ()=>ctr.saveCompanyName(context),
                       text: 'register'.tr,
                     ),
                   ),

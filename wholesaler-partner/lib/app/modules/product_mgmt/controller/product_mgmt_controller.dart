@@ -61,7 +61,6 @@ class ProductMgmtController extends GetxController {
   void onInit() async {
     super.onInit();
 
-
     scrollController.value.addListener(() {
       print(scrollController.value.position.pixels);
       print(scrollController.value.position.maxScrollExtent);

@@ -89,11 +89,11 @@ class Tab1AdStatusController extends GetxController {
     await GetStorage().remove("isTop10Page");
     await GetStorage().write("isRegisterAdProductPage", true);
     await GetStorage().write("argument",exposureAds[exposureAdIndex].ads_application_id);
-    context.go(PartnerRoutes.ProductMgmtView);
+    context.pushReplacement(PartnerRoutes.ProductMgmtView);
   }
 
   // After the user selects products from Products Mgmt page
-  Future<void> addToAdProduct({required List<int> productsId, required int ads_application_id}) async {
+  Future<void> addToAdProduct(BuildContext context,{required List<int> productsId, required int ads_application_id}) async {
     print('addToAdProduct productsId $productsId ads_application_id $ads_application_id');
     bool isSuccess = await _apiProvider.addToAd(data: {"product_ids": productsId}, adApplicationId: ads_application_id);
 
@@ -101,7 +101,7 @@ class Tab1AdStatusController extends GetxController {
      // mSnackbar(message: '추가 완료되었습니다.');
       print('selectedAdTagIndex ${selectedAdTagIndex.value}');
       await callGetAdExposureProducts(adTagIndex: selectedAdTagIndex.value);
-      Get.back();
+      context.pop();
     }
   }
 }

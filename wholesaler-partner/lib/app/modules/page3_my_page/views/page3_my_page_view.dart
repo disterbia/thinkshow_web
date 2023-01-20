@@ -189,7 +189,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             child: ElevatedButton(
               onPressed: () {
                 Get.delete<MyInfoMgmtController>();
-                context.go(PartnerRoutes.MyInfoMgmtView);
+                context.pushReplacement(PartnerRoutes.MyInfoMgmtView);
               },
               child: Text(
                 '내 정보 관리',
@@ -214,14 +214,14 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           title: 'advertising_center'.tr,
           onPressed: () {
             Get.delete<AdController>();
-            context.go("/ad/${AdTabs.Tab1AdStatus.index}");
+            context.pushReplacement("/ad/${AdTabs.Tab1AdStatus.index}");
           },
         ),
         Divider(),
         MyPageItem(
           title: 'shopping_ed'.tr,
           onPressed: () {
-            context.go(PartnerRoutes.AdImpressionView);
+            context.pushReplacement(PartnerRoutes.AdImpressionView);
           },
         ),
         // only show this column to isOwner
@@ -232,7 +232,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             MyPageItem(
               title: 'settlement'.tr,
               onPressed: () {
-                context.go(PartnerRoutes.PaymentView);
+                context.pushReplacement(PartnerRoutes.PaymentView);
               },
             ),
             Divider(),
@@ -240,21 +240,21 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
               title: 'manage_my_bank'.tr,
               onPressed: () {
                 Get.delete<MyBankAccountMgmtController>();
-                context.go(PartnerRoutes.MyBankAccountMgmtView);
+                context.pushReplacement(PartnerRoutes.MyBankAccountMgmtView);
               },
             ),
             Divider(),
             MyPageItem(
               title: 'verify_business_register_doc'.tr,
               onPressed: () {
-                context.go(PartnerRoutes.BusinessView);
+                context.pushReplacement(PartnerRoutes.BusinessView);
                            },
             ),
             Divider(),
             MyPageItem(
               title: '상호수정',
               onPressed: () {
-                context.go(PartnerRoutes.BusinessInfo);
+                context.pushReplacement(PartnerRoutes.BusinessInfo);
               },
             ),
             Divider(),
@@ -262,7 +262,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
               title: '직원관리',
               onPressed: () {
                 Get.delete<EmployeeMgmtController>();
-                context.go(PartnerRoutes.EmployeeMgmtView);
+                context.pushReplacement(PartnerRoutes.EmployeeMgmtView);
               },
             ),
           ],
@@ -280,7 +280,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           title: '우리매장 TOP10',
           onPressed: () {
             Get.delete<Top10ProductsController>();
-            context.go(PartnerRoutes.Top10ProductsView);
+            context.pushReplacement(PartnerRoutes.Top10ProductsView);
           },
         ),
         Divider(),
@@ -288,21 +288,21 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
           title: 'product_inquiry'.tr,
           onPressed: () {
             Get.delete<ProductInquiryListController>();
-            context.go(PartnerRoutes.ProductInquiryListView);
+            context.pushReplacement(PartnerRoutes.ProductInquiryListView);
           },
         ),
         Divider(),
         MyPageItem(
           title: 'review'.tr,
           onPressed: () {
-            context.go(PartnerRoutes.ReviewListView);
+            context.pushReplacement(PartnerRoutes.ReviewListView);
           },
         ),
         Divider(),
         MyPageItem(
           title: 'bulletin'.tr,
           onPressed: () {
-            context.go(PartnerRoutes.BulletinListView);
+            context.pushReplacement(PartnerRoutes.BulletinListView);
           },
         ),
       ],
@@ -316,14 +316,14 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
         MyPageItem(
           title: 'customer_center'.tr,
           onPressed: () {
-            context.go(PartnerRoutes.CustomerCenterView,extra: false);
+            context.pushReplacement(PartnerRoutes.CustomerCenterView,extra: false);
           },
         ),
         Divider(),
         MyPageItem(
           title: 'privacy_terms'.tr,
           onPressed: () {
-            context.go(PartnerRoutes.User_RegisterPrivacyTermsView);
+            context.pushReplacement(PartnerRoutes.User_RegisterPrivacyTermsView);
           },
         ),
         Divider(),
@@ -363,7 +363,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
             // Get.delete<Page2OrderHistoryView>();
             await Get.deleteAll();
             //await Get.reset();
-            context.go(PartnerRoutes.USERLOGIN);
+            context.pushReplacement(PartnerRoutes.USERLOGIN);
             print("============${CacheProvider().getUserID()}");
             //Get.offAllNamed('/login');
 
@@ -390,7 +390,7 @@ class Page3MyPageView extends GetView<Page3MyPageController> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            context.go(PartnerRoutes.CustomerCenterView,extra:true);
+            context.pushReplacement(PartnerRoutes.CustomerCenterView,extra:true);
           },
           child: Text(
             '탈퇴 요청',

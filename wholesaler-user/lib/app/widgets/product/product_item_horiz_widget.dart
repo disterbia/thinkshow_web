@@ -4,9 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/models/product_inquiry_model.dart';
 import 'package:wholesaler_partner/app/modules/product_inquiry_detail/view/product_inquiry_detail_view.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 // import 'package:wholesaler_user/app/Constants/colors.dart';
 import 'package:wholesaler_user/app/Constants/styles.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
@@ -54,21 +56,21 @@ class ProductItemHorizontal extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (inquiry != null) {
-          Get.to(() => ProductInquiryDetailView(inquiry!));
+          context.push(PartnerRoutes.ProductInquiryDetailView,extra: inquiry);
           return;
         }
 
         if (review != null) {
           log('review != null great');
-          Get.to(() => ReviewDetailView(
-            selectedReviw: review!,
-            isComingFromReviewPage: true,
-          ));
+          context.push(PartnerRoutes.ReviewDetailView,extra: {
+            "selectedReviw": review,
+            "isComingFromReviewPage": true,
+          });
           return;
         }
         if (product.id != -1) {
           //print("${product.id}asdfasdf");
-          Get.to(() => ProductDetailView(), arguments: product.id);
+          context.push("/product/${product.id}");
         }
       },
       child: Center(

@@ -9,6 +9,7 @@ import 'package:wholesaler_user/app/models/product_model.dart';
 import 'package:wholesaler_user/app/models/status_model.dart';
 import 'package:wholesaler_user/app/models/store_model.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductMgmtController extends GetxController {
   RxBool isSelectAll = false.obs;
@@ -280,7 +281,7 @@ class ProductMgmtController extends GetxController {
         mSnackbar(message: statusModel.message,context: context);
       }
     }
-    Get.back();
+    context.pop();
   }
 
   searchBtnPressed(String text) {

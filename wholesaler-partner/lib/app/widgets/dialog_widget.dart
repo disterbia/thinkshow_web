@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
+import 'package:go_router/go_router.dart';
 
 DialogWidget(context, Widget content, {Widget? buttons}) {
   showDialog(
@@ -19,11 +20,10 @@ DialogWidget(context, Widget content, {Widget? buttons}) {
                 rightBtnText: '확인',
                 leftBtnText: '취소',
                 rBtnOnPressed: () {
-                  Navigator.pop(context);
-                  Get.back();
+                 context.pop();
                 },
                 lBtnOnPressed: () {
-                  Navigator.pop(context);
+                  context.pop();
                 })
           ],
         ),

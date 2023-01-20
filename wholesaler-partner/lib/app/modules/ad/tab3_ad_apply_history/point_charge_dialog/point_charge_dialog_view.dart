@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wholesaler_partner/app/modules/ad/tab3_ad_apply_history/point_charge_dialog/point_charge_controller.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
+import 'package:go_router/go_router.dart';
 
 PointChargeDialog(context) {
   PointChargeController ctr = Get.put(PointChargeController());
@@ -110,7 +111,7 @@ PointChargeDialog(context) {
               leftBtnText: '취소',
               rightBtnText: '충전신청',
               lBtnOnPressed: () {
-                Navigator.pop(context);
+                context.pop();
               },
               rBtnOnPressed: () => ctr.chargeBtnPressed(context),
             )

@@ -6,6 +6,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
+import 'package:go_router/go_router.dart';
 
 Tab3AdApplyHistoryBudgetDialog({required ApplicationDetailList tempApplicationDetail}) {
   Tab3AdApplicationHistoryController ctr = Get.put(Tab3AdApplicationHistoryController());
@@ -76,11 +77,11 @@ Tab3AdApplyHistoryBudgetDialog({required ApplicationDetailList tempApplicationDe
               leftBtnText: '취소',
               rightBtnText: '확인',
               lBtnOnPressed: () {
-                Get.back();
+               context.pop();
               },
               rBtnOnPressed: () => ctr.adBudgetBtnPressed(
                 tempApplicationDetail.id!,
-                ctr.dailyBudgetController.text,
+                ctr.dailyBudgetController.text,context
               ),
             )
           ],

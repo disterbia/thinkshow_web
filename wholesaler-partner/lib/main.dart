@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -32,6 +33,16 @@ import 'package:wholesaler_user/app/modules/splash_screen/view/splash_screen_vie
 Future<void> main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyCaRnvK3vm3M1fLvUl2RewIHok3H9t5yMk",
+          authDomain: "thinkshow-71d1d.firebaseapp.com",
+          projectId: "thinkshow-71d1d",
+          storageBucket: "thinkshow-71d1d.appspot.com",
+          messagingSenderId: "463888941632",
+          appId: "1:463888941632:web:e3370b47a5c6a7005dd5a5",
+          measurementId: "G-X15BTL8TSQ")
+  );
   await GetStorage.init();
   await MyVars.initializeVariables();
   //bool isLogin = CacheProvider().getToken().isNotEmpty;
@@ -40,28 +51,34 @@ Future<void> main() async {
   //NotificationService().init();
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(
-    GetMaterialApp.router(
-        localizationsDelegates: [
-          GlobalCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('ko', 'KR'),
-        ],
-        translations: pLanguages(),
-        locale: const Locale('ko', 'KR'),
-        fallbackLocale: const Locale('ko', 'KR'),
-        theme: appThemeDataLight,
-        debugShowCheckedModeBanner: false,
-        title: "Wholesale Partner App",
-      routeInformationParser: PartnerPages.partnerRouter.routeInformationParser,
-      routerDelegate: PartnerPages.partnerRouter.routerDelegate,
-      routeInformationProvider: PartnerPages.partnerRouter.routeInformationProvider,
-        //home: SplashScreenPageView(),
-        // getPages: [
-        //   GetPage(name: '/login', page: () => User_LoginPageView()),
-        // ]
+    FlutterWebFrame(maximumSize: Size(500,double.infinity),
+      builder: (context){return
+        GetMaterialApp.router(
+          localizationsDelegates: [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('ko', 'KR'),
+          ],
+          translations: pLanguages(),
+          locale: const Locale('ko', 'KR'),
+          fallbackLocale: const Locale('ko', 'KR'),
+          theme: appThemeDataLight,
+          debugShowCheckedModeBanner: false,
+          title: "Wholesale Partner App",
+          routeInformationParser:
+              PartnerPages.partnerRouter.routeInformationParser,
+          routerDelegate: PartnerPages.partnerRouter.routerDelegate,
+          routeInformationProvider:
+              PartnerPages.partnerRouter.routeInformationProvider,
+          //home: SplashScreenPageView(),
+          // getPages: [
+          //   GetPage(name: '/login', page: () => User_LoginPageView()),
+          // ]
+        );
+      },
     ),
   );
 }

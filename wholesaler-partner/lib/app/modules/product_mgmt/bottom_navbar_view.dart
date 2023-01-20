@@ -8,7 +8,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/dimens.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/data/cache_provider.dart';
-import 'package:wholesaler_user/app/modules/auth/user_login_page/controllers/login_controller.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_user/app/widgets/moutlined_button_widget.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 
@@ -26,7 +26,7 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               showDialog(
-                  context: Get.context!,
+                  context: context,
                   builder: (context) {
                     if (ctr.products
                         .firstWhere(
@@ -65,7 +65,7 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     showDialog(
-                        context: Get.context!,
+                        context: context,
                         builder: (context) {
                           return _dialog(ProductMgmtButtons.dingdong,context);
                         });
@@ -80,7 +80,7 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
             text: '삭제',
             onPressed: () {
               showDialog(
-                  context: Get.context!,
+                  context: context,
                   builder: (context) {
                     return _dialog(ProductMgmtButtons.delete,context);
                   });
@@ -130,10 +130,10 @@ class ProductMgmtBottmNavbar extends StatelessWidget {
                     ctr.addToDingDong(context);
                   }
                   ctr.isBottomNavbar.value = false;
-                  Get.back();
+                 context.pop();
                 },
                 lBtnOnPressed: () {
-                  Get.back();
+                 context.pop();
                 })
           ],
         ),

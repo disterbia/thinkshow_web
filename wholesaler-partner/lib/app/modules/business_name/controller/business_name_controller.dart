@@ -132,7 +132,7 @@ saveCompanyName(BuildContext context) {
     if (response.statusCode == 200) {
       mSnackbar(message: response.message,context: context);
       page3MyPageController.getUserInfo();
-      context.go(PartnerRoutes.BusinessInfo);
+      context.pushReplacement(PartnerRoutes.BusinessInfo);
     } else {
       mSnackbar(message: response.message,context: context);
     }

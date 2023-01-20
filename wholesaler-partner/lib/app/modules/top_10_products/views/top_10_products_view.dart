@@ -47,7 +47,7 @@ class Top10ProductsView extends GetView<Top10ProductsController> {
                 await GetStorage().remove("isRegisterAdProductPage");
                 await GetStorage().remove("argument");
                 await GetStorage().write("isTop10Page", true);
-                context.go(PartnerRoutes.ProductMgmtView);
+                context.pushReplacement(PartnerRoutes.ProductMgmtView);
                 ctr.getBestProducts();
               }
             ),

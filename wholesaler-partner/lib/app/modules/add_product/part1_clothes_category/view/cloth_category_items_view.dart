@@ -15,16 +15,16 @@ class ClothCategoryItemsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: '상품등록', isBackEnable: true),
-      body: body(),
+      appBar: CustomAppbar(title: '상품등록', isBackEnable: false),
+      body: body(context),
     );
   }
 
-  Widget body() {
+  Widget body(BuildContext context) {
     return ListView(
       children: [
         categoryTitle(),
-        for (ClothCategoryModel subCat in clothCategory.subCategories) _itemBuilder(subCat),
+        for (ClothCategoryModel subCat in clothCategory.subCategories) _itemBuilder(context,subCat),
       ],
     );
   }
@@ -40,10 +40,10 @@ class ClothCategoryItemsView extends StatelessWidget {
     );
   }
 
-  Widget _itemBuilder(ClothCategoryModel subCat) {
+  Widget _itemBuilder(BuildContext context,ClothCategoryModel subCat) {
     return ListTile(
       onTap: () {
-        ctr.clothCategorySelected(subCat, clothCategory);
+        ctr.clothCategorySelected(context,subCat, clothCategory);
       },
       title: Text(subCat.name),
     );

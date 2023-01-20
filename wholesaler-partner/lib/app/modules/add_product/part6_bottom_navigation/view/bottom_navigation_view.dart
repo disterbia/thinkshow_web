@@ -9,6 +9,8 @@ import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_vi
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 
 class AP_Part6View extends GetView<AP_Part6Controller> {
@@ -23,41 +25,26 @@ class AP_Part6View extends GetView<AP_Part6Controller> {
       child: Container(
         color: MyColors.white,
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-        width: Get.width,
+        width: 500,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: TwoButtons(
-                leftBtnText: 'go_back'.tr,
-                rightBtnText:
-                    addProductCtr.isEditing.isTrue ? '수정하기' : '상품등록하기',
-                lBtnOnPressed: () {
-                  showDialog(
-                      context: Get.context!,
-                      builder: (context) {
-                        return _saveDialog(
-                            title: '상품등록중입니다. 상품등록화면에서 나가시겠습니까?',
-                            subtitle:
-                                '* 확인을 누르시면 입력중인 상품정보가 삭제되고 상품등록이 완료되지 않습니다',
-                            isCloseBtnPressed: true);
-                      });
-                },
-                rBtnOnPressed: () {
-                  //part2controller.isOptionCheckbox.value = true;
+              child: CustomButton(text:  addProductCtr.isEditing.isTrue ? '수정하기' : '상품등록하기',onPressed:
+            () {
+          //part2controller.isOptionCheckbox.value = true;
 
-                  showDialog(
-                      context: Get.context!,
-                      builder: (context) {
-                        return _saveDialog(
-                            title: addProductCtr.isEditing.isTrue
-                                ? '상품 수정을 완료하시겠습니까?'
-                                : '상품 등록을 완료하시겠습니까?',
-                            isCloseBtnPressed: false);
-                      });
-                },
-              ),
+          showDialog(
+              context: context,
+              builder: (context) {
+                return _saveDialog(context,
+                    title: addProductCtr.isEditing.isTrue
+                        ? '상품 수정을 완료하시겠습니까?'
+                        : '상품 등록을 완료하시겠습니까?',
+                    isCloseBtnPressed: false);
+              });
+        },),
             ),
           ],
         ),
@@ -65,7 +52,7 @@ class AP_Part6View extends GetView<AP_Part6Controller> {
     );
   }
 
-  Dialog _saveDialog(
+  Dialog _saveDialog(BuildContext context,
       {required String title,
       String? subtitle,
       required bool isCloseBtnPressed}) {
@@ -111,12 +98,12 @@ class AP_Part6View extends GetView<AP_Part6Controller> {
                             leftBtnText: 'cancel'.tr,
                             rightBtnText: 'ok'.tr,
                             lBtnOnPressed: () {
-                              Get.back();
+                             context.pop();
                             },
                             rBtnOnPressed: () {
                               if (isCloseBtnPressed) {
-                                Get.back();
-                                Get.back();
+                               context.pop();
+                               context.pop();
                               } else {
                                 //ctr.addProduct();
                               }

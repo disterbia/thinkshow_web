@@ -115,7 +115,7 @@ class RegisterCeoEmployeePage4View
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        context.go(PartnerRoutes.User_RegisterPrivacyTermsView,extra:PrivacyOrTerms.terms);
+                        context.pushReplacement(PartnerRoutes.User_RegisterPrivacyTermsView,extra:PrivacyOrTerms.terms);
                       },
                       icon: Text(
                         'Accept_terms'.tr,
@@ -149,7 +149,7 @@ class RegisterCeoEmployeePage4View
                     ),
                     TextButton.icon(
                       onPressed: () {
-                        context.go(PartnerRoutes.User_RegisterPrivacyTermsView,extra: PrivacyOrTerms.privacy);
+                        context.pushReplacement(PartnerRoutes.User_RegisterPrivacyTermsView,extra: PrivacyOrTerms.privacy);
                       },
                       icon: Text(
                         'privacy_policy'.tr,

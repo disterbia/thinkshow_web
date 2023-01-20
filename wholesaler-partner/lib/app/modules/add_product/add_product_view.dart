@@ -14,7 +14,9 @@ import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
+import 'package:wholesaler_user/app/widgets/custom_button.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
+import 'package:go_router/go_router.dart';
 
 class AddProductView extends GetView<AddProductController> {
   AddProductController ctr = Get.put(AddProductController());
@@ -26,6 +28,7 @@ class AddProductView extends GetView<AddProductController> {
       ctr.productIdforEdit = argument!;
       ctr.getProductEditInfo(productId: argument);
     }
+    //else ctr.deleteProductEditInfo();
   }
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class AddProductView extends GetView<AddProductController> {
 
       bottomNavigationBar: bottomSheet(context),
       appBar:
-      CustomAppbar(isBackEnable: false, hasHomeButton: true, title: '상품등록'),
+      CustomAppbar(isBackEnable: false, hasHomeButton: false, title: '상품등록'),
       // GestureDetector: when click on anywhere on the screen close keyboard
       // body: GestureDetector(
       //     onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -88,39 +91,26 @@ Widget bottomSheet(BuildContext context) {
   return Container(
     color: MyColors.white,
     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-    width: Get.width,
+    width: 500,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: TwoButtons(
-            leftBtnText: 'go_back'.tr,
-            rightBtnText: addProductCtr.isEditing.isTrue ? '수정하기' : '상품등록하기',
-            lBtnOnPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return _saveDialog(context,
-                        title: '상품등록중입니다. 상품등록화면에서 나가시겠습니까?',
-                        subtitle: '* 확인을 누르시면 입력중인 상품정보가 삭제되고 상품등록이 완료되지 않습니다',
-                        isCloseBtnPressed: true);
-                  });
-            },
-            rBtnOnPressed: () {
-              //part2controller.isOptionCheckbox.value = false;
+          child: CustomButton(text:  addProductCtr.isEditing.isTrue ? '수정하기' : '상품등록하기',onPressed:
+              () {
+            //part2controller.isOptionCheckbox.value = true;
 
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return _saveDialog(context,
-                        title: addProductCtr.isEditing.isTrue
-                            ? '상품 수정을 완료하시겠습니까?'
-                            : '상품 등록을 완료하시겠습니까?',
-                        isCloseBtnPressed: false);
-                  });
-            },
-          ),
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return _saveDialog(context,
+                      title: addProductCtr.isEditing.isTrue
+                          ? '상품 수정을 완료하시겠습니까?'
+                          : '상품 등록을 완료하시겠습니까?',
+                      isCloseBtnPressed: false);
+                });
+          },),
         ),
       ],
     ),
@@ -176,13 +166,14 @@ Dialog _saveDialog(BuildContext context,
                     leftBtnText: 'cancel'.tr,
                     rightBtnText: 'ok'.tr,
                     lBtnOnPressed: () {
+                    context.pop();
                       print(addProductCtr.isEditing.isTrue);
 
                     },
                     rBtnOnPressed: () {
                       if (isCloseBtnPressed) {
-                        Future.delayed(Duration.zero,()=>Navigator.pop(context));
-                        Future.delayed(Duration.zero,()=>Navigator.pop(context));
+                        context.pop();
+                        context.pop();
                       } else {
                         print(
                             "dddddddddddddddddddd${addProductCtr.productIdforEdit}");

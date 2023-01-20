@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
 import 'package:wholesaler_user/app/widgets/custom_button.dart';
+import 'package:go_router/go_router.dart';
 
 import '../controllers/business_registration_submit_controller.dart';
 
@@ -17,7 +19,7 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(isBackEnable: false, title: '직원관리'),
+      appBar: CustomAppbar(isBackEnable: false, title: '사업자 등록증 등록'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 22, bottom: 89),
@@ -26,8 +28,8 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
             children: [
               _Top(),
               _Sample(),
-              _Bottom1(), // 사업자 등록증 사진 등록/변경
-              _Bottom2(), // 사진 촬영방법
+              _Bottom1(context), // 사업자 등록증 사진 등록/변경
+              _Bottom2(context), // 사진 촬영방법
             ],
           ),
         ),
@@ -193,7 +195,7 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
     );
   }
 
-  Widget _Bottom1() {
+  Widget _Bottom1(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -214,7 +216,8 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
               ? LoadingWidget()
               : CustomButton(
                   onPressed: () async {
-                    ctr.uploadImageBtnPressed();
+                    bool result= await ctr.uploadImageBtnPressed();
+                    if(result) context.pushReplacement(PartnerRoutes.BusinessEditView);
                   },
                   text: isNewSubmit ? 'business_registration_image_upload'.tr : 'business_registration_image_edit'.tr,
                 );
@@ -251,7 +254,7 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
     );
   }
 
-  Widget _Bottom2() {
+  Widget _Bottom2(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -286,7 +289,7 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
         SizedBox(height: 82),
         CustomButton(
           onPressed: () {
-            Get.back();
+            context.pushReplacement(PartnerRoutes.BusinessEditView);
           },
           text: 'close'.tr,
         )

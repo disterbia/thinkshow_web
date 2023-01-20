@@ -6,6 +6,7 @@ import 'package:wholesaler_partner/app/modules/add_product/view/widget/custom_in
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/widgets/input.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../models/add_product/country_model.dart';
 
@@ -68,7 +69,7 @@ class AP_Part5View extends GetView<AP_Part5Controller> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
-                  children: [for (String country in ctr.countries) _countryListItem(country)],
+                  children: [for (String country in ctr.countries) _countryListItem(country,context)],
                 ),
               ),
             ),
@@ -76,11 +77,11 @@ class AP_Part5View extends GetView<AP_Part5Controller> {
         });
   }
 
-  Widget _countryListItem(String country) {
+  Widget _countryListItem(String country,BuildContext context) {
     return InkWell(
       onTap: () {
         ctr.selectedCountry.value = country;
-        Get.back();
+       context.pop();
       },
       child: Padding(
         padding: const EdgeInsets.all(10),

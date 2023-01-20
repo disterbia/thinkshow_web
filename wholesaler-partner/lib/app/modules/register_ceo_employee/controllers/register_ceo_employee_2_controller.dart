@@ -71,7 +71,7 @@ class RegisterCeoEmployee2Controller extends GetxController {
       mSnackbar(message: '호수를 선택해주세요'.tr,context: context);
       return;
     }
-    context.go(PartnerRoutes.RegisterCeoEmployeePage3View);
+    context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage3View);
   }
 
   searchPressed(String searchValue) async {

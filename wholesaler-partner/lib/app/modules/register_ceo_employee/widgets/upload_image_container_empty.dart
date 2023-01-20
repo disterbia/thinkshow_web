@@ -21,7 +21,7 @@ class UploadImageContainer_empty extends StatelessWidget {
         onTap: () {
           print(' tapped on business regi');
           // Get.delete<BusinessRegistrationSubmitController>();
-          context.go(PartnerRoutes.BusinessRegistrationSubmitView,extra: true);
+          context.pushReplacement(PartnerRoutes.BusinessRegistrationSubmitView,extra: true);
         },
         child: Container(
           height: 120,

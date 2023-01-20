@@ -38,7 +38,7 @@ class AdOrderView extends GetView {
                       () => ctr.adOrderModel.value.imageUrl != null
                           ? CachedNetworkImage(
                               imageUrl: ctr.adOrderModel.value.imageUrl!,
-                              width: Get.width,
+                              width: 500,
                               // placeholder: (context, url) => CircularProgressIndicator(),
                               errorWidget: (context, url, error) => Icon(Icons.error),
                             )
@@ -63,7 +63,7 @@ class AdOrderView extends GetView {
                         Expanded(
                           child: OutlinedButton(
                             onPressed: () {
-                              context.go("/ad/${AdTabs.Tab3AdApplicationHistory.index}");
+                              context.pushReplacement("/ad/${AdTabs.Tab3AdApplicationHistory.index}");
                             },
                             child: Text('Application_history'.tr),
                           ),
@@ -72,7 +72,7 @@ class AdOrderView extends GetView {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              context.go("/tab2adapp/${ctr.adOrderModel.value.id}");
+                              context.pushReplacement("/tab2adapp/${ctr.adOrderModel.value.id}");
                             },
                             child: Text('ad_apply'.tr),
                           ),

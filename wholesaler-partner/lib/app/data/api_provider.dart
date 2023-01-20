@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart' as mDio;
 import 'package:get/get.dart';
@@ -191,13 +192,14 @@ class pApiProvider extends GetConnect {
         mConst.API_STORE_PATH +
         mConst.BUSINESS_REGISTER_IMG_UPLOAD;
     File image = File(pickedImage.path);
+    final temp = await pickedImage.readAsBytes();
     String imageName = image.path.substring(image.path.length - 19);
     log('image: $image');
     log('imageName: $imageName');
 
     mDio.FormData formData = mDio.FormData.fromMap({
       "image":
-          await mDio.MultipartFile.fromFile(image.path, filename: imageName),
+          await mDio.MultipartFile.fromBytes(temp, filename: imageName),
     });
     final response = await dio.post(url, data: formData);
     print(
@@ -604,7 +606,7 @@ class pApiProvider extends GetConnect {
   }
 
   Future<ProductImageModel> uploadProductImage3(
-      {required File pickedImage}) async {
+      {required File pickedImage,required Uint8List imageBytes}) async {
     var dio = mDio.Dio();
 
     dio.options.headers["Authorization"] =
@@ -617,7 +619,7 @@ class pApiProvider extends GetConnect {
 
     mDio.FormData formData = mDio.FormData.fromMap({
       "image":
-          await mDio.MultipartFile.fromFile(image.path, filename: imageName),
+          await mDio.MultipartFile.fromBytes(imageBytes, filename: imageName),
     });
     final response = await dio.post(
       url,
@@ -644,7 +646,7 @@ class pApiProvider extends GetConnect {
   }
 
   Future<ProductImageModel2> uploadProductImage(
-      {required List<File> pickedImage}) async {
+      {required List<File> pickedImage,required List<Uint8List> imageBytes}) async {
     var dio = mDio.Dio();
 
     dio.options.headers["Authorization"] =
@@ -664,7 +666,7 @@ class pApiProvider extends GetConnect {
     List<mDio.MultipartFile> temp = [];
     for(int i = 0 ; i<images.length;i++){
       print("11111111");
-      temp.add(await mDio.MultipartFile.fromFile(images[i].path, filename: imageNames[i]));
+      temp.add(await mDio.MultipartFile.fromBytes(imageBytes[i], filename: imageNames[i]));
       print("22222222");
     }
     mDio.FormData formData = mDio.FormData.fromMap({

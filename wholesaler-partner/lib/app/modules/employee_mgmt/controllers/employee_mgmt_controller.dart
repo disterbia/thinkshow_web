@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:wholesaler_user/app/models/status_model.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../data/api_provider.dart';
 import '../../../models/staff_model.dart';
@@ -28,7 +30,7 @@ class EmployeeMgmtController extends GetxController {
     });
   }
 
-  Future<void> setStaffStatus(
+  Future<void> setStaffStatus(BuildContext context,
       {required String id, required bool isApproval}) async {
     if (isApproval) {
       isLoadingApprovalRight.value = true;
@@ -44,7 +46,7 @@ class EmployeeMgmtController extends GetxController {
       isLoadingApprovalLeft.value = false;
     }
 
-    Get.back();
+   context.pop();
    // mSnackbar(message: statusModel.message);
     print(statusModel.statusCode);
 

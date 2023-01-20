@@ -64,10 +64,33 @@ class AddProductController extends GetxController {
 
 
   toSubCategoryListView(ClothCategory category,BuildContext context) {
-    context.go(PartnerRoutes.ClothCategoryItemsView,extra:category);
+    context.pushReplacement(PartnerRoutes.ClothCategoryItemsView,extra:category);
   }
 
   // EDIT PRODUCT
+  deleteProductEditInfo()async{
+    isLoading.value=true;
+    keywordList.value = [];
+    colorsList.value = [];
+    options = [];
+    sizesStr = ['FREE, XS, S, M, L'];
+    isEditing.value = false;
+    isChangeCategoryInEditeMode.value = false;
+     productIdforEdit = -1;
+    List<TextEditingController> optionsControllers = <TextEditingController>[];
+     category.value = ClothCategory(icon: '', id: -1, image: '', subCategories: [], title: '');
+     selectedSubCat.value = ClothCategoryModel(depth: 0, id: -1, isUse: false, name: '', parentId: -1);
+    productNameController.clear();
+    priceController.clear();
+    await Get.delete<AP_Part1Controller>();
+    await Get.delete<AP_Part2Controller>();
+    await Get.delete<AP_Part3Controller>();
+    await Get.delete<AP_Part4Controller>();
+    await Get.delete<AP_Part5Controller>();
+    await Get.delete<EditorController>();
+    isLoading.value=false;
+
+  }
   getProductEditInfo({required productId}) async {
     AP_Part1Controller part1controller = Get.put(AP_Part1Controller());
     AP_Part2Controller part2controller = Get.put(AP_Part2Controller());

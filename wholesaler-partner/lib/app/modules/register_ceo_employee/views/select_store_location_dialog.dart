@@ -6,6 +6,7 @@ import 'package:wholesaler_partner/app/modules/register_ceo_employee/controllers
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
+import 'package:go_router/go_router.dart';
 
 SelectStoreLocationDialog() async {
   RegisterCeoEmployee2Controller registerP2Ctr =
@@ -28,7 +29,7 @@ SelectStoreLocationDialog() async {
                 return InkWell(
                   onTap: () async {
                     registerP2Ctr.storeLocationSelectPressed(index);
-                    Get.back();
+                   context.pop();
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

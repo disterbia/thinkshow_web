@@ -19,7 +19,7 @@ class AdvertisementItemVertical extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: (() => advertisement.type == BulletinType.bulletin ? null: context.go("/adorder/${advertisement.id}")),
+      onTap: (() => advertisement.type == BulletinType.bulletin ? null: context.pushReplacement("/adorder/${advertisement.id}")),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +28,7 @@ class AdvertisementItemVertical extends StatelessWidget {
             width: 116,
             child: CachedNetworkImage(
               imageUrl: advertisement.imgURL,
-              width: Get.width,
+              width: 500,
               // placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),

@@ -113,6 +113,7 @@ class PartnerRoutes {
 
 class PartnerPages {
   static late final partnerRouter = GoRouter(
+    routerNeglect: true,
     redirect: (context, state) {
       bool isProcess = GetStorage().read("isProcess")??true;
       if (CacheProvider().getToken().isEmpty &&
@@ -165,10 +166,6 @@ class PartnerPages {
             // if(state.extra==null) return ProductMgmtView();
             // Map<String,dynamic>? temp =state.extra as Map<String,dynamic>;
             GetStorage temp = GetStorage();
-            print(temp.read("isRegisterAdProductPage"));
-            print(temp.read("isRegisterProductPage"));
-            print(temp.read("argument"));
-            print(temp.read("isTop10Page"));
             return ProductMgmtView(isRegisterAdProductPage:temp.read("isRegisterAdProductPage") ,
               isRegisterProductPage:temp.read('isRegisterProductPage') ,argument: temp.read("argument"),
               isTop10Page: temp.read("isTop10Page"),);
@@ -267,7 +264,7 @@ class PartnerPages {
       ),
       GoRoute(
           path: PartnerRoutes.ClothCategoryItemsView,
-          builder: (context, state) => ClothCategoryItemsView(state.extra as ClothCategory)
+          builder: (context, state) => state.extra==null ? ClothCategoryView():ClothCategoryItemsView(state.extra as ClothCategory)
       ),
       GoRoute(
           path: PartnerRoutes.ClothCategoryView,
@@ -287,7 +284,7 @@ class PartnerPages {
       ),
       GoRoute(
           path: PartnerRoutes.BusinessRegistrationSubmitView,
-          builder: (context, state) => BusinessRegistrationSubmitView(isNewSubmit: state.extra as bool)
+          builder: (context, state) => state.extra==null?BusinessEditView():BusinessRegistrationSubmitView(isNewSubmit: state.extra as bool)
       ),
       GoRoute(
           path: PartnerRoutes.ProductDetailView,

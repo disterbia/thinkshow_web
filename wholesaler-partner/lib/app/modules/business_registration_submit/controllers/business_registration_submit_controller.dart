@@ -20,16 +20,17 @@ class BusinessRegistrationSubmitController extends GetxController {
     super.onInit();
   }
 
-  Future<void> uploadImageBtnPressed() async {
+  Future<bool> uploadImageBtnPressed() async {
     _pickedImage = await pickImage();
-    uploadImage();
+    bool result=await uploadImage();
+    return result;
   }
 
   Future<XFile?> pickImage() async {
     return await ImagePicker().pickImage(source: ImageSource.gallery);
   }
 
-  uploadImage() async {
+  Future<bool> uploadImage() async {
     if (_pickedImage != null) {
       isLoading.value = true;
       pickedImageToEdit=_pickedImage;
@@ -39,10 +40,12 @@ class BusinessRegistrationSubmitController extends GetxController {
        // mSnackbar(message: 'image_uploaded'.tr);
         uploadedImageURL.value = response.url;
         uploadedImagePath.value = response.path;
+        log('uploadedImageURL $uploadedImageURL');
+        return true;
+      }else{
+        isLoading.value = false;
+        return false;
       }
-      isLoading.value = false;
-
-      log('uploadedImageURL $uploadedImageURL');
-    }
+    }else return false;
   }
 }

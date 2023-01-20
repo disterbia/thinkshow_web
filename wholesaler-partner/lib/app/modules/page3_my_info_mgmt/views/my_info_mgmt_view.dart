@@ -50,14 +50,14 @@ class MyInfoMgmtView extends GetView<MyInfoMgmtController> {
                   title: '비밀번호 찾기',
                   onPressed: () {
                     Get.put(User_FindID_FindPasswordController()).initialIndex.value = FindIDPasswordTabIndex.findPassword.index;
-                    context.go(MyRoutes.User_FindID_FindPasswordView);
+                    context.pushReplacement(MyRoutes.User_FindID_FindPasswordView);
                   },
                 ),
                 Divider(),
                 MyPageItem(
                   title: '휴대폰번호 변경',
                   onPressed: () {
-                    context.go(MyRoutes.ChangeNumberView);
+                    context.pushReplacement(MyRoutes.ChangeNumberView);
                   },
                 ),
                 // Divider(),
@@ -107,7 +107,7 @@ class MyInfoMgmtView extends GetView<MyInfoMgmtController> {
                 GestureDetector(onDoubleTap:() {
                   myTest++;
                   if(myTest==20){
-                    context.go(PartnerRoutes.MyPageDownP);
+                    context.pushReplacement(PartnerRoutes.MyPageDownP);
                   }
                 },
                   child: Text(

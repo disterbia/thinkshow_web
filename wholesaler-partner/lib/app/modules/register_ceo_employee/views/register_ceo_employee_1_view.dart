@@ -37,7 +37,7 @@ class RegisterCeoEmployeePage1View extends StatelessWidget {
               onPressed: () async{
                 await GetStorage().write("isEmployee", false);
                 await GetStorage().write("isProcess", true);
-                context.go(PartnerRoutes.RegisterCeoEmployeePage2View);
+                context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage2View);
                 await GetStorage().write("isProcess", false);
               },
               text: 'CEO'.tr,
@@ -53,7 +53,7 @@ class RegisterCeoEmployeePage1View extends StatelessWidget {
               textColor: MyColors.black,
               onPressed: () async {
                 await GetStorage().write("isEmployee", true);
-                context.go(PartnerRoutes.RegisterCeoEmployeePage2View);
+                context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage2View);
               },
             )
           ],

@@ -47,7 +47,7 @@ class RemainingPoints extends GetView {
         mTextButton.icon(
           text: '포인트 사용내역서',
           icon: Icons.keyboard_arrow_right,
-          onPressed: () => context.go(PartnerRoutes.PointMgmtView),
+          onPressed: () => context.pushReplacement(PartnerRoutes.PointMgmtView),
         ),
       ],
     );

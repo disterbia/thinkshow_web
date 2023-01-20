@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/modules/add_product/add_product_view.dart';
+import 'package:wholesaler_partner/app/modules/add_product/controller/add_product_controller.dart';
 import 'package:wholesaler_partner/app/modules/dingdong_delivery/views/dingdong_delivery_view.dart';
 import 'package:wholesaler_partner/app/modules/page1_home/controller/partner_home_controller.dart';
 import 'package:wholesaler_partner/app/modules/page1_home/widgets/bulletin_item_widget.dart';
@@ -44,7 +45,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
   @override
   Widget build(BuildContext context) {
     init();
-    columnWidth = context.width / 3;
+    columnWidth = 500 / 3;
     return Obx(
       () =>ctr.isLoading.value ? LoadingWidget() :
       // ctr.isShowSplashScreen.isTrue
@@ -114,7 +115,9 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             style: MyTextStyles.f16,
           ),
           onPressed: () {
-            context.go(PartnerRoutes. AddProductView);
+            AddProductController ctr = Get.put(AddProductController());
+            ctr.deleteProductEditInfo();
+            context.pushReplacement(PartnerRoutes. AddProductView);
           },
         ),
         SizedBox(width: 20),
@@ -132,7 +135,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             await GetStorage().remove("isRegisterAdProductPage");
             await GetStorage().remove("argument");
             await GetStorage().write("isTop10Page", false);
-            context.go(PartnerRoutes.ProductMgmtView);
+            context.pushReplacement(PartnerRoutes.ProductMgmtView);
           },
         ),
         SizedBox(width: 20),
@@ -142,7 +145,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
             style: MyTextStyles.f16,
           ),
           onPressed: () {
-            context.go(PartnerRoutes.SalesMgmtView);
+            context.pushReplacement(PartnerRoutes.SalesMgmtView);
           },
         ),
       ],
@@ -152,7 +155,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
   _topBannerImage() {
     return Obx(
       () => Container(
-        width: Get.width,
+        width: 500,
         height: 400,
         decoration: BoxDecoration(color: MyColors.grey1),
         child: ((ctr.mainStoreInfo.value.mainTopImageUrl?.value.isNotEmpty ??
@@ -169,7 +172,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
         () => CachedNetworkImage(
           imageUrl: ctr.mainStoreInfo.value.mainTopImageUrl!.value,
           height: 400,
-          width: Get.width,
+          width: 500,
           fit: BoxFit.fitHeight,
           // placeholder: (context, url) => CircularProgressIndicator(),
           errorWidget: (context, url, error) => Icon(Icons.error),
@@ -240,7 +243,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                 text: 'View_more'.tr,
                 icon: Icons.keyboard_arrow_right_outlined,
                 onPressed: () {
-                  context.go(PartnerRoutes.DingdongDeliveryView);
+                  context.pushReplacement(PartnerRoutes.DingdongDeliveryView);
                 },
               ),
             ],
@@ -269,7 +272,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                 text: 'manage'.tr,
                 icon: Icons.keyboard_arrow_right_outlined,
                 onPressed: () {
-                  context.go(PartnerRoutes.Top10ProductsView);
+                  context.pushReplacement(PartnerRoutes.Top10ProductsView);
                 },
               ),
             ],
@@ -333,7 +336,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                 text: 'View_more'.tr,
                 icon: Icons.keyboard_arrow_right_outlined,
                 onPressed: () {
-                  context.go(PartnerRoutes.PaymentView);
+                  context.pushReplacement(PartnerRoutes.PaymentView);
                 },
               ),
             ],

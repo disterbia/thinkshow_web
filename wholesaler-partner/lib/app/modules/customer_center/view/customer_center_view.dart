@@ -21,7 +21,7 @@ class CustomerCenterView extends GetView<CustomerCenterController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 탈퇴
-            isWithdrawPage ? _withdrawAccountBuilder() : Container(),
+            isWithdrawPage ? _withdrawAccountBuilder(context) : Container(),
             Text(
               '고객센터',
               textAlign: TextAlign.left,
@@ -80,7 +80,7 @@ class CustomerCenterView extends GetView<CustomerCenterController> {
     );
   }
 
-  Widget _withdrawAccountBuilder() {
+  Widget _withdrawAccountBuilder(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -96,7 +96,7 @@ class CustomerCenterView extends GetView<CustomerCenterController> {
         Text('2. 관리자 검토 및 잔여 포인트 정산 후 탈퇴 처리'),
         SizedBox(height: 5),
         ElevatedButton(
-          onPressed: () => ctr.withdrawAccount(),
+          onPressed: () => ctr.withdrawAccount(context),
           child: Text('탈퇴 요청'),
         ),
         SizedBox(height: 30),

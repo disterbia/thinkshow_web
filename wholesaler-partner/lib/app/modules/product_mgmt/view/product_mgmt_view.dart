@@ -59,7 +59,7 @@ class ProductMgmtView extends GetView {
           ),
           appBar: CustomAppbar(
               isBackEnable: isRegisterAdProductPage!,
-              hasHomeButton: true,
+              hasHomeButton: false,
               title: '상품관리'),
           body: Obx(
             ()=>ctr.isLoading.value?LoadingWidget(): SingleChildScrollView(
@@ -91,7 +91,7 @@ class ProductMgmtView extends GetView {
                         Spacer(),
                         IconButton(
                           onPressed: () {
-                            context.go(PartnerRoutes.ProductMgmtFilterView);
+                            context.pushReplacement(PartnerRoutes.ProductMgmtFilterView);
                           },
                           icon: Image.asset(
                             'assets/icons/ic_filter.png',
@@ -150,7 +150,7 @@ class ProductMgmtView extends GetView {
               child: CustomButton(
                 onPressed: () async {
                   if (isRegisterAdProductPage!) {
-                    await tab1AdStatusController.addToAdProduct(
+                    await tab1AdStatusController.addToAdProduct(context,
                         productsId: ctr.productsId,
                         ads_application_id: ctr.applicationId);
                     // find ctr.products contain productsId in a for loop

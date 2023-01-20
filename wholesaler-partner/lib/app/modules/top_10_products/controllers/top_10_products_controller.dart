@@ -47,7 +47,7 @@ class Top10ProductsController extends GetxController {
      await GetStorage().remove("isRegisterAdProductPage");
      await GetStorage().remove("argument");
      await GetStorage().write("isTopPage", true);
-    context.go(PartnerRoutes.ProductMgmtView);
+    context.pushReplacement(PartnerRoutes.ProductMgmtView);
     getBestProducts();
   }
 

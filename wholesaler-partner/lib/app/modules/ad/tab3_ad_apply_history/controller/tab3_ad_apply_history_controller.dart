@@ -46,17 +46,17 @@ class Tab3AdApplicationHistoryController extends GetxController {
     await GetStorage().remove("isTop10Page");
     await GetStorage().write("isRegisterAdProductPage", true);
     await GetStorage().write("argument",tempApplicationDetail.id);
-    context.go(PartnerRoutes.ProductMgmtView);
+    context.pushReplacement(PartnerRoutes.ProductMgmtView);
   }
 
-  adPaymentBtnPressed(int advertisement_application_id) async {
+  adPaymentBtnPressed(int advertisement_application_id,BuildContext context) async {
     await _apiProvider.adPayment(advertisement_application_id);
     await getHistory();
     await ctr.getPoints();
-    Get.back();
+    context.pop();
   }
 
-  adBudgetBtnPressed(int advertisement_application_id, String amount) async {
+  adBudgetBtnPressed(int advertisement_application_id, String amount,BuildContext context) async {
     // check if amount is empty
     if (amount.isEmpty) {
     //  mSnackbar(message: '예산을 입력해주세요.');
@@ -81,7 +81,7 @@ class Tab3AdApplicationHistoryController extends GetxController {
     bool isSuccess = await _apiProvider.putAdBudget(advertisement_application_id, amountInt);
     if (isSuccess) {
       // await getHistory();
-      Get.back();
+      context.pop();
     }
   }
 }

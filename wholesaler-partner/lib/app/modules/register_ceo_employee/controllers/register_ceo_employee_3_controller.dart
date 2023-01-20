@@ -117,6 +117,6 @@ class RegisterCeoEmployee3Controller extends GetxController {
       showDuplicatedIdError();
       return;
     }
-    context.go(PartnerRoutes.RegisterCeoEmployeePage4View);
+    context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage4View);
   }
 }

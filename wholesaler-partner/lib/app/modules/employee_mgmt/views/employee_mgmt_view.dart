@@ -215,12 +215,12 @@ class EmployeeMgmtView extends GetView<EmployeeMgmtController> {
         rightBtnText: '승인',
         leftBtnText: '거부',
         rBtnOnPressed: () async {
-          await ctr.setStaffStatus(id: element.id.toString(), isApproval: true);
+          await ctr.setStaffStatus(context,id: element.id.toString(), isApproval: true);
         },
         isLoadingRight: ctr.isLoadingApprovalRight.value,
         isLoadingLeft: ctr.isLoadingApprovalLeft.value,
         lBtnOnPressed: () async {
-          await ctr.setStaffStatus(id: element.id.toString(), isApproval: false);
+          await ctr.setStaffStatus(context,id: element.id.toString(), isApproval: false);
         },
       );
     }));

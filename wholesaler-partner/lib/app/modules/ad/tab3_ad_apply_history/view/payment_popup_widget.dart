@@ -6,6 +6,7 @@ import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/two_buttons.dart';
+import 'package:go_router/go_router.dart';
 
 Tab3AdApplyHistoryPaymentDialog({required ApplicationDetailList tempApplicationDetail}) {
   Tab3AdApplicationHistoryController ctr = Get.put(Tab3AdApplicationHistoryController());
@@ -37,9 +38,9 @@ Tab3AdApplyHistoryPaymentDialog({required ApplicationDetailList tempApplicationD
               leftBtnText: '취소',
               rightBtnText: '결제',
               lBtnOnPressed: () {
-                Get.back();
+              context.pop();
               },
-              rBtnOnPressed: () => ctr.adPaymentBtnPressed(tempApplicationDetail.id!),
+              rBtnOnPressed: () => ctr.adPaymentBtnPressed(tempApplicationDetail.id!,context),
             )
           ],
         ),

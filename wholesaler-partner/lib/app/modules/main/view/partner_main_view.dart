@@ -22,11 +22,14 @@ class PartnerMainView extends GetView<BottomNavbarController> {
       backgroundColor: MyColors.white,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 50),
-        child: Obx(
-          () => appBarBuilder(navbarCtr.tabIndex.value),
+        child: Center(
+          child: Obx(
+            () => appBarBuilder(navbarCtr.tabIndex.value),
+          ),
         ),
       ),
       bottomNavigationBar: PartnerBottomNavbarView(),
+
       body: Obx(() => bodyBuilder.elementAt(navbarCtr.tabIndex.value)),
     );
   }

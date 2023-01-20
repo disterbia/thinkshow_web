@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
 import 'package:wholesaler_user/app/utils/utils.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
+import 'package:go_router/go_router.dart';
 
 class PointChargeController extends GetxController {
   pApiProvider _apiProvider = pApiProvider();
@@ -55,7 +56,7 @@ class PointChargeController extends GetxController {
 
     if (isSuccess) {
       mSnackbar(message: '충전신청 정상적으로 완료 되었습니다.',context: context);
-      Get.back();
+      context.pop();
     }
   }
 }

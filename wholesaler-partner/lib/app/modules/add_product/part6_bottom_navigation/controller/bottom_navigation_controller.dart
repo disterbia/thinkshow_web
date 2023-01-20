@@ -22,6 +22,7 @@ import '../../part2_image_sizetable_options/controller/part2_image_sizetable_opt
 import '../../part3_material_clothwash/controller/part3_material_clothwash_controller.dart';
 import '../../part5_country/controller/part5_country_controller.dart';
 
+
 class AP_Part6Controller extends GetxController {
   final pApiProvider _apiProvider = pApiProvider();
 
@@ -63,7 +64,7 @@ class AP_Part6Controller extends GetxController {
     for (int i = 0; i < addProductController.optionsControllers.length; i++) {
       String addPrice = addProductController.optionsControllers[i].text;
       if (addPrice.isEmpty) {
-        Get.back();
+       context.pop();
         mSnackbar(message: '옵션 추가 금액을 입력해주세요.',context: context);
         return;
       }
@@ -75,7 +76,7 @@ class AP_Part6Controller extends GetxController {
       for (int i = 0; i < addProductController.optionsControllers.length; i++) {
         String addPrice = addProductController.optionsControllers[i].text;
         if (addPrice.isEmpty) {
-          Get.back();
+        context.pop();
           mSnackbar(message: '옵션 추가 금액을 입력해주세요.',context: context);
           return;
         }
@@ -115,43 +116,43 @@ class AP_Part6Controller extends GetxController {
 
     print(tempPercent);
     if (tempisPercent && tempPercent < 100) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '혼용률 총합이 100% 미만입니다.',context: context);
       return;
     }
 
     if (tempisPercent && tempPercent > 100) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '혼용률 총합이 100% 초과입니다.',context: context);
       return;
     }
 
     if (mainCategoryId == 0) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '카테고리가 설정되지 않았습니다.',context: context);
       return;
     }
 
     if (addProductController.colorsList.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '색상을 추가해주세요.',context: context);
       return;
     }
 
     if (productName.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '상품명을 입력해주세요.',context: context);
       return;
     }
 
     if (imagePath1.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '대표 이미지를 선택해주세요.',context: context);
       return;
     }
 
     if (imagePath2.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '상세 이미지를 선택해주세요.',context: context);
       return;
     }
@@ -163,19 +164,19 @@ class AP_Part6Controller extends GetxController {
     // }
 
     if (price.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '상품 가격을 입력해주세요.',context: context);
       return;
     }
 
     if (country.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '제조국가를 선택해주세요.',context: context);
       return;
     }
 
     if (content.isEmpty) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '본문 항목을 적어주세요.',context: context);
       return;
     }
@@ -215,7 +216,7 @@ class AP_Part6Controller extends GetxController {
 
     if (sizeInfoList.isEmpty) {
       isLoading.value = false;
-      Get.back();
+      context.pop();
       mSnackbar(message: '사이즈 선택해주세요.',context: context);
       return;
     }
@@ -277,7 +278,7 @@ class AP_Part6Controller extends GetxController {
       Get.delete<BottomNavbarController>();
       Get.delete<ProductMgmtController>();
       c.getProducts(isScrolling: false);
-      context.go(PartnerRoutes.ProductMgmtView);
+      context.pushReplacement(PartnerRoutes.ProductMgmtView);
 
     }
     isLoading.value = false;
@@ -333,7 +334,7 @@ class AP_Part6Controller extends GetxController {
     for (int i = 0; i < addProductController.optionsControllers.length; i++) {
       String addPrice = addProductController.optionsControllers[i].text;
       if (addPrice.isEmpty) {
-        Get.back();
+        context.pop();
         mSnackbar(message: '옵션 추가 금액을 입력해주세요.',context: context);
         return;
       }
@@ -345,7 +346,7 @@ class AP_Part6Controller extends GetxController {
       for (int i = 0; i < addProductController.optionsControllers.length; i++) {
         String addPrice = addProductController.optionsControllers[i].text;
         if (addPrice.isEmpty) {
-          Get.back();
+          context.pop();
           mSnackbar(message: '옵션 추가 금액을 입력해주세요.',context: context);
           return;
         }
@@ -385,49 +386,49 @@ class AP_Part6Controller extends GetxController {
 
     print(tempPercent);
     if (tempisPercent && tempPercent < 100) {
-      Get.back();
+      context.pop();
       mSnackbar(message: '혼용률 총합이 100% 미만입니다.',context: context);
       return;
     }
 
     if (tempisPercent && tempPercent > 100) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '혼용률 총합이 100% 초과입니다.',context: context);
       return;
     }
 
     if (temp) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '혼용률 입력하세요.',context: context);
       return;
     }
 
     if (addProductController.colorsList.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '색상을 추가해주세요.',context: context);
       return;
     }
 
     if (mainCategoryId == 0) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '카테고리가 설정되지 않았습니다.',context: context);
       return;
     }
 
     if (productName.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '상품명을 입력해주세요.',context: context);
       return;
     }
 
     if (imagePath1.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '대표 이미지를 선택해주세요.',context: context);
       return;
     }
 
     if (imagePath2.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '상세 이미지를 선택해주세요.',context: context);
       return;
     }
@@ -439,19 +440,19 @@ class AP_Part6Controller extends GetxController {
     // }
 
     if (price.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '상품 가격을 입력해주세요.',context: context);
       return;
     }
 
     if (country.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '제조국가를 선택해주세요.',context: context);
       return;
     }
 
     if (content.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '본문 항목을 적어주세요.',context: context);
       return;
     }
@@ -478,7 +479,7 @@ class AP_Part6Controller extends GetxController {
     }
 
     if (sizeInfoList.isEmpty) {
-      Get.back();
+     context.pop();
       mSnackbar(message: '사이즈 선택해주세요.',context: context);
       return;
     }
@@ -539,7 +540,7 @@ class AP_Part6Controller extends GetxController {
       Get.delete<ProductMgmtController>();
       Get.delete<BottomNavbarController>();
       c.getProducts(isScrolling: false);
-      context.go(PartnerRoutes.ProductMgmtView);
+      context.pushReplacement(PartnerRoutes.ProductMgmtView);
     }
     isLoading.value = false;
   }

@@ -136,8 +136,9 @@ class ProductMgmtView extends GetView {
           ),
         ),
         onWillPop: () async {
-          Get.offAll(() => PartnerMainView());
-
+          Router.neglect(context, () {
+            context.pushReplacementNamed(PartnerRoutes.PartnerMainView);
+          });
           return true;
         });
   }

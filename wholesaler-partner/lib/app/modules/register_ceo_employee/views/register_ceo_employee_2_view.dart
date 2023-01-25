@@ -50,7 +50,7 @@ class RegisterCeoEmployeePage2View extends GetView {
                         SizedBox(height: 6),
                         TextField(
                           controller: ctr.storeNameController,
-                          onSubmitted: (searchValue) => ctr.searchPressed(searchValue),
+                          onSubmitted: (searchValue) => ctr.searchPressed(searchValue,context),
                           decoration: InputDecoration(
                             hintText: '상호명으로 검색해보세요.',
                             prefixIcon: Icon(Icons.search),

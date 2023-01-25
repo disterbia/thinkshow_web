@@ -33,20 +33,20 @@ class PhoneNumberPhoneVerifyController extends GetxController {
     });
   }
 
-  Future<void> verifyPhoneBtnPressed() async {
+  Future<void> verifyPhoneBtnPressed(BuildContext context) async {
     log('verifyPhone');
     if (numberController.text.isEmpty) {
-    //  mSnackbar(message: '휴대폰 번호를 입력하세요.');
+      mSnackbar(message: '휴대폰 번호를 입력하세요.',context: context);
       return;
     }
     // check if only number
     if (!numberController.text.contains(RegExp(r'^[0-9]*$'))) {
-     // mSnackbar(message: '휴대폰 번호는 숫자만 입력하세요.');
+      mSnackbar(message: '휴대폰 번호는 숫자만 입력하세요.',context: context);
       return;
     }
     if (!numberController.text
         .contains(RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$'))) {
-    //  mSnackbar(message: '올바른 휴대폰 번호를 입력하세요.');
+      mSnackbar(message: '올바른 휴대폰 번호를 입력하세요.',context: context);
       return;
     }
     certifyId = await apiProvider.postRequestVerifyPhoneNum(
@@ -56,11 +56,11 @@ class PhoneNumberPhoneVerifyController extends GetxController {
     startTimer();
   }
 
-  Future<void> verifyCodeBtnPressed() async {
+  Future<void> verifyCodeBtnPressed(BuildContext context) async {
     log('verifyCode');
     // check if only number
     if (!numberController.text.contains(RegExp(r'^[0-9]*$'))) {
-    //  mSnackbar(message: '휴대폰 번호는 숫자만 입력하세요.');
+      mSnackbar(message: '휴대폰 번호는 숫자만 입력하세요.',context: context);
       return;
     }
     isPhoneVerifyFinished = await apiProvider.putPhoneNumVerify(

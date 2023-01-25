@@ -16,7 +16,7 @@ class RegisterCeoEmployeePage1View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: CustomAppbar(isBackEnable: true, title: 'SignUp'.tr,context: context),
+      appBar: CustomAppbar(isBackEnable: false, title: 'SignUp'.tr,context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -53,7 +53,9 @@ class RegisterCeoEmployeePage1View extends StatelessWidget {
               textColor: MyColors.black,
               onPressed: () async {
                 await GetStorage().write("isEmployee", true);
+                await GetStorage().write("isProcess", true);
                 context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage2View);
+                await GetStorage().write("isProcess", false);
               },
             )
           ],

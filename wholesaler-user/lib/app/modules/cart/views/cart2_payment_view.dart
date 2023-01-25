@@ -210,7 +210,7 @@ class Cart2PaymentView extends GetView {
 
   Widget _phoneNumberBody() {
     return SizedBox(
-      width: Get.width - 20,
+      width: 500 - 20,
       child: Column(
         children: [
           Row(
@@ -293,7 +293,7 @@ class Cart2PaymentView extends GetView {
 
   Widget _paymentButton(BuildContext context) {
     return CustomButton(
-      width: Get.width,
+      width: 500,
       onPressed: () => ctr.paymentBtnPressed(context),
       text: '결제하기',
     );

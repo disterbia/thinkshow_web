@@ -160,7 +160,7 @@ class ProductDetailView extends GetView {
   }
 
   Widget _productImages() {
-    // double height = Get.width * 4 / 3;
+    // double height = 500 * 4 / 3;
     return Container(
       child: Obx(
         () => ctr.product.value.images!.isNotEmpty
@@ -274,7 +274,7 @@ class ProductDetailView extends GetView {
     return CustomAppbar(
         isBackEnable: false,
         hasHomeButton: false,
-        title: '',
+        title: '상품상세',
         actions: [
           MyVars.isUserProject()
               ? Row(

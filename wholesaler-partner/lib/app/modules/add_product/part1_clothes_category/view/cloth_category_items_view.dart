@@ -43,7 +43,9 @@ class ClothCategoryItemsView extends StatelessWidget {
   Widget _itemBuilder(BuildContext context,ClothCategoryModel subCat) {
     return ListTile(
       onTap: () {
-        ctr.clothCategorySelected(context,subCat, clothCategory);
+        Router.neglect(context, () {
+          ctr.clothCategorySelected(context,subCat, clothCategory);
+        });
       },
       title: Text(subCat.name),
     );

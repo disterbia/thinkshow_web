@@ -7,6 +7,7 @@ version: 0.2.1+201
 environment:
   sdk: ">=2.17.0 <3.0.0"
 dependencies:
+  flutter_web_frame: ^0.0.3
   go_router: ^6.0.0
   url_strategy: ^0.2.0
   flutter_quill: ^6.0.0

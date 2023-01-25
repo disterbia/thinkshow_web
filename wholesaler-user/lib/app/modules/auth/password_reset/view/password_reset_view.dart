@@ -12,9 +12,14 @@ import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 // class PasswordResetView extends GetView<PasswordResetController> {
 class PasswordResetView extends StatelessWidget {
   PasswordResetController ctr = Get.put(PasswordResetController());
-
+  int certifyId;
+  String accountId;
+  PasswordResetView({required this.certifyId,required this.accountId});
   @override
   Widget build(BuildContext context) {
+    print("certifyId:$certifyId");
+    print("certifyId:$accountId");
+    ctr.init(certifyId, accountId);
     return Obx(() {
       return Scaffold(
         appBar: CustomAppbar(isBackEnable: false, title: '비밀번호 변경'),
@@ -31,7 +36,7 @@ class PasswordResetView extends StatelessWidget {
                   isLoadingRight: ctr.isLoading.value,
                   rightBtnText: '비밀번호 변경',
                   leftBtnText: '취소',
-                  rBtnOnPressed: ctr.resetPassword,
+                  rBtnOnPressed: ()=>ctr.resetPassword(context),
                   lBtnOnPressed: () {
                     context.go(MyRoutes.USERLOGIN);
                   })

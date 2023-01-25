@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/modules/business_registration_submit/views/business_registration_submit_view.dart';
 import 'package:wholesaler_partner/app/router/my_router.dart';
@@ -18,10 +19,12 @@ class UploadImageContainer_empty extends StatelessWidget {
       dashPattern: [5, 5],
       strokeWidth: 1,
       child: InkWell(
-        onTap: () {
+        onTap: () async{
           print(' tapped on business regi');
           // Get.delete<BusinessRegistrationSubmitController>();
+          await GetStorage().write("isProcess", true);
           context.pushReplacement(PartnerRoutes.BusinessRegistrationSubmitView,extra: true);
+          await GetStorage().write("isProcess", false);
         },
         child: Container(
           height: 120,

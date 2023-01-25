@@ -50,7 +50,7 @@ class CustomButton extends StatelessWidget {
 
     return ConstrainedBox(
       constraints: BoxConstraints.tightFor(
-        width: width,
+        //width: width,
       ),
       child: ElevatedButton(
         onPressed: onPressed == null

@@ -62,7 +62,7 @@ class RegisterCeoEmployeePage3View extends GetView {
                 fieldText: 'EX)id1234',
                 fieldController: ctr.idCtr,
                 onTap: () {
-                  ctr.verifyIdPressed();
+                  ctr.verifyIdPressed(context);
                 },fontSize: 13,
                 buttonText: 'check_availability'.tr,
                 inputFormatters: [

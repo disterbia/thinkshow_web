@@ -122,7 +122,7 @@ Dialog _saveDialog(BuildContext context,
       String? subtitle,
       required bool isCloseBtnPressed}) {
   AP_Part6Controller ctr = Get.put(AP_Part6Controller());
-  AddProductController addProductCtr = Get.find<AddProductController>();
+  AddProductController addProductCtr = Get.put(AddProductController());
 
   return Dialog(
     shape: RoundedRectangleBorder(

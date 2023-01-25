@@ -33,38 +33,18 @@ import 'package:wholesaler_partner/app/modules/register_ceo_employee/views/regis
 import 'package:wholesaler_partner/app/modules/sales_mgmt/views/sales_mgmt_view.dart';
 import 'package:wholesaler_partner/app/modules/top_10_products/views/top_10_products_view.dart';
 import 'package:wholesaler_user/app/Constants/enum.dart';
-import 'package:wholesaler_user/app/constants/variables.dart';
 import 'package:wholesaler_user/app/data/cache_provider.dart';
-import 'package:wholesaler_user/app/models/checkout_model/checkout_model.dart';
 import 'package:wholesaler_user/app/modules/auth/find_id_find_password/views/find_id_find_password_view.dart';
+import 'package:wholesaler_user/app/modules/auth/password_reset/view/password_reset_view.dart';
 import 'package:wholesaler_user/app/modules/auth/register_privacy_terms/views/register_privacy_terms_view.dart';
+import 'package:wholesaler_user/app/modules/auth/user_id_result/view/user_id_result_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_sign_up/views/user_sign_up_view.dart';
-import 'package:wholesaler_user/app/modules/bulletin_detail/views/bulletin_detail_view.dart';
 import 'package:wholesaler_user/app/modules/bulletin_list/views/bulletin_list_view.dart';
-import 'package:wholesaler_user/app/modules/cart/payment/payment.dart';
-import 'package:wholesaler_user/app/modules/cart/views/cart1_shopping_basket_view.dart';
-import 'package:wholesaler_user/app/modules/cart/views/cart2_payment_view.dart';
-import 'package:wholesaler_user/app/modules/faq/views/faq_view.dart';
-import 'package:wholesaler_user/app/modules/main/view/user_main_view.dart';
-import 'package:wholesaler_user/app/modules/my_page_update_password/views/my_page_update_password_view.dart';
-import 'package:wholesaler_user/app/modules/order_details/views/order_details_view.dart';
-import 'package:wholesaler_user/app/modules/order_inquiry_and_review/views/order_inquiry_and_review_view.dart';
-import 'package:wholesaler_user/app/modules/page1_home/views/tabs/tab4_ding_dong.dart';
-import 'package:wholesaler_user/app/modules/page2_store_detail/view/store_detail_view.dart';
-import 'package:wholesaler_user/app/modules/page3_exhibition_products/view/exhibition_products_view.dart';
-import 'package:wholesaler_user/app/modules/page3_product_category_page/view/product_category_page_view.dart';
-import 'package:wholesaler_user/app/modules/page4_favorite_products/views/page4_favorite_products_view.dart';
-import 'package:wholesaler_user/app/modules/page5_my_page/company_intro_page/view/company_intro_view.dart';
-import 'package:wholesaler_user/app/modules/page5_my_page/inquiries_page/view/inquiries_page_view.dart';
-import 'package:wholesaler_user/app/modules/page5_my_page/views/my_Page_settings_view.dart';
-import 'package:wholesaler_user/app/modules/page5_my_page/views/my_page_down.dart';
 import 'package:wholesaler_user/app/modules/point_mgmt/views/point_mgmt_view.dart';
 import 'package:wholesaler_user/app/modules/product_detail/views/Product_detail_view.dart';
 import 'package:wholesaler_user/app/modules/review_detail/views/review_detail_view.dart';
 import 'package:wholesaler_user/app/modules/review_list/views/review_list_view.dart';
-import 'package:wholesaler_user/app/modules/search/views/search_page_view.dart';
-import 'package:wholesaler_user/app/modules/splash_screen/view/splash_screen_view.dart';
 import 'package:wholesaler_user/app/widgets/category_tags/cloth_category.dart';
 
 class PartnerRoutes {
@@ -106,9 +86,10 @@ class PartnerRoutes {
   static const BusinessRegistrationSubmitView = "/businessregistrationsubmit";
   static const User_FindID_FindPasswordView = "/findinfo";
   static const User_SignUpView = "/signup";
-
+  static const UserIdResultView = "/useridresult";
   static const ChangeNumberView= "/changenumber";
   static const ReviewDetailView = '/reviewdetail';
+  static const PasswordResetView = "/passwordreset";
 }
 
 class PartnerPages {
@@ -119,12 +100,13 @@ class PartnerPages {
       if (CacheProvider().getToken().isEmpty &&
           state.subloc != "/registerceoemployeepage1" && state.subloc != "/registerceoemployeepage2" &&
           state.subloc != "/registerceoemployeepage3" && state.subloc != "/registerceoemployeepage4" &&
-          state.subloc != "/findinfo" && state.subloc != "/businessregistrationsubmit") {
+          state.subloc != "/findinfo" && state.subloc != "/businessregistrationsubmit"&& state.subloc != "/useridresult" &&
+          state.subloc != "/passwordreset") {
         return "/login";
       }
       if(!isProcess&& (state.subloc == "/registerceoemployeepage2" ||
-      state.subloc == "/registerceoemployeepage3" || state.subloc == "/registerceoemployeepage4")){
-        return "/registerceoemployeepage1";
+      state.subloc == "/registerceoemployeepage3" || state.subloc == "/registerceoemployeepage4"||state.subloc ==  "/businessregistrationsubmit")){
+        return "/";
       }
       if (state.subloc == "/login" && CacheProvider().getToken().isNotEmpty) {
         return "/";
@@ -284,7 +266,7 @@ class PartnerPages {
       ),
       GoRoute(
           path: PartnerRoutes.BusinessRegistrationSubmitView,
-          builder: (context, state) => state.extra==null?BusinessEditView():BusinessRegistrationSubmitView(isNewSubmit: state.extra as bool)
+          builder: (context, state) => state.extra==null?BusinessRegistrationSubmitView(isNewSubmit:false):BusinessRegistrationSubmitView(isNewSubmit: state.extra as bool)
       ),
       GoRoute(
           path: PartnerRoutes.ProductDetailView,
@@ -310,6 +292,19 @@ class PartnerPages {
           path: PartnerRoutes.ChangeNumberView,
           builder: (context, state) => ChangeNumberView()
       ),
+      GoRoute(
+          path: PartnerRoutes.UserIdResultView,
+          builder: (context, state) => UserIdResultView(argument: state.extra.toString())
+      ),
+      GoRoute(
+          path: PartnerRoutes.PasswordResetView,
+          builder: (context, state) {
+            if(state.extra==null) return User_LoginPageView();
+            Map<dynamic,dynamic> temp = state.extra as Map<dynamic,dynamic>;
+            return PasswordResetView(certifyId:temp["phoneNumberPhoneVerifyCtr"], accountId:temp["idController"]);
+          }
+      ),
     ],
   );
+
 }

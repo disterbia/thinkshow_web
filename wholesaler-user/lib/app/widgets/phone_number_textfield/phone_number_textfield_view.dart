@@ -36,7 +36,7 @@ class PhoneNumberPhoneVerify extends GetView {
             buttonText: 'verify'.tr,
             onTap: ctr.verifyIsEnable.value
                 ? () {
-                    ctr.verifyPhoneBtnPressed();
+                    ctr.verifyPhoneBtnPressed(context);
                   }
                 : null,
             inputFormatters: [
@@ -63,7 +63,7 @@ class PhoneNumberPhoneVerify extends GetView {
                     buttonText: 'ok'.tr,
                     onTap: !ctr.verifyIsEnable.value
                         ? () {
-                            ctr.verifyCodeBtnPressed();
+                            ctr.verifyCodeBtnPressed(context);
                           }
                         : null,
                     inputFormatters: [

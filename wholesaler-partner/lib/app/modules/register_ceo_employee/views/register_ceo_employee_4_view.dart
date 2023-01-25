@@ -172,8 +172,8 @@ class RegisterCeoEmployeePage4View
                     child: CustomButton(
                       onPressed: () {
                         GetStorage().read("isEmployee")
-                            ? ctr.employeeRegisterBtnPressed()
-                            : ctr.registerBtnPressed();
+                            ? ctr.employeeRegisterBtnPressed(context)
+                            : ctr.registerBtnPressed(context);
                       },
                       text: 'sign_up'.tr,
                     ),

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
@@ -44,19 +45,22 @@ Future<void> main() async {
   //NotificationService().init();
 
   runApp(
-    GetMaterialApp.router(
-      translations: uLanguages(),
-      locale: const Locale('ko', 'KR'),
-      fallbackLocale: const Locale('ko', 'KR'),
-      theme: appThemeDataLight,
-      debugShowCheckedModeBanner: false,
-      title: "Wholesale User App",
-      // home: UserMainView(),
-      routeInformationParser: UserPages.userRouter.routeInformationParser,
-      routerDelegate: UserPages.userRouter.routerDelegate,
-      routeInformationProvider: UserPages.userRouter.routeInformationProvider,
-      //home: SplashScreenPageView(),
+    FlutterWebFrame(maximumSize: Size(500,double.infinity),builder: (context) {
+      return GetMaterialApp.router(
+        translations: uLanguages(),
+        locale: const Locale('ko', 'KR'),
+        fallbackLocale: const Locale('ko', 'KR'),
+        theme: appThemeDataLight,
+        debugShowCheckedModeBanner: false,
+        title: "띵쇼마켓",
+        // home: UserMainView(),
+        routeInformationParser: UserPages.userRouter.routeInformationParser,
+        routerDelegate: UserPages.userRouter.routerDelegate,
+        routeInformationProvider: UserPages.userRouter.routeInformationProvider,
+        //home: SplashScreenPageView(),
 
+      );
+    },
     ),
   );
 }

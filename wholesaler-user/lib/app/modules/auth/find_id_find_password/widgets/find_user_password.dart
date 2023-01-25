@@ -52,7 +52,7 @@ class Tab2FindUserPasswordView
                     context.go(MyRoutes.USERLOGIN);
                   },
                   rightBtnText: '비밀번호 찾기',
-                  rBtnOnPressed: ctr.findPassword),
+                  rBtnOnPressed: ()=>ctr.findPassword(context)),
             ],
           ),
         ),

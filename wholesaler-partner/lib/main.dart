@@ -67,7 +67,7 @@ Future<void> main() async {
           fallbackLocale: const Locale('ko', 'KR'),
           theme: appThemeDataLight,
           debugShowCheckedModeBanner: false,
-          title: "Wholesale Partner App",
+          title: "띵쇼마켓 (도매)",
           routeInformationParser:
               PartnerPages.partnerRouter.routeInformationParser,
           routerDelegate: PartnerPages.partnerRouter.routerDelegate,

@@ -348,7 +348,7 @@ class User_SignUpView extends GetView {
 
   Widget _saveButtonBuilder(BuildContext context) {
     return CustomButton(
-      width: Get.width,
+      width: 500,
       onPressed: () {
         ctr.saveOrEditBtnPressed(context);
         // Get.back();

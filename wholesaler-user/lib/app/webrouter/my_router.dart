@@ -9,7 +9,9 @@ import 'package:wholesaler_user/app/constants/variables.dart';
 import 'package:wholesaler_user/app/data/cache_provider.dart';
 import 'package:wholesaler_user/app/models/checkout_model/checkout_model.dart';
 import 'package:wholesaler_user/app/modules/auth/find_id_find_password/views/find_id_find_password_view.dart';
+import 'package:wholesaler_user/app/modules/auth/password_reset/view/password_reset_view.dart';
 import 'package:wholesaler_user/app/modules/auth/register_privacy_terms/views/register_privacy_terms_view.dart';
+import 'package:wholesaler_user/app/modules/auth/user_id_result/view/user_id_result_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_login_page/views/user_login_view.dart';
 import 'package:wholesaler_user/app/modules/auth/user_sign_up/views/user_sign_up_view.dart';
 import 'package:wholesaler_user/app/modules/bulletin_detail/views/bulletin_detail_view.dart';
@@ -67,7 +69,8 @@ class MyRoutes {
   static const Payment = "/payment";
   static const MYPAGEDOWN = "/mypagedown";
   static const ProductCategoryPageView = "/product/category/:id";
-
+  static const UserIdResultView = "/useridresult";
+  static const PasswordResetView = "/passwordreset";
 
 }
 class FuckingTest{}
@@ -224,7 +227,18 @@ class UserPages {
       GoRoute(
           path: MyRoutes.Payment,
           builder: (context, state) => Payment()
-      )
+      ),
+      GoRoute(
+          path: MyRoutes.UserIdResultView,
+          builder: (context, state) => UserIdResultView(argument: state.extra.toString())
+      ),
+      GoRoute(
+          path: MyRoutes.PasswordResetView,
+          builder: (context, state) {
+            Map<dynamic,dynamic> temp = state.extra as Map<dynamic,dynamic>;
+            return PasswordResetView(certifyId:temp["phoneNumberPhoneVerifyCtr"], accountId:temp["idController"]);
+          }
+      ),
 
       // GoRoute(
       //   path: MyRoutes.DETAIL,

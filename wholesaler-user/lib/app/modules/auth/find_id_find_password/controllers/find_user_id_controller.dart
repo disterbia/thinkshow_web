@@ -2,9 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wholesaler_partner/app/data/api_provider.dart';
+import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_user/app/constants/variables.dart';
 import 'package:wholesaler_user/app/data/api_provider.dart';
+import 'package:wholesaler_user/app/webrouter/my_router.dart';
 import 'package:wholesaler_user/app/widgets/phone_number_textfield/phone_number_textfield_controller.dart';
 
 import '../../../../models/status_model.dart';
@@ -52,7 +55,7 @@ class User_FindID_FindPasswordController extends GetxController {
     idController.dispose();
   }
 
-  Future<void> getAccountId() async {
+  Future<void> getAccountId(BuildContext context) async {
     StatusModel statusModel;
 
     if (MyVars.isUserProject()) {
@@ -69,17 +72,19 @@ class User_FindID_FindPasswordController extends GetxController {
 
     print(statusModel.statusCode);
     if (statusModel.statusCode == 200) {
-      Get.offAll(() => UserIdResultView(), arguments: [
-        {"accountId": statusModel.message},
-      ]);
+      Router.neglect(context, () {
+        context.pushReplacement(
+            MyVars.isUserProject()?MyRoutes.UserIdResultView:PartnerRoutes.UserIdResultView,extra: statusModel.message
+        );
+      });
     } else {
-     // mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
     }
   }
 
-  Future<void> findPassword() async {
+  Future<void> findPassword(BuildContext context) async {
     if (idController.text.isEmpty) {
-     // mSnackbar(message: '아이디를 입력해주세요.');
+      mSnackbar(message: '아이디를 입력해주세요.',context: context);
       return;
     }
 
@@ -102,13 +107,12 @@ class User_FindID_FindPasswordController extends GetxController {
     isLoading.value = false;
 
     if (statusModel.statusCode == 200) {
-      Get.delete<PasswordResetController>();
-      // Get.to(() => PasswordResetView(), arguments: [
-      //   phoneNumberPhoneVerifyCtr.certifyId,
-      //   idController.text.toString()
-      // ]);
+      //Get.delete<PasswordResetController>();
+      context.pushReplacement(MyVars.isUserProject()?MyRoutes.PasswordResetView:PartnerRoutes.PasswordResetView,extra:{
+        "phoneNumberPhoneVerifyCtr":phoneNumberPhoneVerifyCtr.certifyId,
+        "idController":idController.text.toString()} );
     } else {
-     // mSnackbar(message: statusModel.message);
+      mSnackbar(message: statusModel.message,context: context);
     }
   }
 }

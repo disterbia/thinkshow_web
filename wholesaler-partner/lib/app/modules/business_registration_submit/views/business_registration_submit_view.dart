@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
@@ -217,7 +218,9 @@ class BusinessRegistrationSubmitView extends GetView<BusinessRegistrationSubmitC
               : CustomButton(
                   onPressed: () async {
                     bool result= await ctr.uploadImageBtnPressed();
-                    if(result) context.pushReplacement(PartnerRoutes.BusinessEditView);
+                    await GetStorage().write("isProcess", true);
+                    if(result) context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage3View);
+                    await GetStorage().write("isProcess", false);
                   },
                   text: isNewSubmit ? 'business_registration_image_upload'.tr : 'business_registration_image_edit'.tr,
                 );

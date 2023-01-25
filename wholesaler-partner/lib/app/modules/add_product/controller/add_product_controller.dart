@@ -64,7 +64,10 @@ class AddProductController extends GetxController {
 
 
   toSubCategoryListView(ClothCategory category,BuildContext context) {
-    context.pushReplacement(PartnerRoutes.ClothCategoryItemsView,extra:category);
+    Router.neglect(context, () {
+      context.pushReplacement(PartnerRoutes.ClothCategoryItemsView,extra:category);
+    });
+
   }
 
   // EDIT PRODUCT

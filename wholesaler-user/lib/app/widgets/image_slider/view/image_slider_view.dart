@@ -34,10 +34,10 @@ class ImageSliderView extends GetView<ImageSliderController> {
                   }
                 },
                 child: Container(
-                  width: Get.width,
+                  width: 500,
                   child: CachedNetworkImage(
                     imageUrl: image.banner_img_url,
-                    width: Get.width,
+                    width: 500,
                     fit: BoxFit.cover,
                     // placeholder: (context, url) => CircularProgressIndicator(),
                     errorWidget: (context, url, error) => Icon(Icons.error),

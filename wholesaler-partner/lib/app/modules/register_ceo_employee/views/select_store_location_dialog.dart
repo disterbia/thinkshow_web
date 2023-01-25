@@ -8,16 +8,16 @@ import 'package:wholesaler_user/app/constants/styles.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 import 'package:go_router/go_router.dart';
 
-SelectStoreLocationDialog() async {
+SelectStoreLocationDialog(BuildContext context) async {
   RegisterCeoEmployee2Controller registerP2Ctr =
       Get.put(RegisterCeoEmployee2Controller());
 
   if (registerP2Ctr.storeLocations.length == 0) {
-    //mSnackbar(message: '상호명이 존재하지 않습니다.');
+    mSnackbar(message: '상호명이 존재하지 않습니다.',context: context);
     return;
   } else {
     showDialog(
-      context: Get.context!,
+      context: context,
       builder: (BuildContext context) => Dialog(
         child: Container(
           padding: EdgeInsets.all(20),

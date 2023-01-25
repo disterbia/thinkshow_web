@@ -31,35 +31,35 @@ class RegisterCeoEmployee3Controller extends GetxController {
     super.onInit();
   }
 
-  verifyIdPressed() async {
-    if (isIdLengthCorrect()) {
+  verifyIdPressed(BuildContext context) async {
+    if (isIdLengthCorrect(context)) {
       return;
     }
     apiProvider.getVerifyId(userId: idCtr.text).then((val) {
       _isIdDuplicated = val;
       if (_isIdDuplicated) {
-        showDuplicatedIdError();
+        showDuplicatedIdError(context);
       } else {
-        showIdSuccessfulSnackbar();
+        showIdSuccessfulSnackbar(context);
       }
     });
   }
 
-  bool isIdLengthCorrect() {
+  bool isIdLengthCorrect(BuildContext context) {
     if (idCtr.text.length < 5 || idCtr.text.length > 20) {
-     // mSnackbar(message: '아이디는 최소 5자 최대 20자를 입력하세요.');
+      mSnackbar(message: '아이디는 최소 5자 최대 20자를 입력하세요.',context: context);
       return true;
     } else {
       return false;
     }
   }
 
-  void showDuplicatedIdError() {
-  //  mSnackbar(message: '이미 등록 된 아이디 입니다.');
+  void showDuplicatedIdError(BuildContext context) {
+    mSnackbar(message: '이미 등록 된 아이디 입니다.',context: context);
   }
 
-  void showIdSuccessfulSnackbar() {
-  //  mSnackbar(message: '사용 가능한 아이디 입니다.');
+  void showIdSuccessfulSnackbar(BuildContext context) {
+   mSnackbar(message: '사용 가능한 아이디 입니다.',context: context);
   }
 
   void nextBtnPressed(BuildContext context) {
@@ -114,7 +114,7 @@ class RegisterCeoEmployee3Controller extends GetxController {
       return;
     }
     if (_isIdDuplicated) {
-      showDuplicatedIdError();
+      showDuplicatedIdError(context);
       return;
     }
     context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage4View);

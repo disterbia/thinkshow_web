@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wholesaler_partner/app/constant/enums.dart';
 import 'package:wholesaler_partner/app/models/add_product/option.dart';
@@ -378,6 +379,10 @@ class AP_Part2View extends GetView<AP_Part2Controller> {
         height: 35,
         child: Obx(
               () => TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      RegExp("[0-9]")),
+                ],
             textAlign: TextAlign.center,
             controller: ctr.textEditingControllers[
             productBodySizeListIndex.toString() +

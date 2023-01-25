@@ -23,7 +23,7 @@ class _WebViewWidgetState extends State<WebViewWidget> {
 
     return widget.isLoading == true
         ? LoadingWidget()
-        : WebViewX(width: Get.width,initialSourceType: SourceType.url,initialContent:widget.url ,height: Get.height,
+        : WebViewX(width: 500,initialSourceType: SourceType.url,initialContent:widget.url ,height: Get.height,
             // javascriptMode: JavascriptMode.unrestricted,
             key: _key,
 

@@ -11,7 +11,7 @@ class ImagesCarouselSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = Get.width * 4 / 3;
+    double height = 500 * 4 / 3;
     return Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [

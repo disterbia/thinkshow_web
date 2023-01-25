@@ -74,13 +74,13 @@ class RegisterCeoEmployee2Controller extends GetxController {
     context.pushReplacement(PartnerRoutes.RegisterCeoEmployeePage3View);
   }
 
-  searchPressed(String searchValue) async {
+  searchPressed(String searchValue,BuildContext context) async {
     if (searchValue.isEmpty) {
-    //  mSnackbar(message: '상호명을 입력해주세요.');
+      mSnackbar(message: '상호명을 입력해주세요.',context: context);
       return;
     }
     storeLocations.value = await apiProvider.getSearchStoreName(searchValue);
-    SelectStoreLocationDialog();
+    SelectStoreLocationDialog(context);
   }
 
   Future<void> storeLocationSelectPressed(int index) async {

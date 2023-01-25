@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/modules/add_product/controller/add_product_controller.dart';
@@ -46,6 +47,10 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
           InputWidget(
             labelText: '단가',
             keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                  RegExp("[0-9]")),
+            ],
             controller: addProductController.priceController,
             onChanged: (value) {
               if (value.isNotEmpty) {
@@ -62,13 +67,13 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
           if (ctr.isPrevilage.value) _dingDongDelivery(),
           SizedBox(height: 10),
           AddTagField(
-            hintText: 'enter_keywords'.tr,
+            hintText: "키워드를 입력 해 주세요.(ENTER)",
             fieldController: ctr.keywordsController,
             tagList: addProductController.keywordList,
           ),
           const SizedBox(height: 12.0),
           AddTagField(
-            hintText: 'enter_color'.tr,
+            hintText: "색상을 입력 해 주세요.(ENTER)",
             fieldController: ctr.colorsController,
             tagList: addProductController.colorsList,
           ),
@@ -85,7 +90,9 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
         readOnly: true,
         controller: ctr.categoryController,
         onTap: () {
-          context.pushReplacement(PartnerRoutes.ClothCategoryView);
+          Router.neglect(context, () {
+            context.pushReplacement(PartnerRoutes.ClothCategoryView);
+          });
         },
         decoration: InputDecoration(
           hintText: '카테고리 선택',
@@ -108,7 +115,9 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
           : TextField(
         readOnly: true,
         controller: ctr.categoryController,
-        onTap: () => context.pushReplacement(PartnerRoutes.ClothCategoryView),
+        onTap: () => Router.neglect(context, () {
+          context.pushReplacement(PartnerRoutes.ClothCategoryView);
+        }),
         decoration: InputDecoration(
           hintText: addProductController.category.value.title +
               ' > ' +

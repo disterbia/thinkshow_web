@@ -109,7 +109,7 @@ class AP_Part1Controller extends GetxController
         .uploadProductImage3(pickedImage: File(pickedImage1[0].path),imageBytes:temp);
     isUploadLoading3.value = false;
     pickedImage1.clear();
-    mSnackbar(message: "이미지가 등록되었습니다.",context: context);
+   // mSnackbar(message: "이미지가 등록되었습니다.",context: context);
 
     if (productImageModel.statusCode == 200) {
       if (index == 2) {

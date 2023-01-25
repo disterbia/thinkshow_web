@@ -385,7 +385,7 @@ class pApiProvider extends GetConnect {
         mConst.CHECK;
 
     final response = await post(url, data);
-    print(' findPassword response ${response.bodyString}');
+    print(' findPassword response ${response.statusCode}');
 
     String message = '';
     int statusCode = response.statusCode ?? 0;

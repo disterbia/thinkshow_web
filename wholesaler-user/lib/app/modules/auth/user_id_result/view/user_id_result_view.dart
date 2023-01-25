@@ -16,10 +16,11 @@ import 'package:wholesaler_user/app/widgets/two_buttons.dart';
 
 class UserIdResultView extends GetView<UserIdResultController> {
   UserIdResultController ctr = Get.put(UserIdResultController());
-  UserIdResultView();
-
+  String argument;
+  UserIdResultView({required this.argument});
   @override
   Widget build(BuildContext context) {
+    ctr.init(argument!);
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: CustomAppbar(isBackEnable: false, title: '아이디 찾기'),

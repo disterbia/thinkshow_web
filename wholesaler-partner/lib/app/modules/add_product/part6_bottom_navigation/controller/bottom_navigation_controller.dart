@@ -278,7 +278,9 @@ class AP_Part6Controller extends GetxController {
       Get.delete<BottomNavbarController>();
       Get.delete<ProductMgmtController>();
       c.getProducts(isScrolling: false);
-      context.pushReplacement(PartnerRoutes.ProductMgmtView);
+      Router.neglect(context, () {
+        context.pushReplacement(PartnerRoutes.ProductMgmtView);
+      });
 
     }
     isLoading.value = false;
@@ -540,7 +542,11 @@ class AP_Part6Controller extends GetxController {
       Get.delete<ProductMgmtController>();
       Get.delete<BottomNavbarController>();
       c.getProducts(isScrolling: false);
-      context.pushReplacement(PartnerRoutes.ProductMgmtView);
+      Router.neglect(context, () {
+        context.pushReplacement(PartnerRoutes.ProductMgmtView);
+      });
+
+
     }
     isLoading.value = false;
   }

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:wholesaler_partner/app/modules/ad_impression/views/ad_list_tile_widget.dart';
 import 'package:wholesaler_partner/app/widgets/ad_tags.dart';
-import 'package:wholesaler_partner/app/widgets/appbar_widget.dart';
+import 'dart:ui';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
 import 'package:wholesaler_partner/app/widgets/two_text_container_widget.dart';
 import 'package:wholesaler_user/app/widgets/custom_appbar.dart';
@@ -154,7 +154,10 @@ class AdImpressionView extends GetView {
                                       onPressed: () {
                                         ctr.isShowDetail.value = true;
                                       },
-                                      child: Text('자세히 보기'))
+                                  child: Text(
+                                    '자세히 보기',
+                                    style: TextStyle(color: Colors.black),
+                                  ))
                                   : SizedBox.shrink(),
                             ),
 

@@ -78,11 +78,12 @@ class PartnerHomeController extends GetxController {
     print('inside uploadMainTopImage1234');
     _pickedImage = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 50);
+    final temp = await _pickedImage!.readAsBytes();
     print('_pickedImage $_pickedImage');
     if (_pickedImage != null) {
       isLoadingImage.value = true;
       ProductImageModel? imageModel =
-      await _apiProvider.uploadStoreImage(pickedImage: _pickedImage!);
+      await _apiProvider.uploadStoreImage(pickedImage: File(_pickedImage!.path),imageBytes:temp);
       print('imageModel $imageModel');
       if (imageModel != null) {
         mainStoreInfo.value.mainTopImageUrl = imageModel.url.obs;

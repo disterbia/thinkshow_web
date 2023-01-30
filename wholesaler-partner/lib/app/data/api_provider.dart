@@ -545,8 +545,29 @@ class pApiProvider extends GetConnect {
     return StatusModel(statusCode: statusCode, message: message);
   }
 
+
+  Future<String> uploadMainTopImage(
+      {required Map<String, dynamic> data}) async {
+    String url =
+        mConst.API_BASE_URL + mConst.API_STORE_PATH + mConst.MAIN_TOP_IMAGE;
+    final response = await post(url, data, headers: headers);
+    log('top image' + response.body.toString());
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.bodyString!);
+      print(' json : ' + json.toString());
+      return "https://image.thinksmk.com/images/advertisement/2022/07/22/PqTv8rNpBwHHTHd42V6qRIJl4BIJN4cXqjZZPhMt.png";
+    }
+    if (response.statusCode == 400) {
+      //  mSnackbar(message: jsonDecode(response.bodyString!)['description']);
+      return Future.error(response.statusText!);
+    } else {
+      return Future.error(response.statusText!);
+    }
+  }
+
   Future<ProductImageModel?> uploadStoreImage(
-      {required XFile pickedImage}) async {
+      {required File pickedImage,required Uint8List imageBytes}) async {
+
     var dio = mDio.Dio();
 
     dio.options.headers["Authorization"] =
@@ -560,7 +581,7 @@ class pApiProvider extends GetConnect {
 
     mDio.FormData formData = mDio.FormData.fromMap({
       "image":
-          await mDio.MultipartFile.fromFile(image.path, filename: imageName),
+          await mDio.MultipartFile.fromBytes(imageBytes, filename: imageName),
     });
     final response = await dio.post(
       url,
@@ -586,24 +607,7 @@ class pApiProvider extends GetConnect {
     }
   }
 
-  Future<String> uploadMainTopImage(
-      {required Map<String, dynamic> data}) async {
-    String url =
-        mConst.API_BASE_URL + mConst.API_STORE_PATH + mConst.MAIN_TOP_IMAGE;
-    final response = await post(url, data, headers: headers);
-    log('top image' + response.body.toString());
-    if (response.statusCode == 200) {
-      var json = jsonDecode(response.bodyString!);
-      print(' json : ' + json.toString());
-      return "https://image.thinksmk.com/images/advertisement/2022/07/22/PqTv8rNpBwHHTHd42V6qRIJl4BIJN4cXqjZZPhMt.png";
-    }
-    if (response.statusCode == 400) {
-    //  mSnackbar(message: jsonDecode(response.bodyString!)['description']);
-      return Future.error(response.statusText!);
-    } else {
-      return Future.error(response.statusText!);
-    }
-  }
+
 
   Future<ProductImageModel> uploadProductImage3(
       {required File pickedImage,required Uint8List imageBytes}) async {
@@ -1032,7 +1036,6 @@ class pApiProvider extends GetConnect {
     headers={
       "Authorization": "Bearer " + CacheProvider().getToken()
     };
-    print("======getMainStore${headers}============");
     final response = await get(
         mConst.API_BASE_URL + mConst.API_STORE_PATH + '/main',
         headers: headers);
@@ -1057,6 +1060,11 @@ class pApiProvider extends GetConnect {
   }
 
   Future<bool> addProduct({required Map<String, dynamic> data}) async {
+    bool checkTokenResult = await chekToken();
+
+    if (!checkTokenResult) {
+      return false;
+    }
     final response = await post(
         mConst.API_BASE_URL + mConst.API_STORE_PATH + mConst.PRODUCT, data,
         headers: headers);

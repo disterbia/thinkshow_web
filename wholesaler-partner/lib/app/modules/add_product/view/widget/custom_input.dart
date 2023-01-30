@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:wholesaler_user/app/constants/colors.dart';
 import 'package:wholesaler_user/app/constants/styles.dart';
@@ -11,13 +12,15 @@ class CustomInput extends GetView<AddProductController> {
   final String? prefix;
   final TextInputType keyboardType;
   final String? hintText;
+  final Function(String)? onChanged;
   const CustomInput(
       {Key? key,
         required this.label,
         required this.fieldController,
         this.prefix,
         this.hintText,
-        this.keyboardType = TextInputType.text})
+        this.keyboardType = TextInputType.text,
+        this.onChanged})
       : super(key: key);
 
   @override
@@ -30,7 +33,7 @@ class CustomInput extends GetView<AddProductController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 500 / 4,
+              width: context.width / 4,
               child: Text(
                 label,
                 style: MyTextStyles.f14.copyWith(color: MyColors.black2),
@@ -62,16 +65,17 @@ class CustomInput extends GetView<AddProductController> {
       child: SizedBox(
         height: 30,
         child: TextField(
+          inputFormatters: [
+            FilteringTextInputFormatter.deny(RegExp(r'^0+')),
+          ],
+          onChanged: onChanged,
           controller: fieldController,
           keyboardType: keyboardType,
           // maxLines: 1,
           minLines: 1,
           decoration: InputDecoration(
               hintText: hintText ?? '',
-              hintStyle: TextStyle(
-                  color: MyColors.grey11,
-                  fontSize: 12
-              ),
+              hintStyle: TextStyle(color: MyColors.grey11, fontSize: 12),
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(

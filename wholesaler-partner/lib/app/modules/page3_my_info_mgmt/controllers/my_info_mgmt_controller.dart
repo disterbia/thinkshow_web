@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,7 +46,8 @@ class MyInfoMgmtController extends GetxController {
   Future<void> uploadImage() async {
     if (_pickedImage != null) {
       isUploadLoading.value = true;
-      ProductImageModel? imageModel = await _apiProvider.uploadStoreImage(pickedImage: _pickedImage!);
+      final temp = await _pickedImage!.readAsBytes();
+      ProductImageModel? imageModel = await _apiProvider.uploadStoreImage(pickedImage: File(_pickedImage!.path),imageBytes:temp);
       if (imageModel != null) {
         imagePath.value = imageModel.path;
       }

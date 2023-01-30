@@ -13,6 +13,7 @@ import 'package:wholesaler_partner/app/modules/product_mgmt/controller/product_m
 import 'package:wholesaler_partner/app/modules/product_mgmt/view/product_mgmt_view.dart';
 import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/bottom_navbar/bottom_navbar_controller.dart';
+import 'package:wholesaler_user/app/Constants/functions.dart';
 import 'package:wholesaler_user/app/widgets/snackbar.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../data/api_provider.dart';
@@ -191,23 +192,19 @@ class AP_Part6Controller extends GetxController {
       if (productBodySizeModel.isSelected.value) {
         Map<String, dynamic> sizeInfo = {"size": productBodySizeModel.size};
 
-        print('productBodySizeModel.sizeCategory.children.length');
-        print(productBodySizeModel.sizeCategory.children.length);
         for (int j = 0;
         j < productBodySizeModel.sizeCategory.children.length;
         j++) {
           SizeChild sizeChild = productBodySizeModel.sizeCategory.children[j];
-          print('sizeChild');
-          print(sizeChild.english);
 
-          sizeInfo[sizeChild.english] = part2controller
-              .textEditingControllers[i.toString() + j.toString()]!.text;
+          if (part2controller
+              .textEditingControllers[i.toString() + j.toString()]!
+              .text
+              .isNotEmpty) {
+            sizeInfo[sizeChild.english] = part2controller
+                .textEditingControllers[i.toString() + j.toString()]!.text;
+          }
 
-          print('part2controller.textEditingControllers');
-          print(part2controller
-              .textEditingControllers[i.toString() + j.toString()]!.text);
-          print('sizeInfo[sizeChild.english]');
-          print(sizeInfo[sizeChild.english]);
         }
 
         sizeInfoList.add(sizeInfo);
@@ -220,6 +217,16 @@ class AP_Part6Controller extends GetxController {
       mSnackbar(message: '사이즈 선택해주세요.',context: context);
       return;
     }
+
+    try{
+      Map<String, dynamic> data = {
+        "temp":json.decode(addProductController.options.toString())};
+    }catch(e){
+      isLoading.value=false;
+      context.pop();
+      return mSnackbar(message: "잘못된 값이 입력되었습니다.", context: context);
+    }
+
     Map<String, dynamic> data = {
       "product_name": productName,
       "main_category_id": mainCategoryId,
@@ -282,7 +289,14 @@ class AP_Part6Controller extends GetxController {
         context.pushReplacement(PartnerRoutes.ProductMgmtView);
       });
 
+    }else {
+      mSnackbar(message: '로그인 세션이 만료되었습니다.',context: context);
+      mFuctions.storeLogout();
+      Router.neglect(context, () {
+        context.pushReplacement(PartnerRoutes.USERLOGIN);
+      });
     }
+
     isLoading.value = false;
   }
 
@@ -485,6 +499,14 @@ class AP_Part6Controller extends GetxController {
       mSnackbar(message: '사이즈 선택해주세요.',context: context);
       return;
     }
+    try{
+      Map<String, dynamic> data = {
+      "temp":json.decode(addProductController.options.toString())};
+    }catch(e){
+      isLoading.value=false;
+      context.pop();
+      return mSnackbar(message: "잘못된 값이 입력되었습니다.", context: context);
+    }
 
     print('subCategoryId ${subCategoryId}');
     Map<String, dynamic> data = {
@@ -547,6 +569,12 @@ class AP_Part6Controller extends GetxController {
       });
 
 
+    }else {
+      mSnackbar(message: '로그인 세션이 만료되었습니다.',context: context);
+      mFuctions.storeLogout();
+      Router.neglect(context, () {
+        context.pushReplacement(PartnerRoutes.USERLOGIN);
+      });
     }
     isLoading.value = false;
   }

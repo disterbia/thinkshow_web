@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wholesaler_partner/app/modules/business_license/view/business_view.dart';
 import 'package:wholesaler_partner/app/modules/business_registration_submit/controllers/business_registration_submit_controller.dart';
@@ -65,7 +65,7 @@ class BusinessLicenseController extends GetxController {
   //   }
   //   saveLicense();
   // }
-  void saveLicense() {
+  void saveLicense(BuildContext context) {
 
     isLoading.value = true;
     _apiProvider.saveLicense({
@@ -75,10 +75,10 @@ class BusinessLicenseController extends GetxController {
     }).then((StatusModel response) {
       print(response.statusCode);
       if (response.statusCode == 200) {
-      //  mSnackbar(message: response.message);
-        getLicenseImage().then((value) => Get.back());
+        mSnackbar(message: response.message,context: context);
+        getLicenseImage().then((value) => context.pop());
       } else {
-       // mSnackbar(message: response.message);
+        mSnackbar(message: response.message,context: context);
       }
 
       isLoading.value = false;

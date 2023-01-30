@@ -27,7 +27,10 @@ class Top10ProductsView extends GetView<Top10ProductsController> {
           width: double.maxFinite,
           child: ElevatedButton(
             onPressed: ctr.addProductManual,
-            child: Text('저장'),
+            child: Text(
+              '저장',
+              style: TextStyle(color: Colors.black),
+            ),
           ),
         ),
       ),

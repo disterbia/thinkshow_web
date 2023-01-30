@@ -16,6 +16,13 @@ class MyTextStyles {
     fontFamily: 'SpoqaHanSansNeo-Medium',
     fontSize: 14.0,
   );
+  static const TextStyle f14_bold = TextStyle(
+    color: MyColors.black,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'SpoqaHanSansNeo-Medium',
+    fontSize: 14.0,
+  );
   static const TextStyle f14_thin = TextStyle(
     color: MyColors.secondaryColor,
     fontWeight: FontWeight.w200,
@@ -25,7 +32,7 @@ class MyTextStyles {
   );
   static const TextStyle f18_bold = TextStyle(
     color: MyColors.black,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
     fontFamily: 'SpoqaHanSansNeo-Medium',
     fontSize: 18.0,

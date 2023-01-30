@@ -23,8 +23,12 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
         children: [
           _materialField(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
             child: Text('혼용률 입력'),
+          ),
+          _materialPercentCheck(),
+          SizedBox(
+            height: 10,
           ),
           for (var i = 0; i < ctr.materialTypeList.length; i++)
             _materialPercent(i),
@@ -37,11 +41,36 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
           _flexibility(
               ctr.flexibilityList, 'elasticity'.tr, ctr.flexibilitySelected),
           _lining(ctr.liningList, 'lining'.tr, ctr.liningsSelected),
-          Text('Garment_Care_Guide'.tr),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text('Garment_Care_Guide'.tr),
+          ),
           clothWashTipsGrid()
         ],
       );
     });
+  }
+
+  Widget _materialPercentCheck() {
+    if (ctr.materialTypePercentControllers.isNotEmpty) {
+      if (ctr.materialPercentCheck.value > 100) {
+        return Center(
+            child: Text(
+              '혼용률 총합이 100% 초과입니다.',
+              style: TextStyle(color: Colors.redAccent),
+            ));
+      } else if (ctr.materialPercentCheck.value < 100) {
+        return Center(
+            child: Text(
+              '혼용률 총합이 100% 미만입니다.',
+              style: TextStyle(color: Colors.redAccent),
+            ));
+      } else {
+        return SizedBox.shrink();
+      }
+    } else {
+      return SizedBox.shrink();
+    }
   }
 
   Widget _materialField() {
@@ -52,12 +81,7 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
         tagList: ctr.materialTypeList,
         fieldController: ctr.materialTypeController,
         percentList: ctr.materialTypePercentControllers,
-        onAddTag: () {
-          ctr.materialTypePercentControllers.add(TextEditingController());
-        },
-        onDeleteTag: (i) {
-          ctr.materialTypePercentControllers.removeAt(i);
-        },
+        materialPercentCheck: ctr.materialPercentCheck,
       ),
     );
   }
@@ -70,6 +94,15 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
         label: ctr.materialTypeList[i],
         fieldController: ctr.materialTypePercentControllers[i],
         prefix: '%',
+        onChanged: (value) {
+          ctr.materialPercentCheck.value = 0;
+          for (int k = 0; k < ctr.materialTypePercentControllers.length; k++) {
+            ctr.materialPercentCheck.value +=
+                int.parse(ctr.materialTypePercentControllers[k].text);
+            // print(ctr.materialTypePercentControllers[k].text);
+          }
+          // print(ctr.materialPercentCheck.value);
+        },
       ),
     );
   }
@@ -93,17 +126,17 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
                             : 10),
                     child: CustomButton(
                       textColor: ctr.thicknessSelected.value.name == button.name
-                          ? MyColors.white
-                          : MyColors.grey2,
+                          ? MyColors.black
+                          : MyColors.black,
                       fontSize: 14,
                       borderColor:
-                          ctr.thicknessSelected.value.name == button.name
-                              ? MyColors.primary
-                              : MyColors.grey1,
+                      ctr.thicknessSelected.value.name == button.name
+                          ? MyColors.primary
+                          : MyColors.grey1,
                       backgroundColor:
-                          ctr.thicknessSelected.value.name == button.name
-                              ? MyColors.primary
-                              : MyColors.white,
+                      ctr.thicknessSelected.value.name == button.name
+                          ? MyColors.primary
+                          : MyColors.white,
                       onPressed: () {
                         ctr.thicknessSelected.value = button;
                       },
@@ -121,7 +154,7 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
   Widget _seeThrough(List<SeeThroughModel> buttons, String title,
       Rx<SeeThroughModel> clothesSample) {
     return Obx(
-      () => Padding(
+          () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,8 +172,8 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
                               : 10),
                       child: CustomButton(
                         textColor: clothesSample.value.name == button.name
-                            ? MyColors.white
-                            : MyColors.grey2,
+                            ? MyColors.black
+                            : MyColors.black,
                         fontSize: 14,
                         borderColor: clothesSample.value.name == button.name
                             ? MyColors.primary
@@ -166,7 +199,7 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
   Widget _flexibility(List<FlexibilityModel> buttons, String title,
       Rx<FlexibilityModel> clothesSample) {
     return Obx(
-      () => Padding(
+          () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,8 +217,8 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
                               : 10),
                       child: CustomButton(
                         textColor: clothesSample.value.name == button.name
-                            ? MyColors.white
-                            : MyColors.grey2,
+                            ? MyColors.black
+                            : MyColors.black,
                         fontSize: 14,
                         borderColor: clothesSample.value.name == button.name
                             ? MyColors.primary
@@ -211,7 +244,7 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
   Widget _lining(
       List<LiningModel> buttons, String title, Rx<LiningModel> clothesSample) {
     return Obx(
-      () => Padding(
+          () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,8 +262,8 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
                               : 10),
                       child: CustomButton(
                         textColor: clothesSample.value.name == button.name
-                            ? MyColors.white
-                            : MyColors.grey2,
+                            ? MyColors.black
+                            : MyColors.black,
                         fontSize: 14,
                         borderColor: clothesSample.value.name == button.name
                             ? MyColors.primary

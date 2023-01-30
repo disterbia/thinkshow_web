@@ -1,8 +1,8 @@
 class ProductSizeModel {
   String? size;
-  int? shoulderCrossLength;
+  dynamic shoulderCrossLength;
   dynamic chestCrossLength;
-  int? armhole;
+  dynamic armhole;
   dynamic armStraightLength;
   dynamic armCrossLength;
   dynamic sleeveCrossLength;
@@ -28,6 +28,16 @@ class ProductSizeModel {
   dynamic calf_cross_length;
   dynamic weight;
   dynamic foot_width;
+
+  dynamic necklace_breadth;
+  dynamic necklace_total_entry_length;
+  dynamic earring_total_entry_length;
+  dynamic clock_diameter;
+  dynamic clock_breadth;
+  dynamic total_length;
+  dynamic total_length2;
+  dynamic entrace_circum;
+  dynamic total_height;
 
   ProductSizeModel(
       {this.size,
@@ -57,14 +67,23 @@ class ProductSizeModel {
         this.back_heel_height,
         this.calf_cross_length,
         this.weight,
-        this.foot_width});
+        this.foot_width,
+        this.necklace_breadth,
+        this.necklace_total_entry_length,
+        this.earring_total_entry_length,
+        this.clock_diameter,
+        this.clock_breadth,
+        this.total_length,
+        this.total_length2,
+        this.entrace_circum,
+        this.total_height});
 
   factory ProductSizeModel.fromJson(Map<String, dynamic> json) {
     return ProductSizeModel(
       size: json['size'] as String?,
-      shoulderCrossLength: json['shoulder_cross_length'] as int?,
+      shoulderCrossLength: json['shoulder_cross_length'] as dynamic,
       chestCrossLength: json['chest_cross_length'] as dynamic,
-      armhole: json['armhole'] as int?,
+      armhole: json['armhole'] as dynamic,
       armStraightLength: json['arm_straight_length'] as dynamic,
       armCrossLength: json['arm_cross_length'] as dynamic,
       sleeveCrossLength: json['sleeve_cross_length'] as dynamic,
@@ -89,6 +108,16 @@ class ProductSizeModel {
       calf_cross_length: json['calf_cross_length'] as dynamic,
       weight: json['weight'] as dynamic,
       foot_width: json['foot_width'] as dynamic,
+      necklace_breadth: json['necklace_breadth'] as dynamic,
+      necklace_total_entry_length:
+      json['necklace_total_entry_length'] as dynamic,
+      earring_total_entry_length: json['earring_total_entry_length'] as dynamic,
+      clock_diameter: json['clock_diameter'] as dynamic,
+      clock_breadth: json['clock_breadth'] as dynamic,
+      total_length: json['total_length'] as dynamic,
+      total_length2: json['total_length2'] as dynamic,
+      entrace_circum: json['entrace_circum'] as dynamic,
+      total_height: json['total_height'] as dynamic,
     );
   }
 
@@ -121,5 +150,14 @@ class ProductSizeModel {
     'calf_cross_length': calf_cross_length,
     'weight': weight,
     'foot_width': foot_width,
+    'necklace_breadth': necklace_breadth,
+    'necklace_total_entry_length': necklace_total_entry_length,
+    'earring_total_entry_length': earring_total_entry_length,
+    'clock_diameter': clock_diameter,
+    'clock_breadth': clock_breadth,
+    'total_length': total_length,
+    'total_length2': total_length2,
+    'entrace_circum': entrace_circum,
+    'total_height': total_height,
   };
 }

@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:wholesaler_partner/app/modules/add_product/controller/add_product_controller.dart';
 import 'package:wholesaler_partner/app/modules/add_product/part1_category_image_keyword/controller/part1_category_image_keyword_controller.dart';
-import 'package:wholesaler_partner/app/modules/add_product/part1_clothes_category/view/cloth_category_view.dart';
+import 'package:flutter/services.dart';
 import 'package:wholesaler_partner/app/modules/add_product/view/widget/add_tag.dart';
 import 'package:wholesaler_partner/app/router/my_router.dart';
 import 'package:wholesaler_partner/app/widgets/loading_widget.dart';
@@ -48,8 +48,7 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
             labelText: '단가',
             keyboardType: TextInputType.number,
             inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                  RegExp("[0-9]")),
+              FilteringTextInputFormatter.deny(RegExp(r'^0+')),
             ],
             controller: addProductController.priceController,
             onChanged: (value) {

@@ -90,7 +90,7 @@ class AP_Part3View extends GetView<AP_Part3Controller> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: CustomInput(
-        keyboardType: TextInputType.number,
+       // keyboardType: TextInputType.number,
         label: ctr.materialTypeList[i],
         fieldController: ctr.materialTypePercentControllers[i],
         prefix: '%',

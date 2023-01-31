@@ -46,7 +46,7 @@ PointChargeDialog(context) {
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: TextField(
                         controller: ctr.pointChargeController,
-                        keyboardType: TextInputType.number,
+                      // keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white, width: 0.0),

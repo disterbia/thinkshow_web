@@ -10,7 +10,7 @@ class CustomInput extends GetView<AddProductController> {
   final String label;
   final TextEditingController fieldController;
   final String? prefix;
-  final TextInputType keyboardType;
+  //final TextInputType keyboardType;
   final String? hintText;
   final Function(String)? onChanged;
   const CustomInput(
@@ -19,7 +19,7 @@ class CustomInput extends GetView<AddProductController> {
         required this.fieldController,
         this.prefix,
         this.hintText,
-        this.keyboardType = TextInputType.text,
+       // this.keyboardType = TextInputType.text,
         this.onChanged})
       : super(key: key);
 
@@ -33,7 +33,7 @@ class CustomInput extends GetView<AddProductController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: context.width / 4,
+              width: 500 / 4,
               child: Text(
                 label,
                 style: MyTextStyles.f14.copyWith(color: MyColors.black2),
@@ -42,7 +42,7 @@ class CustomInput extends GetView<AddProductController> {
             Expanded(
               child: Row(
                 children: [
-                  _textField(keyboardType, hintText),
+                  _textField( hintText),
                   SizedBox(width: 10),
                   prefix == null
                       ? SizedBox()
@@ -60,7 +60,7 @@ class CustomInput extends GetView<AddProductController> {
     );
   }
 
-  _textField(keyboardType, hintText) {
+  _textField( hintText) {
     return Expanded(
       child: SizedBox(
         height: 30,
@@ -70,7 +70,7 @@ class CustomInput extends GetView<AddProductController> {
           ],
           onChanged: onChanged,
           controller: fieldController,
-          keyboardType: keyboardType,
+
           // maxLines: 1,
           minLines: 1,
           decoration: InputDecoration(

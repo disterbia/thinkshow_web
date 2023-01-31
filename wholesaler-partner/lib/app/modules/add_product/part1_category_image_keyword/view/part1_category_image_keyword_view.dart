@@ -46,7 +46,7 @@ class AP_Part1View extends GetView<AP_Part1Controller> {
           const SizedBox(height: 12.0),
           InputWidget(
             labelText: '단가',
-            keyboardType: TextInputType.number,
+           // keyboardType: TextInputType.number,
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp(r'^0+')),
             ],

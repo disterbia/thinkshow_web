@@ -458,9 +458,7 @@ class Page1HomeView extends GetView<PartnerHomeController> {
                       crossAxisSpacing: 10,
                       crossAxisCount: 3,
                       childAspectRatio: columnWidth /
-                          (MyVars.isSmallPhone()
-                              ? 270
-                              : 260), // explanation: add productheight +10 for small screen sizes, if we don't, on small screen the product height is too short
+                          260, // explanation: add productheight +10 for small screen sizes, if we don't, on small screen the product height is too short
                     ),
                   ),
               //     ListView.separated(

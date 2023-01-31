@@ -495,7 +495,7 @@ class AP_Part2View extends GetView<AP_Part2Controller> {
             productBodySizeListIndex.toString() +
                 sizeCategoryIndex.toString()],
             readOnly: !isActive.value,
-            keyboardType: isWeight ? TextInputType.none : TextInputType.number,
+            //keyboardType: isWeight ? TextInputType.none : TextInputType.number,
             // keyboardType: TextInputType.none,
             onChanged: (String value) => ctr.sizetableFieldChanged(
                 value: value,
@@ -788,7 +788,7 @@ class AP_Part2View extends GetView<AP_Part2Controller> {
                       },
                       controller: addProductCtr
                           .optionsControllers[currentOptionLength - 1],
-                      keyboardType: TextInputType.number,
+                     //keyboardType: TextInputType.number,
                       // inputFormatters: [
                       //   FilteringTextInputFormatter.deny(RegExp(r'^0+')),
                       // ],
